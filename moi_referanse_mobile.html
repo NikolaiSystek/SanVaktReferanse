@@ -40,6 +40,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
 .note { font-size: 11px; color: #e5a820; background: #2a1e00; border-radius: 6px; padding: 5px 9px; margin: 5px 14px 4px; border-left: 2px solid #e5a820; line-height: 1.4; }
 .note.r { color: #f87171; background: #220e0e; border-left-color: #f87171; }
 .note.b { color: #60a5fa; background: #091828; border-left-color: #60a5fa; }
+.numgrid { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font-size: 13px; padding: 4px 0; }
+.numgrid .num { font-weight: 700; font-size: 14px; }
 .hidden { display: none; }
 #tooltip { position: fixed; z-index: 9999; background: #1e2535; border: 1px solid #3a5080; border-radius: 10px; padding: 10px 36px 10px 13px; max-width: 260px; pointer-events: none; opacity: 0; transition: opacity 0.15s; }
 #tooltip.show { opacity: 1; pointer-events: auto; }
@@ -54,6 +56,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
 #tip-related { margin-top: 8px; border-top: 1px solid #2a3550; padding-top: 7px; }
 #tip-related-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
 .tip-link { display: inline-block; background: #1a2a40; border: 1px solid #3a5080; border-radius: 4px; padding: 3px 8px; margin: 2px 3px 2px 0; color: #60a5fa; font-size: 11px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.piksib-step { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #1e1e1e; }
+.piksib-step:last-child { border-bottom: none; }
+.piksib-letter { font-size: 18px; font-weight: 700; color: #f87171; min-width: 22px; line-height: 1.2; }
+.piksib-text { font-size: 12px; color: #ccc; line-height: 1.5; }
+.piksib-text strong { color: #fff; font-size: 13px; display: block; }
+.nihss-row { display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 4px 8px; font-size: 11px; padding: 4px 0; border-bottom: 1px solid #1a1a1a; color: #bbb; }
+.nihss-row.hd { color: #60a5fa; font-weight: 600; border-bottom: 1px solid #2a3550; padding-bottom: 5px; margin-bottom: 2px; }
 </style>
 </head>
 <body>
@@ -77,45 +86,68 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
 </div>
 
 <div id="all-sections">
-
 <div class="group-label">Referansekort</div>
 
+<!-- ABCDE SJEKKLISTE -->
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🔤 ABCDE – sjekkliste</span>
+    <span class="section-title">🔤 XABCDE – sjekkliste</span>
     <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
   </div>
   <div class="section-body hidden">
     <div class="row" data-row>
-      <div class="moi-label" style="color:#f87171;">A – Airway</div>
-      <div class="tags"><span class="t d" data-tip="luftvei">Er luftveien åpen?</span><span class="t w" data-tip="snorking">Snorking → kjevetak / NPA</span><span class="t w" data-tip="gurgling">Gurgling → sideleie / sug</span><span class="t w" data-tip="stridor">Stridor → obstruksjon</span></div>
-      <div class="note">Ved traume: jaw thrust. Spinalstabilisering ved MOI.</div>
+      <div class="moi-label" style="color:#c084fc;">X – Før ABCDE</div>
+      <div class="tags"><span class="t d" data-tip="x_sikkerhet">Egensikkerhet – er det trygt?</span><span class="t d" data-tip="blodning_stopp">Stans store blødninger</span><span class="t w" data-tip="hypotermi">Forebygg hypotermi</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#e5a820;">B – Breathing</div>
-      <div class="tags"><span class="t i" data-tip="rf_normal">RF normal: 12–20/min</span><span class="t d" data-tip="rf_kritisk">RF &lt;10 eller &gt;29 = kritisk</span><span class="t w" data-tip="pneumothorax">Ensidig svekket pustelyd?</span><span class="t i" data-tip="spo2">SpO₂ mål &gt;94%</span></div>
+      <div class="moi-label" style="color:#f87171;">A – Airway (Luftvei)</div>
+      <div class="tags"><span class="t d" data-tip="luftvei">Er luftveien åpen?</span><span class="t d" data-tip="fremmedlegeme">Fremmedlegeme → Heimlich / ryggslag</span><span class="t w" data-tip="snorking">Snorking → kjevetak / NPA</span><span class="t w" data-tip="gurgling">Gurgling → sideleie / sug</span><span class="t w" data-tip="stridor">Stridor → obstruksjon</span></div>
+      <div class="note">Ved traume: kjevetak. Spinalstabilisering ved MOI.</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#60a5fa;">C – Circulation</div>
-      <div class="tags"><span class="t i" data-tip="puls_vurdering">Puls: frekvens, styrke, reg.</span><span class="t d" data-tip="sjokk">Kapillærfyll &gt;2 sek = sjokk</span><span class="t w" data-tip="hudstatus">Hudstatus: farge, temp, fukt</span></div>
+      <div class="moi-label" style="color:#e5a820;">B – Breathing (Pust)</div>
+      <div class="tags"><span class="t i" data-tip="rf_normal">RF normal: 12–20/min</span><span class="t d" data-tip="rf_kritisk">RF &lt;10 eller &gt;29 = kritisk</span><span class="t w" data-tip="hjelpemuskulatur">Hjelpemuskulatur i bruk?</span><span class="t w" data-tip="brystbevegelse">Symmetrisk brystbevegelse?</span><span class="t w" data-tip="pneumothorax">Ensidig svekket pustelyd?</span><span class="t i" data-tip="spo2">SpO₂ mål &gt;94%</span><span class="t d" data-tip="cyanose">Cyanose (blå lepper/fingre)?</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#34d399;">D – Disability</div>
-      <div class="tags"><span class="t w" data-tip="avpu">AVPU</span><span class="t w" data-tip="gcs">GCS 3–15</span><span class="t w" data-tip="pupiller">Pupiller</span><span class="t w" data-tip="hypoglykemi">Blodsukker</span></div>
+      <div class="moi-label" style="color:#60a5fa;">C – Circulation (Sirkulasjon)</div>
+      <div class="tags"><span class="t i" data-tip="puls_vurdering">Puls: frekvens, styrke, reg.</span><span class="t d" data-tip="sjokk">Kapillærfyll &gt;2 sek = sjokk</span><span class="t w" data-tip="blek_klam_kald">Blek, klam og kald hud?</span><span class="t w" data-tip="abdomen_distensjon">Undersøk mage</span><span class="t w" data-tip="femur">Undersøk lår (femur)</span><span class="t i" data-tip="leiring_blodning">Leiring ved blødning</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#c084fc;">E – Expose</div>
+      <div class="moi-label" style="color:#34d399;">D – Disability (Bevissthet)</div>
+      <div class="tags"><span class="t w" data-tip="avpu">AVPU</span><span class="t w" data-tip="gcs">GCS 3–15</span><span class="t w" data-tip="pupiller">Pupiller</span><span class="t w" data-tip="hypoglykemi">Blodsukker</span><span class="t i" data-tip="fast">FAST ved mistanke om hjerneslag</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label" style="color:#a78bfa;">E – Expose (Avkled)</div>
       <div class="tags"><span class="t w" data-tip="expose_klipp">Klipp opp klærne</span><span class="t w" data-tip="expose_full">Hode til tå – inkl. rygg</span><span class="t d" data-tip="hypotermi">Dekk til umiddelbart etter</span></div>
     </div>
   </div>
 </div>
 
+<!-- ABCDE KLINISK FORDYPNING -->
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🔍 ABCDE – klinisk fordypning</span>
+    <span class="section-title">🔍 XABCDE – klinisk fordypning</span>
     <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
   </div>
   <div class="section-body hidden">
+
+    <div class="divider sub" onclick="toggleSub('abcde-x')">X – Før ABCDE ▸</div>
+    <div id="abcde-x" class="hidden">
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#f87171;">Egensikkerhet</div>
+        <div class="tags"><span class="t d" data-tip="x_sikkerhet">Er stedet trygt for deg?</span><span class="t d" data-tip="x_sikkerhet">Trafikkfare, gass, brann, aggresjon?</span><span class="t i">Du hjelper ingen hvis du selv blir pasient</span></div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#f87171;">Stans store blødninger</div>
+        <div class="tags"><span class="t d" data-tip="direkte_trykk">Direkte trykk – alltid første valg</span><span class="t w" data-tip="wound_packing">Wound packing ved lyske / armhule</span><span class="t w" data-tip="tourniquet_info">Tourniquet – kun hvis direkte trykk ikke virker</span></div>
+        <div class="note r">Direkte trykk minimum 10 min uten å slippe. Husk hypotermi.</div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#e5a820;">Forebygg hypotermi</div>
+        <div class="tags"><span class="t w" data-tip="hypotermi">Start tidlig – ikke vent til E</span><span class="t w" data-tip="spaceblanket">Space blanket</span><span class="t w" data-tip="isolering">Isolér fra bakken</span><span class="t w" data-tip="expose_klipp">Fjern våte klær</span></div>
+      </div>
+    </div>
+
     <div class="divider sub" onclick="toggleSub('abcde-a')">A – Luftvei ▸</div>
     <div id="abcde-a" class="hidden">
       <div class="row" data-row>
@@ -123,61 +155,73 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
         <div class="tags"><span class="t i" data-tip="luftvei_aapen">Snakker normalt → ingen tiltak nå</span></div>
       </div>
       <div class="row" data-row>
+        <div class="moi-label" style="color:#e5a820;">Fremmedlegeme</div>
+        <div class="tags"><span class="t w" data-tip="fremmedlegeme">Delvis: oppmuntre til hosting</span><span class="t d" data-tip="ryggslagg">Fullstendig: 5 ryggslag</span><span class="t d" data-tip="heimlich">Deretter 5 Heimlich-støt – veksle</span></div>
+      </div>
+      <div class="row" data-row>
         <div class="moi-label" style="color:#e5a820;">Truet</div>
-        <div class="tags"><span class="t w" data-tip="snorking">Snorking → tungerotfall</span><span class="t w" data-tip="gurgling">Gurgling → blod / sekret</span><span class="t w" data-tip="stridor">Stridor → obstruksjon / ødem</span></div>
+        <div class="tags"><span class="t w" data-tip="snorking">Snorking → kjevetak / NPA</span><span class="t w" data-tip="gurgling">Gurgling → sideleie / sug</span><span class="t w" data-tip="stridor">Stridor → obstruksjon / ødem</span></div>
         <div class="tags" style="margin-top:4px;"><span class="t i" data-tip="kjevetak">Kjevetak</span><span class="t i" data-tip="sideleie">Sideleie</span><span class="t i" data-tip="npa">NPA</span><span class="t i" data-tip="suging">Suging</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Lukket</div>
-        <div class="tags"><span class="t d" data-tip="heimlich">Fremmedlegeme → Heimlich / ryggslag</span><span class="t d" data-tip="luftveisoedem">Ødem (anafylaksi, brannskade)</span><span class="t d" data-tip="luftveisskade">Traume mot strupe</span></div>
+        <div class="tags"><span class="t d" data-tip="luftveisoedem">Ødem (anafylaksi, brannskade)</span><span class="t d" data-tip="luftveisskade">Traume mot strupe</span></div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">Ved traume</div>
-        <div class="tags"><span class="t w" data-tip="kjevetak">Jaw thrust – ikke head-tilt</span><span class="t w" data-tip="cervikalcolumna">Manuell spinalstabilisering</span></div>
+        <div class="moi-label">Åpningsteknikker</div>
+        <div class="tags"><span class="t i" data-tip="kjevetak">Kjevetak – ved traume (foretrukket)</span><span class="t i" data-tip="hodeoverstrekning">Hodeoverstrekning – uten traume</span><span class="t i" data-tip="cervikalcolumna">Spinalstabilisering ved MOI</span></div>
       </div>
     </div>
 
     <div class="divider sub" onclick="toggleSub('abcde-b')">B – Pust ▸</div>
     <div id="abcde-b" class="hidden">
       <div class="row" data-row>
+        <div class="moi-label">Vurder pusten</div>
+        <div class="tags"><span class="t i" data-tip="rf_normal">RF 12–20/min = normal</span><span class="t w" data-tip="hjelpemuskulatur">Hjelpemuskulatur i bruk?</span><span class="t w" data-tip="brystbevegelse">Symmetrisk bevegelse?</span><span class="t d" data-tip="cyanose">Cyanose?</span><span class="t i" data-tip="spo2">SpO₂ &gt;94%</span></div>
+      </div>
+      <div class="row" data-row>
         <div class="moi-label" style="color:#e5a820;">Hypoventilasjon (RF &lt;12)</div>
-        <div class="tags"><span class="t d" data-tip="respirasjonsdep">Opioidoverdose / benzo</span><span class="t d" data-tip="hodeskade">Hodeskade – økt intrakranialt trykk</span><span class="t d" data-tip="hypotermi">Alvorlig hypotermi</span><span class="t d" data-tip="bevissth">Dypt bevisstløs</span></div>
+        <div class="tags"><span class="t d" data-tip="respirasjonsdep">Opioidoverdose / benzo</span><span class="t d" data-tip="hodeskade">Hodeskade – intrakranialt trykk</span><span class="t d" data-tip="hypotermi">Alvorlig hypotermi</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#e5a820;">Takypné (RF &gt;20)</div>
-        <div class="tags"><span class="t w" data-tip="pneumothorax">Pneumothorax</span><span class="t w" data-tip="astma">Astma / KOLS</span><span class="t w" data-tip="sjokk">Kompensatorisk ved sjokk</span><span class="t w" data-tip="smerte_angst">Smerte / angst</span><span class="t w" data-tip="infarkt">Hjerteinfarkt</span><span class="t w" data-tip="anafylaksi">Anafylaksi</span></div>
+        <div class="tags"><span class="t w" data-tip="pneumothorax">Pneumothorax</span><span class="t w" data-tip="astma">Astma / KOLS</span><span class="t w" data-tip="sjokk">Kompensatorisk sjokk</span><span class="t w" data-tip="infarkt">Hjerteinfarkt</span><span class="t w" data-tip="anafylaksi">Anafylaksi</span></div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label" style="color:#f87171;">Ensidig svekket pustelyd</div>
-        <div class="tags"><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t d" data-tip="hemothorax">Hemothorax</span><span class="t d" data-tip="tensjon">Tensjonspneumothorax</span><span class="t w" data-tip="lungekont">Lungekontusjon</span></div>
+        <div class="moi-label" style="color:#f87171;">Undersøk brystkassen</div>
+        <div class="tags"><span class="t w" data-tip="krepitasjon">Krepitasjon / ømhet</span><span class="t d" data-tip="pneumothorax">Ensidig svekket pustelyd</span><span class="t d" data-tip="hemothorax">Dempet perkusjon</span><span class="t d" data-tip="apent_brystsar">Åpne sår</span><span class="t w" data-tip="lungekont">Lungekontusjon</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Piping / hvesing</div>
-        <div class="tags"><span class="t w" data-tip="astma">Astma (utpust)</span><span class="t w" data-tip="anafylaksi">Anafylaksi</span><span class="t d" data-tip="luftveisoedem">Inspiratorisk stridor = luftveisødem</span></div>
+        <div class="tags"><span class="t w" data-tip="astma">Piping ved utpust = astma</span><span class="t d" data-tip="stridor">Piping ved innpust = stridor = luftveisødem</span></div>
       </div>
     </div>
 
     <div class="divider sub" onclick="toggleSub('abcde-c')">C – Sirkulasjon ▸</div>
     <div id="abcde-c" class="hidden">
       <div class="row" data-row>
+        <div class="moi-label">Kliniske sjokkegn</div>
+        <div class="tags"><span class="t d" data-tip="blek_klam_kald">Blek, klam og kald hud</span><span class="t d" data-tip="takykardi">Takykardi (&gt;100)</span><span class="t d" data-tip="kapillaerfyll">Kapillærfyll &gt;2 sek</span><span class="t w" data-tip="hypotensjon">Hypotensjon – sent tegn!</span></div>
+      </div>
+      <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Hypovolemisk sjokk</div>
         <div class="tags"><span class="t d" data-tip="hypovolemi">Blødning (indre eller ytre)</span><span class="t d" data-tip="dehydrering">Alvorlig dehydrering</span><span class="t d" data-tip="brannskade">Store brannskader</span></div>
-        <div class="tags" style="margin-top:4px;"><span class="t i" data-tip="takykardi">Takykardi</span><span class="t i" data-tip="kapillaerfyll">Kapillærfyll &gt;2 sek</span><span class="t i" data-tip="hudstatus">Kald klam hud</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Kardiogent sjokk</div>
         <div class="tags"><span class="t d" data-tip="infarkt">Hjerteinfarkt</span><span class="t d" data-tip="arytmi">Alvorlig arytmi</span><span class="t d" data-tip="tamponade">Hjertetamponade</span></div>
-        <div class="tags" style="margin-top:4px;"><span class="t i" data-tip="lungeoedem_tegn">Lungeødem / distenderte halsvener</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Distributivt sjokk</div>
         <div class="tags"><span class="t d" data-tip="anafylaksi">Anafylaksi</span><span class="t d" data-tip="sepsis">Sepsis</span><span class="t d" data-tip="ryggmargsjokk">Nevrogent (ryggmarg)</span></div>
-        <div class="tags" style="margin-top:4px;"><span class="t i" data-tip="varm_hud">Varm hud tidlig</span><span class="t i" data-tip="takykardi">Takykardi</span><span class="t i" data-tip="hypotensjon">Hypotensjon</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Obstruktivt sjokk</div>
         <div class="tags"><span class="t d" data-tip="tensjon">Tensjonspneumothorax</span><span class="t d" data-tip="tamponade">Hjertetamponade</span><span class="t d" data-tip="trombose">Massiv lungeemboli</span></div>
-        <div class="tags" style="margin-top:4px;"><span class="t i" data-tip="veneturgescens">Distenderte halsvener</span></div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label">Undersøkelse – C</div>
+        <div class="tags"><span class="t w" data-tip="abdomen_distensjon">Undersøk mage (rigiditet, ømhet)</span><span class="t w" data-tip="femur">Undersøk lår (femurfraktur)</span><span class="t w" data-tip="bekken_test">Bekken – kun ett forsøk</span><span class="t i" data-tip="leiring_blodning">Leiring ved blødning</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label">Puls – tolkning</div>
@@ -189,7 +233,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     <div id="abcde-d" class="hidden">
       <div class="row" data-row>
         <div class="moi-label">Vurder med</div>
-        <div class="tags"><span class="t i" data-tip="avpu">AVPU – rask screening</span><span class="t w" data-tip="gcs">GCS – ved hodeskade / forløp</span><span class="t w" data-tip="pupiller">Pupiller alltid</span></div>
+        <div class="tags"><span class="t i" data-tip="avpu">AVPU – rask screening</span><span class="t w" data-tip="gcs">GCS – ved hodeskade / forløp</span><span class="t w" data-tip="pupiller">Pupiller alltid</span><span class="t w" data-tip="hypoglykemi">Blodsukker alltid</span></div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label">Mistanke om hjerneslag</div>
+        <div class="tags"><span class="t d" data-tip="fast_f">Ansiktshenge (F)</span><span class="t d" data-tip="fast_a">Armsvakhet (A)</span><span class="t d" data-tip="fast_s">Taleforstyrrelse (S)</span><span class="t d" data-tip="fast">Tid – ring 113 (T)</span><span class="t i" data-tip="nihss_tip">NIHSS-score</span></div>
+        <div class="note r">Trombolyse-vindu 4,5 timer – tid er hjerneceller</div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Årsaker til nedsatt bevissthet</div>
@@ -221,12 +270,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
         <div class="tags"><span class="t w" data-tip="milt">Rigiditet venstre øvre</span><span class="t w" data-tip="leverruptur">Ømhet høyre øvre</span><span class="t w" data-tip="abdomen_distensjon">Distensjon</span></div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">Bekken</div>
-        <div class="tags"><span class="t w" data-tip="bekken">Kompresjon / instabilitet</span><span class="t i" data-tip="bekken_test">Kun ett forsøk – ikke gjenta</span></div>
-      </div>
-      <div class="row" data-row>
-        <div class="moi-label">Ekstremiteter + rygg</div>
-        <div class="tags"><span class="t w" data-tip="deformitet">Deformitet / hevelse</span><span class="t w" data-tip="puls_distalt">Puls distalt?</span><span class="t w" data-tip="loggroll">Loggroll – palpér rygg</span></div>
+        <div class="moi-label">Bekken / lår / rygg</div>
+        <div class="tags"><span class="t w" data-tip="bekken_test">Bekken – kun ett forsøk</span><span class="t w" data-tip="femur">Lår – deformitet / hevelse</span><span class="t w" data-tip="loggroll">Loggroll – palpér rygg</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label" style="color:#f87171;">Hypotermiforebygging</div>
@@ -236,9 +281,91 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
+<!-- PIKSIB -->
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">📋 SAMPLE – anamnese</span>
+    <span class="section-title">🔁 PIKSIB – ved hjertestans</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="note b" style="margin:10px 14px 6px;">Lederverktøy for kontinuerlig situasjonsstyring – syklisk, ikke lineær</div>
+    <div class="row" data-row style="padding:12px 14px;">
+      <div class="piksib-step">
+        <div class="piksib-letter">P</div>
+        <div class="piksib-text"><strong>Planlegge</strong>Vurder situasjonen. Lag en plan. Fordel roller og ressurser før innsats.</div>
+      </div>
+      <div class="piksib-step">
+        <div class="piksib-letter">I</div>
+        <div class="piksib-text"><strong>Iverksette</strong>Sett planen ut i livet. Gi tydelige oppdrag til teamet.</div>
+      </div>
+      <div class="piksib-step">
+        <div class="piksib-letter">K</div>
+        <div class="piksib-text"><strong>Kontrollere</strong>Følg opp at tiltak gjennomføres som planlagt. Sjekk effekt av behandling.</div>
+      </div>
+      <div class="piksib-step">
+        <div class="piksib-letter">S</div>
+        <div class="piksib-text"><strong>Støtte</strong>Støtt teammedlemmer med ressurser, avlastning og veiledning underveis.</div>
+      </div>
+      <div class="piksib-step">
+        <div class="piksib-letter">I</div>
+        <div class="piksib-text"><strong>Informere</strong>Kommuniser løpende til teamet, AMK og ved overlevering. Closed-loop.</div>
+      </div>
+      <div class="piksib-step" style="border-bottom:none;">
+        <div class="piksib-letter">B</div>
+        <div class="piksib-text"><strong>Bedømme</strong>Vurder om planen fungerer. Juster ved behov. Start syklusen på nytt.</div>
+      </div>
+    </div>
+    <div class="note" style="margin:0 14px 10px;">Brukes som ledelsesverktøy av teamleder – ikke som pasientvurdering</div>
+  </div>
+</div>
+
+<!-- NIHSS -->
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🧠 NIHSS – Slag-skala</span>
+    <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div style="padding: 4px 0;">
+        <div class="nihss-row hd"><span>Punkt</span><span>Hva testes</span><span>Score</span></div>
+        <div class="nihss-row"><span>1a</span><span>Bevissthetsnivå</span><span>0–3</span></div>
+        <div class="nihss-row"><span>1b</span><span>Spørsmål (alder, måned)</span><span>0–2</span></div>
+        <div class="nihss-row"><span>1c</span><span>Kommandoer (knytt hånd)</span><span>0–2</span></div>
+        <div class="nihss-row"><span>2</span><span>Blikk (øyebevegelse)</span><span>0–2</span></div>
+        <div class="nihss-row"><span>3</span><span>Synsfelt</span><span>0–3</span></div>
+        <div class="nihss-row"><span>4</span><span>Ansiktslammelse</span><span>0–3</span></div>
+        <div class="nihss-row"><span>5a/5b</span><span>Arm motorikk (V/H)</span><span>0–4</span></div>
+        <div class="nihss-row"><span>6a/6b</span><span>Ben motorikk (V/H)</span><span>0–4</span></div>
+        <div class="nihss-row"><span>7</span><span>Ataksi (koordinasjon)</span><span>0–2</span></div>
+        <div class="nihss-row"><span>8</span><span>Sensibilitet</span><span>0–2</span></div>
+        <div class="nihss-row"><span>9</span><span>Språk / afasi</span><span>0–3</span></div>
+        <div class="nihss-row"><span>10</span><span>Dysartri (utydelig tale)</span><span>0–2</span></div>
+        <div class="nihss-row"><span>11</span><span>Neglekt / uoppmerksomhet</span><span>0–2</span></div>
+      </div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Alvorlighetsgrad – total score 0–42</div>
+      <div class="tags">
+        <span class="t i" data-tip="nihss_tip">0 = Normal</span>
+        <span class="t i" data-tip="nihss_tip">1–4 = Mild</span>
+        <span class="t w" data-tip="nihss_tip">5–15 = Moderat</span>
+        <span class="t d" data-tip="nihss_tip">16–20 = Alvorlig</span>
+        <span class="t d" data-tip="nihss_tip">21–42 = Svært alvorlig</span>
+      </div>
+      <div class="note r">Score ≥5 = sannsynlig kandidat for trombolyse / trombektomi</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Motorikk – score per lem</div>
+      <div class="tags"><span class="t i">0 = Ingen drift</span><span class="t w">1 = Drift etter 10 sek</span><span class="t w">2 = Klarer mot tyngdekraft</span><span class="t d">3 = Ingen mot tyngdekraft</span><span class="t d">4 = Ingen bevegelse</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SAMPLER -->
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">📋 SAMPLER – anamnese</span>
     <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
   </div>
   <div class="section-body hidden">
@@ -252,6 +379,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
+<!-- ISBAR -->
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
     <span class="section-title">📞 ISBAR – overlevering</span>
@@ -267,6 +395,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
+<!-- NORMALVERDIER -->
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
     <span class="section-title">📊 Normalverdier</span>
@@ -276,18 +405,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     <div class="divider">Vitale tegn – voksen</div>
     <div class="row" data-row>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <div><div class="moi-label">Puls</div><div class="tags"><span class="t i" data-tip="puls_normal">Normal: 60–100</span><span class="t w" data-tip="bradykardi">Under 50 bradykardi</span><span class="t d" data-tip="takykardi">Over 130 alvorlig</span></div></div>
-        <div><div class="moi-label">BT systolisk</div><div class="tags"><span class="t i" data-tip="bt_normal">Normal: 100–140</span><span class="t d" data-tip="hypotensjon">Under 90 hypotensjon</span></div></div>
-        <div><div class="moi-label">Respirasjonsfrekvens</div><div class="tags"><span class="t i" data-tip="rf_normal">Normal: 12–20</span><span class="t d" data-tip="rf_kritisk">Under 10 kritisk</span><span class="t d" data-tip="takypne">Over 29 kritisk</span></div></div>
-        <div><div class="moi-label">SpO₂</div><div class="tags"><span class="t i" data-tip="spo2">Normal: 95–100%</span><span class="t w" data-tip="spo2_lav">90–94% obs</span><span class="t d" data-tip="spo2_kritisk">Under 90% kritisk</span></div></div>
-        <div><div class="moi-label">Temperatur</div><div class="tags"><span class="t i" data-tip="temp_normal">Normal: 36,5–37,5°C</span><span class="t d" data-tip="hypotermi">Under 35° hypotermi</span><span class="t d" data-tip="varmeslag">Over 40° varmeslag</span></div></div>
-        <div><div class="moi-label">Blodsukker</div><div class="tags"><span class="t i" data-tip="bs_normal">Normal: 4–7 mmol/L</span><span class="t d" data-tip="hypoglykemi">Under 4 hypoglykemi</span></div></div>
+        <div><div class="moi-label">Puls</div><div class="tags"><span class="t i" data-tip="puls_normal">Normal: 60–100</span><span class="t w" data-tip="bradykardi">Under 50</span><span class="t d" data-tip="takykardi">Over 130</span></div></div>
+        <div><div class="moi-label">BT systolisk</div><div class="tags"><span class="t i" data-tip="bt_normal">Normal: 100–140</span><span class="t d" data-tip="hypotensjon">Under 90</span></div></div>
+        <div><div class="moi-label">RF</div><div class="tags"><span class="t i" data-tip="rf_normal">Normal: 12–20</span><span class="t d" data-tip="rf_kritisk">Under 10 / over 29</span></div></div>
+        <div><div class="moi-label">SpO₂</div><div class="tags"><span class="t i" data-tip="spo2">Normal: 95–100%</span><span class="t w" data-tip="spo2_lav">90–94%</span><span class="t d" data-tip="spo2_kritisk">Under 90%</span></div></div>
+        <div><div class="moi-label">Temperatur</div><div class="tags"><span class="t i" data-tip="temp_normal">Normal: 36,5–37,5°C</span><span class="t d" data-tip="hypotermi">Under 35°</span><span class="t d" data-tip="varmeslag">Over 40°</span></div></div>
+        <div><div class="moi-label">Blodsukker</div><div class="tags"><span class="t i" data-tip="bs_normal">Normal: 4–7 mmol/L</span><span class="t d" data-tip="hypoglykemi">Under 4</span></div></div>
       </div>
     </div>
     <div class="divider">AVPU</div>
     <div class="row" data-row>
       <div class="tags"><span class="t i" data-tip="avpu_a">A – Alert</span><span class="t w" data-tip="avpu_v">V – Voice</span><span class="t w" data-tip="avpu_p">P – Pain</span><span class="t d" data-tip="avpu_u">U – Unresponsive</span></div>
-      <div class="note">V/P/U = ring 113 hvis ikke allerede gjort</div>
     </div>
     <div class="divider">GCS</div>
     <div class="row" data-row>
@@ -318,6 +446,43 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
+<div class="group-label">Nødnumre</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">📱 Nødnumre og fagstøtte</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label" style="color:#f87171;">Nødetater</div>
+      <div class="numgrid">
+        <span class="num" style="color:#f87171;">113</span><span style="color:#ccc;">Ambulanse / medisinsk nødhjelp</span>
+        <span class="num" style="color:#f87171;">112</span><span style="color:#ccc;">Politi</span>
+        <span class="num" style="color:#f87171;">110</span><span style="color:#ccc;">Brann</span>
+      </div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label" style="color:#e5a820;">Medisinsk fagstøtte</div>
+      <div class="numgrid">
+        <span class="num" style="color:#e5a820;">116 117</span><span style="color:#ccc;">Legevakt – ikke-akutte henvendelser</span>
+        <span class="num" style="color:#e5a820;">22 59 13 00</span><span style="color:#ccc;">Giftinformasjonen – 24/7</span>
+      </div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label" style="color:#60a5fa;">Støtte til hjelpere</div>
+      <div class="numgrid">
+        <span class="num" style="color:#60a5fa;">02415</span><span style="color:#ccc;">Norsk Luftambulanse – oppfølging av førstehjelpsytere</span>
+      </div>
+      <div class="note b">Ring 02415 etter krevende hendelser – gratis og konfidensielt</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Hva ringer du når?</div>
+      <div class="tags"><span class="t d" data-tip="ring113">113 – livstruende tilstand</span><span class="t w" data-tip="ring116117">116 117 – trenger lege, ikke nødsituasjon</span><span class="t i" data-tip="ring02415">02415 – etter krevende hendelse</span><span class="t w" data-tip="ringGift">22 59 13 00 – mistanke om forgiftning</span></div>
+    </div>
+  </div>
+</div>
+
 <div class="group-label">NRR / Norske retningslinjer</div>
 
 <div class="section" data-section>
@@ -342,7 +507,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     </div>
     <div class="divider">Drukning</div>
     <div class="row" data-row>
-      <div class="tags"><span class="t d" data-tip="drukning">5 innblåsninger først</span><span class="t d" data-tip="hlr">Deretter 30:2</span><span class="t w" data-tip="hypotermi">Hypotermi = ikke gi opp tidlig</span></div>
+      <div class="tags"><span class="t d" data-tip="drukning">5 innblåsninger først</span><span class="t d" data-tip="hlr">Deretter 30:2</span><span class="t w" data-tip="hypotermi">Ikke gi opp tidlig ved hypotermi</span></div>
       <div class="note">«Ikke død før varm og død»</div>
     </div>
     <div class="divider">4H / 4T – reversible årsaker</div>
@@ -370,7 +535,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     </div>
     <div class="row" data-row>
       <div class="moi-label">Hjerneslag – FAST</div>
-      <div class="tags"><span class="t d" data-tip="fast_f">Ansiktshenge (Face)</span><span class="t d" data-tip="fast_a">Armsvakhet (Arm)</span><span class="t d" data-tip="fast_s">Taleforstyrrelse (Speech)</span><span class="t d" data-tip="fast">Tid – ring 113</span></div>
+      <div class="tags"><span class="t d" data-tip="fast_f">Ansiktshenge (F)</span><span class="t d" data-tip="fast_a">Armsvakhet (A)</span><span class="t d" data-tip="fast_s">Taleforstyrrelse (S)</span><span class="t d" data-tip="fast">Tid – ring 113 (T)</span></div>
       <div class="note r">Trombolyse-vindu: 4,5 timer fra symptomdebut</div>
     </div>
     <div class="row" data-row>
@@ -406,90 +571,70 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     <div class="row" data-row>
       <div class="tags"><span class="t d" data-tip="miosepupiller">Trange (miose) → opioider, benzo, alkohol</span><span class="t w" data-tip="vidpupiller">Vide (mydriasis) → stimulanter, hallusinogener</span></div>
     </div>
-
     <div class="divider sub" onclick="toggleSub('rus-alkohol')">🍺 Alkohol ▸</div>
     <div id="rus-alkohol" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Tegn</div>
-        <div class="tags"><span class="t w" data-tip="alkohol">Koordinasjonssvikt</span><span class="t w" data-tip="alkohol_tale">Utydelig tale</span><span class="t w" data-tip="alkohol_atferd">Aggresjon / eufori</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t d" data-tip="hypoglykemi">Hypoglykemi</span></div>
-      </div>
-      <div class="row" data-row>
-        <div class="moi-label">Tiltak</div>
-        <div class="tags"><span class="t d" data-tip="sideleie">Sideleie</span><span class="t w" data-tip="hypoglykemi">Mål blodsukker</span><span class="t w" data-tip="hypotermi">Hold varm</span><span class="t w" data-tip="rf_normal">Observer RF</span><span class="t i" data-tip="gcs">Ring 113 ved GCS &lt;10</span></div>
+        <div class="tags"><span class="t w" data-tip="alkohol">Koordinasjonssvikt</span><span class="t w" data-tip="alkohol_tale">Utydelig tale</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t d" data-tip="hypoglykemi">Hypoglykemi</span></div>
         <div class="note r">Bevisstløs + alkohol = sideleie alltid – aspirasjonfare</div>
       </div>
     </div>
-
     <div class="divider sub" onclick="toggleSub('rus-opioider')">💉 Opioider (heroin, morfin, fentanyl) ▸</div>
     <div id="rus-opioider" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Klassisk triade</div>
         <div class="tags"><span class="t d" data-tip="opioidtriade">Respirasjonsdepresjon</span><span class="t d" data-tip="bevissth">Bevisstløshet</span><span class="t d" data-tip="miosepupiller">Nålespisse pupiller</span></div>
         <div class="note r">Alle tre = opioidoverdose inntil annet bevist</div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">Tiltak</div>
         <div class="tags"><span class="t d" data-tip="luftvei">Luftvei + sideleie</span><span class="t d" data-tip="hjertestans">Ring 113</span><span class="t d" data-tip="nalokson">Nalokson (Narcanti)</span></div>
         <div class="note">Nalokson virker 30–90 min. Fentanyl krever gjentatte doser.</div>
       </div>
     </div>
-
     <div class="divider sub" onclick="toggleSub('rus-stimulanter')">⚡ Stimulanter (amfetamin, kokain, MDMA) ▸</div>
     <div id="rus-stimulanter" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Generelt</div>
         <div class="tags"><span class="t d" data-tip="stimulanter">Agitasjon / aggresjon</span><span class="t d" data-tip="takykardi">Takykardi / hypertensjon</span><span class="t d" data-tip="hypertermi_rus">Hypertermi</span><span class="t w" data-tip="vidpupiller">Vide pupiller</span></div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">MDMA spesifikt</div>
+        <div class="moi-label">MDMA</div>
         <div class="tags"><span class="t d" data-tip="hyponatremi">Hyponatremi</span><span class="t d" data-tip="hypertermi_rus">Overoppheting</span><span class="t w" data-tip="epilepsi">Kramper</span></div>
         <div class="note r">MDMA + dans + varme = livsfarlig. Ikke gi mer vann ved forvirring.</div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">Kokain spesifikt</div>
+        <div class="moi-label">Kokain</div>
         <div class="tags"><span class="t d" data-tip="arytmi">Arytmi</span><span class="t d" data-tip="infarkt">Hjerteinfarkt ung!</span><span class="t w" data-tip="utstråling_hjerte">Brystsmerter</span></div>
-        <div class="note r">Ung + brystsmerter + agitasjon = mistenk kokain</div>
       </div>
     </div>
-
     <div class="divider sub" onclick="toggleSub('rus-hallusinogener')">🍄 Hallusinogener (LSD, sopp, ketamin) ▸</div>
     <div id="rus-hallusinogener" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Tegn</div>
         <div class="tags"><span class="t w" data-tip="vidpupiller">Vide pupiller</span><span class="t w" data-tip="hallusinasjon">Hallusinasjoner</span><span class="t w" data-tip="desorientering">Desorientering / panikk</span></div>
       </div>
       <div class="row" data-row>
-        <div class="moi-label">Ketamin – K-hole</div>
-        <div class="tags"><span class="t d" data-tip="ketaminhole">Dyp dissosiert tilstand</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon høy dose</span></div>
-      </div>
-      <div class="row" data-row>
-        <div class="moi-label">Tiltak</div>
-        <div class="tags"><span class="t w" data-tip="talkdown">Rolig trygt miljø – talk-down</span><span class="t d" data-tip="bevissth">Ring 113 ved bevisstløshet</span></div>
+        <div class="tags"><span class="t d" data-tip="ketaminhole">K-hole (ketamin)</span><span class="t w" data-tip="talkdown">Rolig miljø – talk-down</span></div>
       </div>
     </div>
-
-    <div class="divider sub" onclick="toggleSub('rus-benzo')">💊 Benzodiazepiner (Valium, Xanax, Rohypnol) ▸</div>
+    <div class="divider sub" onclick="toggleSub('rus-benzo')">💊 Benzodiazepiner ▸</div>
     <div id="rus-benzo" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Tegn</div>
-        <div class="tags"><span class="t w" data-tip="sedasjon">Sløvhet / sedasjon</span><span class="t w" data-tip="alkohol">Koordinasjonssvikt</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t w" data-tip="amnesi">Hukommelsestap</span></div>
-      </div>
-      <div class="row" data-row>
-        <div class="moi-label">Kombinasjon med alkohol</div>
-        <div class="tags"><span class="t d" data-tip="benzo_alkohol">Kraftig forsterket effekt</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsstans</span></div>
+        <div class="tags"><span class="t w" data-tip="sedasjon">Sløvhet / sedasjon</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t w" data-tip="amnesi">Hukommelsestap</span></div>
         <div class="note r">Benzo + alkohol = livsfarlig kombinasjon</div>
       </div>
+    </div>
+    <div class="divider sub" onclick="toggleSub('rus-ghb')">🔬 GHB / GBL ▸</div>
+    <div id="rus-ghb" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Tiltak</div>
-        <div class="tags"><span class="t d" data-tip="luftvei">Luftvei</span><span class="t d" data-tip="sideleie">Sideleie</span><span class="t i" data-tip="rf_kritisk">Ring 113 ved RF &lt;10</span></div>
+        <div class="tags"><span class="t d" data-tip="ghb">Brå bevisstløshet</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t w" data-tip="bradykardi">Bradykardi</span></div>
+        <div class="note r">Kan gå fra oppegående til bevisstløs på minutter</div>
+      </div>
+      <div class="row" data-row>
+        <div class="tags"><span class="t d" data-tip="luftvei">Luftvei</span><span class="t d" data-tip="sideleie">Sideleie</span><span class="t d" data-tip="hjertestans">Ring 113</span><span class="t w" data-tip="ghb_vaakne">Kan våkne agitert</span></div>
+        <div class="note">GHB + alkohol = ekstremt farlig.</div>
       </div>
     </div>
-
-    <div class="divider sub" onclick="toggleSub('rus-cannabis')">🌿 Cannabis (hasj, marihuana, spice) ▸</div>
+    <div class="divider sub" onclick="toggleSub('rus-cannabis')">🌿 Cannabis / Spice ▸</div>
     <div id="rus-cannabis" class="hidden">
       <div class="row" data-row>
-        <div class="moi-label">Tegn</div>
-        <div class="tags"><span class="t w" data-tip="rode_oyne">Røde øyne</span><span class="t w" data-tip="cannabis_rus">Latter / eufori / paranoia</span><span class="t w" data-tip="takykardi">Økt puls</span></div>
+        <div class="tags"><span class="t w" data-tip="rode_oyne">Røde øyne</span><span class="t w" data-tip="cannabis_rus">Eufori / paranoia</span><span class="t w" data-tip="takykardi">Økt puls</span></div>
       </div>
       <div class="row" data-row>
         <div class="moi-label">Spice – langt farligere</div>
@@ -497,24 +642,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
         <div class="note r">Spice er uforutsigbart – livstruende selv ved lav dose</div>
       </div>
     </div>
-
-    <div class="divider sub" onclick="toggleSub('rus-ghb')">🔬 GHB / GBL ▸</div>
-    <div id="rus-ghb" class="hidden">
-      <div class="row" data-row>
-        <div class="moi-label">Tegn</div>
-        <div class="tags"><span class="t d" data-tip="ghb">Brå bevisstløshet</span><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t w" data-tip="kvalme_oppkast">Kvalme / oppkast</span><span class="t w" data-tip="bradykardi">Bradykardi</span></div>
-        <div class="note r">Kan gå fra oppegående til bevisstløs på minutter</div>
-      </div>
-      <div class="row" data-row>
-        <div class="moi-label">Tiltak</div>
-        <div class="tags"><span class="t d" data-tip="luftvei">Luftvei</span><span class="t d" data-tip="sideleie">Sideleie</span><span class="t d" data-tip="hjertestans">Ring 113</span><span class="t w" data-tip="ghb_vaakne">Kan våkne agitert</span></div>
-        <div class="note">GHB + alkohol = ekstremt farlig. Pasienten kan våkne brått etter 1–4 timer.</div>
-      </div>
-    </div>
-
     <div class="divider">Farlige kombinasjoner</div>
     <div class="row" data-row>
-      <div class="tags"><span class="t d" data-tip="benzo_alkohol">Alkohol + benzo</span><span class="t d" data-tip="ghb">Alkohol + GHB</span><span class="t d" data-tip="opioidtriade">Opioider + benzo</span><span class="t d" data-tip="hypertermi_rus">MDMA + varme</span><span class="t d" data-tip="stimulanter">Stimulanter + hjertesykdom</span></div>
+      <div class="tags"><span class="t d" data-tip="benzo_alkohol">Alkohol + benzo</span><span class="t d" data-tip="ghb">Alkohol + GHB</span><span class="t d" data-tip="opioidtriade">Opioider + benzo</span><span class="t d" data-tip="hypertermi_rus">MDMA + varme</span></div>
     </div>
     <div class="divider">Generelle tiltak ukjent rus</div>
     <div class="row" data-row>
@@ -542,13 +672,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
       <div class="tags"><span class="t d" data-tip="acl">Kneskade ACL/MCL</span><span class="t w" data-tip="tibia">Tibia</span><span class="t w" data-tip="columna">Columna thorakolumbal</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label">Fall på utstrakt arm</div>
-      <div class="tags"><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="skulder">Skulder / klavikkel</span><span class="t i" data-tip="skipolletommel">Skipolletommel UCL</span></div>
-    </div>
-    <div class="row" data-row>
       <div class="moi-label">Medisinske årsaker i felt</div>
       <div class="tags"><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t d" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="uttomming">Uttømming</span><span class="t w" data-tip="frostskader">Frostskader</span></div>
-      <div class="note">Kaldt + bevissthetspåvirkning = mål blodsukker først</div>
     </div>
   </div>
 </div>
@@ -568,10 +693,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
       <div class="moi-label">Styret i abdomen / thorax</div>
       <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t d" data-tip="leverruptur">Leverruptur</span><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
       <div class="note">Intern blødning kan debutere forsinket</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">MTB / gravel – fall i fart</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur / tibia</span></div>
     </div>
   </div>
 </div>
@@ -654,10 +775,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
       <div class="moi-label">Crowd crush / mengdetrykk</div>
       <div class="tags"><span class="t d" data-tip="crowdcrush">Thoraxkompresjon / pustestopp</span><span class="t d" data-tip="trampling">Trampling</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
       <div class="note r">Stående kompresjon = puster ikke selv om oppreist</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall fra crowd surfing</div>
-      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t w" data-tip="skulder">Skulder</span></div>
     </div>
     <div class="row" data-row>
       <div class="moi-label">Kollaps i folkemengde</div>
@@ -800,13 +917,23 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     <div class="divider">Eldre</div>
     <div class="row" data-row>
       <div class="tags"><span class="t d" data-tip="hofte">Hoftebrudd ved fall fra stående</span><span class="t d" data-tip="subduralt">Subduralt hematom</span><span class="t w" data-tip="antikoag">Antikoagulasjon</span></div>
-      <div class="note">Betablokkere maskerer takykardi. Lav terskel.</div>
+      <div class="note">Betablokkere maskerer takykardi. Lav terskel for alvorlig skade.</div>
     </div>
     <div class="divider">Barn</div>
     <div class="row" data-row>
       <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade (stort hode)</span><span class="t w" data-tip="lungekont">Lungekontusjon uten ribbeinsbrudd</span><span class="t i" data-tip="barn_kompenserer">Kompenserer lenge – kollapser brått</span></div>
     </div>
-    <div class="divider">Gravide</div>
+    <div class="divider">Kvinner</div>
+    <div class="row" data-row>
+      <div class="moi-label">Hjerteinfarkt – atypisk presentasjon</div>
+      <div class="tags"><span class="t d" data-tip="infarkt_kvinner">Kvalme / oppkast / tretthet</span><span class="t d" data-tip="infarkt_kvinner">Smerter i rygg, nakke eller kjeve</span><span class="t w" data-tip="infarkt_kvinner">Kortpustethet uten brystsmerter</span></div>
+      <div class="note r">Kvinner har oftere atypisk infarkt – brystsmerter kan mangle helt</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Andre tilstander å kjenne til</div>
+      <div class="tags"><span class="t d" data-tip="ektopisk">Ektopisk graviditet</span><span class="t d" data-tip="ovariecyste">Ovariecyste / torsjon</span><span class="t w" data-tip="trombose_kvinner">DVT / lungeemboli (p-pille, graviditet)</span><span class="t w" data-tip="osteoporose_kvinner">Osteoporose – lavenergi gir fraktur</span></div>
+    </div>
+    <div class="note">Kvinner undervurderer ofte egne symptomer – ta dem på alvor</div>
     <div class="row" data-row>
       <div class="tags"><span class="t d" data-tip="abruptio">Abruptio placentae</span><span class="t w" data-tip="aortokavalt">Aortokavalt kompr.</span></div>
       <div class="note">Legg på venstre side. Foster kan ha det dårlig selv om mor er stabil.</div>
@@ -830,125 +957,142 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
-</div>
+</div><!-- end all-sections -->
 
 <script>
 var TIPS = {
-  /* ── ABCDE kliniske begreper ── */
+  /* ── Blødningskontroll (X) ── */
+  x_sikkerhet:      {name:"Egensikkerhet",plain:"Du er ressurs 1 – beskytt deg selv",body:"Vurder alltid fare før du nærmer deg:\n• Trafikk – stopp trafikk, bruk refleks\n• Brann / eksplosjon – hold avstand\n• Gass / kjemikalier – ikke gå inn\n• Aggresjon / vold – vent på politi\n• Ustabilt kjøretøy / ras\n\nEn skadet hjelper er en ekstra pasient.",sev:"d",rel:["blodning_stopp","hypotermi"]},
+  piksib_tip:       {name:"PIKSIB",plain:"Lederverktøy for situasjonsstyring",body:"P – Planlegge\nI – Iverksette\nK – Kontrollere\nS – Støtte\nI – Informere\nB – Bedømme\n\nSyklisk prosess – ikke lineær. Brukes av teamleder.",sev:"",rel:[]},
+  blodning_stopp:   {name:"Ukontrollert blødning",plain:"",body:"Arteriell blødning (pulserende, lys rød) dreper på minutter. Tiltak: direkte trykk minimum 10 minutter uten å slippe. Tourniquet ved ekstremitetsblødning. Wound packing ved lyske/armhule.",sev:"d",rel:["direkte_trykk","tourniquet_info","wound_packing","sjokk"]},
+  direkte_trykk:    {name:"Direkte trykk",plain:"Trykk direkte mot blødningskilden",body:"Legg hånden (med hansker) direkte over såret og trykk hardt. Hold i minst 10 minutter uten å slippe for å sjekke. Bytt aldri bandasje – legg nytt oppå. Første valg ved alle blødninger.",sev:"d",rel:["tourniquet_info","wound_packing","blodning_stopp"]},
+  tourniquet_info:  {name:"Tourniquet",plain:"Avsnøringsmansjett for å stoppe blødning",body:"Brukes ved ekstremitetsblødning som ikke stopper med direkte trykk. Legg så høyt på lemmet som mulig. Stram til blødning stopper – ikke bare til det strammer. Skriv tidspunkt. Fjern ikke i felt.",sev:"d",rel:["direkte_trykk","wound_packing","blodning_stopp"]},
+  wound_packing:    {name:"Wound packing",plain:"Pakke sår med bandasje",body:"Brukes ved blødning fra lyske, armhule eller nakke der tourniquet ikke kan brukes. Pakk gasbind direkte inn i såret. Trykk kontinuerlig med knyttet hånd i minst 3 min (hemostatisk) eller 10 min (standard). Fjern aldri pakket materiale i felt.",sev:"d",rel:["direkte_trykk","tourniquet_info","sjokk"]},
+  /* ── Luftvei (A) ── */
   luftvei:          {name:"Luftveisproblem",plain:"Pusten er truet",body:"Snorking = tungefall, gurgling = væske, stridor = obstruksjon. Kjevetak, sideleie, NPA. Alltid A før B.",sev:"d",rel:["luftveisoedem","inhalasjon","bevissth","agonalpust","kjevetak","npa","sideleie"]},
-  luftvei_aapen:    {name:"Åpen luftvei",plain:"Luftveien er fri",body:"Pasienten snakker normalt og puster uten lyd. Ingen tiltak nødvendig nå, men monitor kontinuerlig – tilstanden kan endre seg raskt.",sev:"",rel:["luftvei"]},
-  snorking:         {name:"Snorking",plain:"Blokkert luftvei fra tungerotfall",body:"Snorkelyd under bevissthetspåvirkning skyldes at tungeroten faller bakover og blokkerer luftveien. Tiltak: kjevetak (jaw thrust eller chin-lift), sideleie, evt. NPA.",sev:"w",rel:["kjevetak","npa","sideleie","luftvei"]},
-  gurgling:         {name:"Gurglelyd",plain:"Væske i luftveien",body:"Gurglelyd betyr blod, oppkast eller sekret i øvre luftveier. Tiltak: sideleie umiddelbart for å la væske renne ut, suging hvis tilgjengelig. Aspirasjonfare er stor.",sev:"d",rel:["aspirasjon","sideleie","luftvei"]},
-  stridor:          {name:"Stridor",plain:"Pipende innpust – delvis blokkert luftvei",body:"Høyfrekvent pipende lyd ved innpust tyder på delvis obstruksjon i øvre luftvei. Kan skyldes fremmedlegeme, ødem (anafylaksi, brannskade) eller traume mot strupen. Forverres raskt – handle nå.",sev:"d",rel:["luftveisoedem","anafylaksi","luftveisskade","luftvei"]},
-  kjevetak:         {name:"Kjevetak (Jaw thrust)",plain:"Teknikk for å åpne luftveien",body:"Griper bak kjevevinkelen med begge hender og skyver underkjeven fremover. Foretrekkes fremfor head-tilt ved mistanke om nakkeskade, da det ikke ekstenderer nakken. Effektivt mot tungerotfall.",sev:"",rel:["npa","sideleie","cervikalcolumna","luftvei"]},
-  npa:              {name:"NPA – Nasopharyngeal airway",plain:"Myk tube gjennom nesen for å holde luftveien åpen",body:"Nasopharyngeal airway er en myk gummikanyle som føres gjennom nesen for å holde luftveien åpen forbi tungeroten. Tolereres av semibevisste pasienter. Størrelse: 28F (kvinner) eller 32F (menn). Bruk rikelig med glidemiddel.",sev:"",rel:["kjevetak","luftvei","sideleie"]},
-  sideleie:         {name:"Stabilt sideleie",plain:"Leie som beskytter luftveien",body:"Pasienten legges på siden med underarmens støtte. Forhindrer tungerotfall og aspirasjon ved bevissthetspåvirkning. Alltid ved: bevisstløshet, rus, kramper, mistanke om oppkast. Kontraindikasjon: mistenkt spinalskade (da: loggroll med hjelp).",sev:"",rel:["kjevetak","luftvei","aspirasjon"]},
-  suging:           {name:"Suging av luftvei",plain:"Fjerne blod eller sekret med sug",body:"Brukes ved gurgling for å fjerne blod, oppkast eller sekret fra munn og svelg. Sug forsiktig – for kraftig sug kan utløse brekningsrefleks og vagal bradykardi.",sev:"",rel:["gurgling","luftvei"]},
-  rf_normal:        {name:"Respirasjonsfrekvens",plain:"Antall åndedrag per minutt",body:"Normal RF: 12–20/min hos voksen. Telles ved å observere brystbevegelse i 30 sekunder og gange med to. Økt RF (takypné) er ofte første tegn på fysiologisk kompromiss.",sev:"",rel:["rf_kritisk","takypne","sjokk"]},
-  rf_kritisk:       {name:"Kritisk respirasjonsfrekvens",plain:"Altfor sakte eller rask pust",body:"RF under 10/min = hypoventilasjon, pasienten puster ikke nok. Vanligst ved opiatoverdose, dypt koma. RF over 29/min = alvorlig takypné. Begge er røde flagg som krever umiddelbar handling.",sev:"d",rel:["respirasjonsdep","sjokk","astma","pneumothorax"]},
-  takypne:          {name:"Takypné",plain:"Unormalt rask pust",body:"Pustefrekvens over 20/min. Kan være tegn på sjokk (kompensatorisk), hypoksi, smerte, angst, pneumothorax, astma eller hjerteinfarkt. Vurder alltid årsaken.",sev:"w",rel:["sjokk","pneumothorax","astma","hypoxi"]},
-  spo2:             {name:"SpO₂ – oksygenmetning",plain:"Hvor mye oksygen blodet bærer",body:"Måles med pulsoksymeter på fingeren. Normal: 95–100%. Under 90% = kritisk hypoksi. OBS: CO-forgiftning gir falskt normalt utslag! Dårlig perifer sirkulasjon (sjokk, kulde) gir upålitelig avlesning.",sev:"",rel:["spo2_lav","spo2_kritisk","hypoxi","co"]},
-  spo2_lav:         {name:"SpO₂ 90–94%",plain:"Nedsatt oksygenmetning",body:"Bekymringsfullt nivå. Tiltak: sørg for åpen luftvei, gi oksygen hvis tilgjengelig, observer tett. Finn årsaken.",sev:"w",rel:["spo2","hypoxi","pneumothorax","astma"]},
-  spo2_kritisk:     {name:"SpO₂ under 90%",plain:"Kritisk lav oksygenmetning",body:"Livsfarlig hypoksi. Umiddelbar handling: luftvei, oksygen, ring 113. Cyanose (blåfarge) sees ofte under 85%.",sev:"d",rel:["spo2","hypoxi","luftvei"]},
-  puls_vurdering:   {name:"Pulsvurdering",plain:"Vurder frekvens, styrke og regelmessighet",body:"Frekvens: normal 60–100/min. Styrke: kraftig (normal), svak/trådig (sjokk). Regularitet: regelmessig (normal), uregelmessig (arytmi). Mål karotis ved hjertestans, radialis for rask screening.",sev:"",rel:["takykardi","bradykardi","arytmi","sjokk"]},
-  hudstatus:        {name:"Hudstatus",plain:"Vurdering av hud som sirkulasjonsindikator",body:"Farge: blek (sjokk/anemi), grå/cyanotisk (hypoksi), rød/varm (infeksjon/distributivt sjokk). Temperatur: kald klam hud = sjokk. Fuktighet: klebet svetting = sjokk, stress, smerte.",sev:"",rel:["sjokk","kapillaerfyll","takykardi"]},
-  kapillaerfyll:    {name:"Kapillærfyllingstid",plain:"Test for perifer sirkulasjon",body:"Trykk på fingertuppen i 5 sekunder, slipp og tell sekunder til fargen normaliseres. Normal: under 2 sekunder. Over 2 sek tyder på nedsatt perifer sirkulasjon (sjokk, hypotermi, dehydrering). Upålitelig i kulde.",sev:"",rel:["sjokk","hypovolemi","hudstatus"]},
-  expose_klipp:     {name:"Klipp opp klærne",plain:"Aldri dra av – alltid klipp",body:"Bruk traumasaks (shears). Dra aldri klær av ved mistanke om fraktur eller spinalskade – bevegelsen kan forverre skaden. Klipp langs sømmene. Husk: respekter pasientens verdighet og dekk til raskt.",sev:"",rel:["hypotermi"]},
-  expose_full:      {name:"Full eksponering",plain:"Hele kroppen fra hode til tå",body:"Inkludert rygg (loggroll). Du finner ikke skader du ikke ser etter. Særlig viktig: lyske, bak knær, skalp (gjemt av hår), rygg. Vurder alltid MOI for å vite hva du leter etter.",sev:"",rel:["loggroll","hypotermi"]},
-  takykardi:        {name:"Takykardi",plain:"Rask puls over 100 slag/min",body:"Hjertet slår raskere enn normalt. Vanligste årsaker i akutt situasjon: sjokk (kompensatorisk), smerte, frykt, feber, rus (stimulanter), hjertearytmi. Puls over 130 er alvorlig. Betablokkere kan maskere takykardi.",sev:"w",rel:["sjokk","arytmi","betablokkere","smerte_angst"]},
-  bradykardi:       {name:"Bradykardi",plain:"Langsom puls under 50 slag/min",body:"For langsom puls. Årsaker: hjerteblokk, betablokkere, økt intrakranialt trykk (Cushing-respons ved hodeskade), GHB/opiater, hypotermi. Alvorlig bradykardi under 40 kan gi besvimelse.",sev:"w",rel:["arytmi","hodeskade","hypotermi","gcs"]},
-  hypotensjon:      {name:"Hypotensjon",plain:"Lavt blodtrykk under 90 mmHg systolisk",body:"Sent tegn på sjokk – kroppen har mistet kompensasjonsevnen. Tiltak: behandle årsaken (stopp blødning, EpiPen ved anafylaksi), legg flat, hev bena, ring 113. Ikke vent på hypotensjon for å mistenke sjokk.",sev:"d",rel:["sjokk","hypovolemi","tamponade","tensjon"]},
-  veneturgescens:   {name:"Veneturgescens (JVD)",plain:"Oppblåste/distenderte halsvener",body:"Halsvenene er synlig oppfylte i sittende eller halvliggende stilling. Tyder på økt trykk i det venøse systemet: hjertetamponade, tensjonspneumothorax, lungeembolus. Kombinert med hypotensjon = obstruktivt sjokk.",sev:"d",rel:["tamponade","tensjon","trombose","sjokk"]},
-  trakealdeviasjon: {name:"Trakeal deviasjon",plain:"Luftrøret presses til siden",body:"Trakea presses bort fra affisert side ved tensjonspneumothorax. Er et sent og upålitelig tegn – handle på øvrige symptomer. Vurdering: se om trakea er sentrert eller avviker.",sev:"d",rel:["tensjon","pneumothorax"]},
-  krepitasjon:      {name:"Krepitasjon",plain:"Knitrende lyd/følelse fra brutt ben eller luft i vev",body:"Ved ribbeinsbrudd: knitring ved palpasjon eller bevegelse. Subkutant emfysem (luft under huden): bobleinnpakning-følelse ved palpasjon rundt thoraxskader – tyder på pneumothorax.",sev:"w",rel:["ribbeinsbrudd","pneumothorax","thorax"]},
-  basisfraktur:     {name:"Skallebasisbrukk",plain:"Brudd i skallens bunn",body:"Mistenkelig ved: blod eller klar væske fra øre/nese, blåmerker rundt øyne (brillehematom) eller bak øret (Battles sign). Disse tegner ofte forsinket – timer etter skade. Indikerer alvorlig hodeskade.",sev:"d",rel:["hodeskade","intrakranialt","gcs"]},
-  apent_brystsar:   {name:"Åpent bryststår",plain:"Sår gjennom brystkassen",body:"Luft suges inn gjennom sårkanalen ved respirasjon (sucking chest wound). Behandling: vented chest seal. Blokkeres luften uten utveier kan spenningspneumothorax oppstå.",sev:"d",rel:["pneumothorax","hemothorax","tensjon"]},
-  abdomen_distensjon:{name:"Abdominal distensjon",plain:"Oppblåst, spent mage",body:"Kan tyde på intern blødning (blod i bukhule), tarmperforasjon eller organruptur. Rigiditet (stiv mage) = peritoneal irritasjon = alvorlig. Vurder alltid ved traume mot mage.",sev:"d",rel:["miltruptur","leverruptur","tarmperf","sjokk"]},
-  bekken_test:      {name:"Bekkenstabilitet – kun ett forsøk",plain:"Test bekkenets stabilitet forsiktig",body:"Legg hender på begge hoftekammen og trykk forsiktig innover og nedover. Smerte eller bevegelse = bekkenfraktur. Gjenta ALDRI – gjentatt testing kan forverre blødning. Kompresjon med bekkenbelte eller sheet-wrap ved instabilt bekken.",sev:"w",rel:["bekken","sjokk","hypovolemi"]},
-  deformitet:       {name:"Deformitet / hevelse",plain:"Unormal form eller swelling på ekstremitet",body:"Tyder på fraktur eller dislokasjon. Vurder alltid: puls distalt (iskemi?), sensibilitet (nerveskade?), motorikk. Stabiliser i funnet stilling – ikke forsøk å rette ut.",sev:"w",rel:["femur","tibia","ankel","kne"]},
-  puls_distalt:     {name:"Puls distalt for skade",plain:"Sjekk blodtilførsel nedstrøms",body:"Etter ekstremitetsskade: kjenn etter puls distalt for skadestedet (radialis ved armskade, dorsalis pedis / tibialis posterior ved benskade). Fraværende puls = karskade – øyeblikkelig tiltak og transport.",sev:"d",rel:["deformitet","compartment","femur","tibia"]},
-  loggroll:         {name:"Loggroll",plain:"Teknikk for å snu pasient uten spinalrotasjon",body:"3–4 personer koordinerer for å snu pasienten i ett stykke uten at ryggraden roterer. Leder styrer hodet. Brukes for å undersøke ryggen og legge på spinalbrett. En person kommanderer.",sev:"",rel:["columna","cervikalcolumna"]},
-  spaceblanket:     {name:"Space blanket / redningsteppe",plain:"Foliepakket redningsteppe",body:"Reflekterer kroppens varme tilbake. Sølvsiden inn mot pasienten. Dekk hele kroppen inkludert hodet. Kombineres med liggeunderlag (isolasjon fra bakken). Effektivt mot konduktiv og konvektiv varmetap.",sev:"",rel:["hypotermi","isolering"]},
-  isolering:        {name:"Isolasjon fra bakken",plain:"Forhindre varmetap til underlaget",body:"Bakken leder varme bort fra kroppen (konduktiv varmetap). Legg pasient på liggeunderlag, ryggsekk, greiner eller annet isolerende materiale. Særlig viktig på betong, snø og is.",sev:"",rel:["hypotermi","spaceblanket"]},
-  varm_hud:         {name:"Varm hud ved distributivt sjokk",plain:"Varm, rød hud – tidlig sjokk",body:"Ved distributivt sjokk (anafylaksi, sepsis, nevrogent) er karene vidstilte og huden er varm og rød tidlig i forløpet – i motsetning til hypovolemisk sjokk der huden er kald og klam. Sent i distributivt sjokk: huden kan bli kald.",sev:"",rel:["sjokk","anafylaksi","sepsis"]},
-  lungeoedem_tegn:  {name:"Lungeødem / distenderte halsvener",plain:"Væske i lungene og økt venetrykk",body:"Lungeødem: hjertet pumper ikke effektivt – væske hope seg i lungene. Tegn: gurgling/krakkelyd, pasienten sitter fremoverlent, rosa skummende oppspytt. Distenderte halsvener: økt trykk i det venøse systemet.",sev:"d",rel:["infarkt","tamponade","veneturgescens"]},
-  betablokkere:     {name:"Betablokkere",plain:"Hjertemedisin som demper pulsen",body:"Metoprolol, atenolol, bisoprolol og andre betablokkere begrenser hjertets evne til å øke pulsen. En pasient på betablokkere kan ha normal puls selv ved alvorlig sjokk eller blødning. Alltid spør om medisiner.",sev:"w",rel:["takykardi","sjokk","arytmi"]},
-  smerte_angst:     {name:"Smerte og angst",plain:"Ikke-patologisk takypné",body:"Akutt smerte og angst øker respirasjonsfrekvensen via sympatikusaktivering. Viktig å skille fra patologisk takypné. Hvis RF normaliseres etter smertelindring eller beroligelse = sannsynlig årsak.",sev:"",rel:["takypne","rf_normal"]},
-  /* ── Vitale tegn referanse ── */
-  puls_normal:      {name:"Normal puls: 60–100",plain:"",body:"Under 60 = bradykardi (for sakte). Over 100 = takykardi (for rask). Atleter kan ha hvile-puls under 50 – normalt for dem. Kontekst er avgjørende.",sev:"",rel:["takykardi","bradykardi","arytmi"]},
-  bt_normal:        {name:"Blodtrykk – normalt 100–140 mmHg",plain:"Systolisk blodtrykk",body:"Systolisk BT under 90 = hypotensjon = sjokk inntil annet bevist. Under 70 = kritisk. Hos eldre kan vanlig BT være høyere – 160+ er vanlig. Relativ hypotensjon (fall fra basislinje) kan være viktigere enn absolutt verdi.",sev:"",rel:["hypotensjon","sjokk","hypovolemi"]},
-  temp_normal:      {name:"Normal temperatur 36,5–37,5°C",plain:"",body:"Under 35°C = hypotermi. Over 38°C = feber. Over 40°C med CNS-påvirkning = varmeslag. Under 35°C med arytmi = alvorlig hypotermi.",sev:"",rel:["hypotermi","varmeslag"]},
-  bs_normal:        {name:"Normalt blodsukker 4–7 mmol/L",plain:"",body:"Under 4 mmol/L = hypoglykemi (symptomer vanligvis under 3,5). Over 14 = høyt (hyperglykemi). Mål alltid ved bevissthetspåvirkning.",sev:"",rel:["hypoglykemi"]},
-  avpu_a:           {name:"A – Alert",plain:"Våken og orientert",body:"Pasienten er våken, reagerer spontant og er orientert for sted, tid og person. Normal bevissthet.",sev:"",rel:["avpu_v","gcs"]},
-  avpu_v:           {name:"V – Voice",plain:"Reagerer på stemme",body:"Pasienten reagerer på tiltale, men er ikke spontant våken. Kan følge enkle kommandoer. Tilsvarer GCS 9–12.",sev:"w",rel:["avpu_a","avpu_p","gcs","bevissth"]},
-  avpu_p:           {name:"P – Pain",plain:"Reagerer kun på smertestimulus",body:"Reagerer kun ved smerte (trykk på brystbein, supraorbitalt trykk). Tilsvarer GCS 5–8. Alvorlig bevissthetspåvirkning – sikre luftvei, ring 113.",sev:"d",rel:["avpu_v","avpu_u","gcs","luftvei"]},
-  avpu_u:           {name:"U – Unresponsive",plain:"Ingen respons",body:"Ingen reaksjon på stemme eller smerte. Tilsvarer GCS 3–4. Kritisk – umiddelbar luftveisvurdering, HLR-vurdering, ring 113.",sev:"d",rel:["avpu_p","gcs","hjertestans","luftvei"]},
-  gcs_normal:       {name:"GCS 15 – normal",plain:"Full bevissthet",body:"Øyne åpnes spontant (4), orientert verbal respons (5), følger motoriske kommandoer (6). Total 15 = normal.",sev:"",rel:["gcs","avpu"]},
-  gcs_paavirket:    {name:"GCS 13–14 – lett påvirket",plain:"Mild bevissthetspåvirkning",body:"Liten svikt i orientering eller motorisk respons. Kan skyldes hodeskade, rus, hypoglykemi. Følg nøye – kan raskt forverres.",sev:"w",rel:["gcs","hodeskade","hypoglykemi"]},
-  gcs_alvorlig:     {name:"GCS 8 eller under – alvorlig",plain:"Alvorlig bevissthetspåvirkning",body:"GCS 8 = grensen for alvorlig hodeskade. Luftvei er i fare – pasienten kan ikke beskytte den selv. Vurder NPA. Ring 113 umiddelbart.",sev:"d",rel:["gcs","luftvei","npa","hodeskade"]},
-  /* ── SAMPLE ── */
-  opqrst:           {name:"OPQRST",plain:"Strukturert smerteanamnese",body:"Onset: Når startet det? Plutselig eller gradvis?\nProvokasjon: Hva gjør det bedre/verre?\nKvalitet: Trykkende, stikkende, brennende?\nUtstråling: Stråler smerten et annet sted?\nStyrke: 0–10?\nTid: Hvor lenge har det pågått?",sev:"",rel:["utstråling_hjerte","infarkt"]},
-  allergi_med:      {name:"Medikamentallergi",plain:"",body:"Spesielt viktig: penicillin, NSAIDs (ibux), kontrastvæske, jod. Allergiske reaksjoner varierer fra utslett til anafylaksi.",sev:"",rel:["anafylaksi"]},
-  allergi_mat:      {name:"Matallergi",plain:"",body:"Vanligste: peanøtter, nøtter, fisk/skalldyr, melk, egg. Kan gi anafylaksi. Spør alltid om alvorlighetsgrad av tidligere reaksjoner.",sev:"",rel:["anafylaksi"]},
-  insulin_med:      {name:"Insulinbehandling",plain:"",body:"Pasienter på insulin kan få hypoglykemi, særlig ved: utilstrekkelig matinntak, uvanlig aktivitet, feil dose. Alltid mål blodsukker.",sev:"",rel:["hypoglykemi"]},
-  siste_maltid:     {name:"Siste måltid",plain:"",body:"Relevant ved: bevissthetspåvirkning (hypoglykemi?), kirurgi (aspirasjonrisiko ved narkose), graviditet. Mat i magen øker aspirasjonsfaren.",sev:"",rel:["hypoglykemi","aspirasjon"]},
-  hendelsesforlop:  {name:"Hendelsesforløp",plain:"",body:"Hva skjedde rett før? Aktivitet, posisjon, tegn fra omgivelsene. Er pasienten funnet eller bevitnet? Vitner kan gi avgjørende informasjon.",sev:"",rel:[]},
-  aktivitet_debut:  {name:"Aktivitet ved debut",plain:"",body:"Brystsmerter ved hvile = mer alvorlig enn ved anstrengelse. Besvimelse under anstrengelse = mistenkelig for arytmi. Hodepine ved hosting/nysing = intrakranialt.",sev:"",rel:["infarkt","arytmi","intrakranialt"]},
-  risiko_royk:      {name:"Røyking",plain:"",body:"Røyking er en sterk risikofaktor for hjerte-/karsykdom, KOLS og kreft. Øker risikoen for hjerteinfarkt og hjerneslag betydelig.",sev:"",rel:["infarkt","fast"]},
-  risiko_hjerte:    {name:"Hjertesykdom i familien",plain:"",body:"Familiær hjertesykdom (infarkt under 55 år hos nær slektning) øker risiko for koronarsykdom og arytmier.",sev:"",rel:["infarkt","arytmi"]},
-  risiko_alder:     {name:"Alder som risikofaktor",plain:"",body:"Eldre: økt risiko for hjerte-/karsykdom, fall med alvorlige konsekvenser, osteoporose. Under 35 år med hjertesymptomer: vurder medfødt hjertesykdom, hypertrofisk kardiomyopati.",sev:"",rel:["hofte","infarkt","hjertestans"]},
+  luftvei_aapen:    {name:"Åpen luftvei",plain:"",body:"Pasienten snakker normalt og puster uten lyd. Ingen tiltak nødvendig nå, men monitor kontinuerlig.",sev:"",rel:["luftvei"]},
+  fremmedlegeme:    {name:"Fremmedlegeme i luftvei",plain:"Noe blokkerer luftrøret",body:"Delvis blokkert (hoster, snakker): oppmuntre til kraftig hosting.\n\nFullstendig blokkert (kan ikke puste, snakke eller hoste):\n① 5 kraftige ryggslag mellom skulderbladene\n② 5 Heimlich-støt innover/oppover under navlen\n③ Veksle til fri luftvei eller bevisstløshet\n\nBevisstløs: start HLR – se etter fremmedlegeme i munn.",sev:"d",rel:["ryggslagg","heimlich","luftvei","hlr"]},
+  snorking:         {name:"Snorking",plain:"Tungeroten faller bakover",body:"Snorkelyd under bevissthetspåvirkning skyldes at tungeroten faller bakover og blokkerer luftveien. Tiltak: kjevetak, sideleie, evt. NPA.",sev:"w",rel:["kjevetak","npa","sideleie","luftvei"]},
+  gurgling:         {name:"Gurglelyd",plain:"Væske i luftveien",body:"Betyr blod, oppkast eller sekret i øvre luftveier. Tiltak: sideleie umiddelbart, suging hvis tilgjengelig. Aspirasjonfare er stor.",sev:"d",rel:["aspirasjon","sideleie","luftvei"]},
+  stridor:          {name:"Stridor",plain:"Pipende innpust – delvis blokkert luftvei",body:"Høyfrekvent pipende lyd ved innpust tyder på delvis obstruksjon i øvre luftvei. Kan skyldes fremmedlegeme, ødem (anafylaksi, brannskade) eller traume mot strupen. Forverres raskt.",sev:"d",rel:["luftveisoedem","anafylaksi","luftveisskade","luftvei"]},
+  kjevetak:         {name:"Kjevetak",plain:"Teknikk for å åpne luftveien",body:"Griper bak kjevevinkelen med begge hender og skyver underkjeven fremover. Brukes ved mistenkt nakkeskade da det ikke beveger nakken. Effektivt mot tungerotfall.",sev:"",rel:["npa","sideleie","cervikalcolumna","luftvei","hodeoverstrekning"]},
+  hodeoverstrekning:{name:"Hodeoverstrekning",plain:"Tippe hodet bakover for å åpne luftvei",body:"Legg én hånd på pannen og tipp hodet forsiktig bakover mens du løfter haken opp med den andre hånden. Åpner luftveien ved tungerotfall.\n\nBRUKES IKKE ved mistenkt nakkeskade – bruk kjevetak i stedet.",sev:"",rel:["kjevetak","luftvei","cervikalcolumna"]},
+  npa:              {name:"NPA – Nasopharyngeal airway",plain:"Myk tube gjennom nesen",body:"Myk gummikanyle som føres gjennom nesen for å holde luftveien åpen forbi tungeroten. Tolereres av semibevisste pasienter. Størrelse: 28F (kvinner) eller 32F (menn). Bruk rikelig med glidemiddel.",sev:"",rel:["kjevetak","luftvei","sideleie"]},
+  sideleie:         {name:"Stabilt sideleie",plain:"Leie som beskytter luftveien",body:"Pasienten legges på siden. Forhindrer tungerotfall og aspirasjon. Alltid ved: bevisstløshet, rus, kramper, mistanke om oppkast. Kontraindikasjon: mistenkt spinalskade.",sev:"",rel:["kjevetak","luftvei","aspirasjon"]},
+  suging:           {name:"Suging av luftvei",plain:"Fjerne blod eller sekret med sug",body:"Brukes ved gurgling for å fjerne blod, oppkast eller sekret fra munn og svelg.",sev:"",rel:["gurgling","luftvei"]},
+  /* ── Pust (B) ── */
+  hjelpemuskulatur: {name:"Hjelpemuskulatur",plain:"Ekstra muskler brukes ved anstrengt pust",body:"Normalt puster man kun med mellomgulvet. Ved pustevansker trekkes ekstra muskler inn: nakkemusklene (løfter skulderkammen ved innpust), mellomromsmuskler og bukmuskulatur. Synlig bruk er et tegn på alvorlig pustebesvær.",sev:"w",rel:["astma","pneumothorax","rf_kritisk","cyanose"]},
+  brystbevegelse:   {name:"Brystbevegelse",plain:"Vurdering av respirasjonsbevegelse",body:"Se på brystet: beveger begge sider seg likt og symmetrisk? Asymmetri tyder på pneumothorax eller hemothorax. Paradoksal bevegelse (innover ved innpust) = flail chest. Legg hånden på brystet for å kjenne.",sev:"w",rel:["pneumothorax","hemothorax","ribbeinsbrudd"]},
+  cyanose:          {name:"Cyanose",plain:"Blåfarge på lepper og fingre",body:"Blålig misfarging tyder på alvorlig oksygenmangel (SpO₂ vanligvis under 85%). Sentralcyanose (lepper) er mer alvorlig enn perifer cyanose (fingre). Alltid et alvorlig tegn.",sev:"d",rel:["hypoxi","spo2_kritisk","pneumothorax","hjertestans"]},
+  rf_normal:        {name:"Respirasjonsfrekvens",plain:"Antall åndedrag per minutt",body:"Normal RF: 12–20/min hos voksen. Telles ved å observere brystbevegelse i 30 sekunder og gange med to.",sev:"",rel:["rf_kritisk","takypne","sjokk"]},
+  rf_kritisk:       {name:"Kritisk respirasjonsfrekvens",plain:"Altfor sakte eller rask pust",body:"RF under 10/min = hypoventilasjon. Vanligst ved opiatoverdose eller dypt koma. RF over 29/min = alvorlig takypné. Begge krever umiddelbar handling.",sev:"d",rel:["respirasjonsdep","sjokk","astma","pneumothorax"]},
+  spo2:             {name:"SpO₂ – oksygenmetning",plain:"Hvor mye oksygen blodet bærer",body:"Måles med pulsoksymeter. Normal: 95–100%. Under 90% = kritisk hypoksi. OBS: CO-forgiftning gir falskt normalt utslag!",sev:"",rel:["spo2_lav","spo2_kritisk","hypoxi","co"]},
+  spo2_lav:         {name:"SpO₂ 90–94%",plain:"Nedsatt oksygenmetning",body:"Bekymringsfullt nivå. Sørg for åpen luftvei, gi oksygen hvis tilgjengelig.",sev:"w",rel:["spo2","hypoxi","pneumothorax","astma"]},
+  spo2_kritisk:     {name:"SpO₂ under 90%",plain:"Kritisk lav oksygenmetning",body:"Livsfarlig hypoksi. Umiddelbar handling: luftvei, oksygen, ring 113.",sev:"d",rel:["spo2","hypoxi","luftvei"]},
+  krepitasjon:      {name:"Krepitasjon",plain:"Knitrende lyd/følelse",body:"Ved ribbeinsbrudd: knitring ved palpasjon. Subkutant emfysem (luft under huden): bobleinnpakning-følelse rundt thoraxskader – tyder på pneumothorax.",sev:"w",rel:["ribbeinsbrudd","pneumothorax","thorax"]},
+  apent_brystsar:   {name:"Åpent bryststår",plain:"Sår gjennom brystkassen",body:"Luft suges inn gjennom sårkanalen ved respirasjon. Behandling: vented chest seal. Blokkeres luften uten utveier kan spenningspneumothorax oppstå.",sev:"d",rel:["pneumothorax","hemothorax","tensjon"]},
+  /* ── Sirkulasjon (C) ── */
+  blek_klam_kald:   {name:"Blek, klam og kald hud",plain:"Klassiske sjokktegn i huden",body:"Blek: blod trekker bort fra huden for å prioritere vitale organer. Klam/svett: adrenalinrespons. Kald: redusert perifer blodsirkulasjon. Disse tre funnene sammen er sterk indikasjon på sjokk.",sev:"d",rel:["sjokk","kapillaerfyll","takykardi","hudstatus"]},
+  leiring_blodning: {name:"Leiring ved blødning / sjokk",plain:"Korrekt posisjonering",body:"Standard sjokkleie: legg flat på ryggen, hev bena 20–30 cm (øker venøs retur til hjertet).\n\nUNNTAK – ikke hev bena ved:\n• Hodeskade (øker intrakranialt trykk)\n• Bekkenbrudd (smertefullt/farlig)\n• Hjerteproblem / lungeødem (sett halvoppreist)\n\nAlle: hold varm.",sev:"",rel:["sjokk","hypovolemi","hodeskade","bekken"]},
+  puls_vurdering:   {name:"Pulsvurdering",plain:"Frekvens, styrke og regularitet",body:"Frekvens: normal 60–100/min. Styrke: kraftig (normal), svak/trådig (sjokk). Regularitet: regelmessig (normal), uregelmessig (arytmi).",sev:"",rel:["takykardi","bradykardi","arytmi","sjokk"]},
+  hudstatus:        {name:"Hudstatus",plain:"Vurdering av hud som sirkulasjonsindikator",body:"Farge: blek (sjokk/anemi), grå/cyanotisk (hypoksi), rød/varm (infeksjon/distributivt sjokk). Temperatur: kald klam hud = sjokk.",sev:"",rel:["sjokk","kapillaerfyll","takykardi"]},
+  kapillaerfyll:    {name:"Kapillærfyllingstid",plain:"Test for perifer sirkulasjon",body:"Trykk på fingertuppen i 5 sekunder, slipp og tell sekunder til fargen normaliseres. Normal: under 2 sekunder. Over 2 sek = nedsatt perifer sirkulasjon. Upålitelig i kulde.",sev:"",rel:["sjokk","hypovolemi","hudstatus"]},
+  abdomen_distensjon:{name:"Abdominal distensjon",plain:"Oppblåst, spent mage",body:"Kan tyde på intern blødning, tarmperforasjon eller organruptur. Rigiditet (stiv mage) = peritoneal irritasjon = alvorlig.",sev:"d",rel:["miltruptur","leverruptur","tarmperf","sjokk"]},
+  bekken_test:      {name:"Bekkenstabilitet – kun ett forsøk",plain:"",body:"Legg hender på begge hoftekammen og trykk forsiktig innover og nedover. Smerte eller bevegelse = bekkenfraktur. Gjenta ALDRI – forverrer blødning.",sev:"w",rel:["bekken","sjokk","hypovolemi"]},
+  takykardi:        {name:"Takykardi",plain:"Rask puls over 100 slag/min",body:"Hjertet slår raskere enn normalt. Vanligste årsaker akutt: sjokk (kompensatorisk), smerte, frykt, feber, rus, hjertearytmi. Betablokkere kan maskere takykardi.",sev:"w",rel:["sjokk","arytmi","betablokkere"]},
+  bradykardi:       {name:"Bradykardi",plain:"Langsom puls under 50 slag/min",body:"Årsaker: hjerteblokk, betablokkere, økt intrakranialt trykk (Cushing-respons), GHB/opiater, hypotermi. Alvorlig bradykardi under 40 kan gi besvimelse.",sev:"w",rel:["arytmi","hodeskade","hypotermi","gcs"]},
+  hypotensjon:      {name:"Hypotensjon",plain:"Lavt blodtrykk under 90 mmHg systolisk",body:"Sent tegn på sjokk – kroppen har mistet kompensasjonsevnen. Behandle årsaken: stopp blødning, EpiPen ved anafylaksi, legg flat. Ikke vent på hypotensjon for å mistenke sjokk.",sev:"d",rel:["sjokk","hypovolemi","tamponade","tensjon"]},
+  veneturgescens:   {name:"Veneturgescens",plain:"Oppblåste halsvener",body:"Tyder på økt trykk i det venøse systemet: hjertetamponade, tensjonspneumothorax, lungeembolus. Kombinert med hypotensjon = obstruktivt sjokk.",sev:"d",rel:["tamponade","tensjon","trombose","sjokk"]},
+  trakealdeviasjon: {name:"Trakeal deviasjon",plain:"Luftrøret presses til siden",body:"Trakea presses bort fra affisert side ved tensjonspneumothorax. Er et sent og upålitelig tegn – handle på øvrige symptomer.",sev:"d",rel:["tensjon","pneumothorax"]},
+  betablokkere:     {name:"Betablokkere",plain:"Hjertemedisin som demper pulsen",body:"Metoprolol, atenolol, bisoprolol. Begrenser hjertets evne til å øke pulsen. En pasient på betablokkere kan ha normal puls selv ved alvorlig sjokk eller blødning.",sev:"w",rel:["takykardi","sjokk","arytmi"]},
+  /* ── D ── */
+  nihss_tip:        {name:"NIHSS – Slag-skala",plain:"NIH Stroke Scale – alvorlighetsgrad 0–42",body:"0 = Normal\n1–4 = Mild\n5–15 = Moderat\n16–20 = Alvorlig\n21–42 = Svært alvorlig\n\nScore ≥5 = sannsynlig kandidat for trombolyse eller trombektomi på sykehus.",sev:"d",rel:["fast","bevissth","gcs"]},
+  fast_f:           {name:"F – Face (ansiktshenge)",plain:"",body:"Be pasienten smile. Ved slag henger den ene munviken ned og ansiktet er asymmetrisk.",sev:"d",rel:["fast","fast_a","fast_s"]},
+  fast_a:           {name:"A – Arms (armsvakhet)",plain:"",body:"Be pasienten løfte begge armer rett frem med lukkede øyne. Ved slag synker den ene armen ned.",sev:"d",rel:["fast","fast_f","fast_s"]},
+  fast_s:           {name:"S – Speech (taleforstyrrelse)",plain:"",body:"Be pasienten si en setning. Utydelig tale, feil ord eller ingen tale = mulig slag.",sev:"d",rel:["fast","fast_f","fast_a"]},
+  /* ── E ── */
+  expose_klipp:     {name:"Klipp opp klærne",plain:"Aldri dra av – alltid klipp",body:"Bruk traumasaks. Dra aldri klær av ved mistanke om fraktur eller spinalskade. Dekk til raskt etter undersøkelse.",sev:"",rel:["hypotermi"]},
+  expose_full:      {name:"Full eksponering",plain:"Hele kroppen fra hode til tå",body:"Inkludert rygg (loggroll). Du finner ikke skader du ikke ser etter. Spesielt viktig: lyske, bak knær, skalp, rygg.",sev:"",rel:["loggroll","hypotermi"]},
+  basisfraktur:     {name:"Skallebasisbrudd",plain:"Brudd i skallens bunn",body:"Mistenkelig ved: blod eller klar væske fra øre/nese, blåmerker rundt øyne (brillehematom) eller bak øret (Battles sign). Tegner ofte forsinket.",sev:"d",rel:["hodeskade","intrakranialt","gcs"]},
+  loggroll:         {name:"Loggroll",plain:"Teknikk for å snu pasient uten spinalrotasjon",body:"3–4 personer koordinerer for å snu pasienten i ett stykke. Leder styrer hodet. Brukes for å undersøke ryggen og legge på spinalbrett.",sev:"",rel:["columna","cervikalcolumna"]},
+  spaceblanket:     {name:"Space blanket / redningsteppe",plain:"Foliepakket redningsteppe",body:"Reflekterer kroppens varme tilbake. Sølvsiden inn mot pasienten. Dekk hele kroppen inkludert hodet.",sev:"",rel:["hypotermi","isolering"]},
+  isolering:        {name:"Isolasjon fra bakken",plain:"Forhindre varmetap til underlaget",body:"Bakken leder varme bort fra kroppen. Legg pasient på liggeunderlag, ryggsekk, greiner eller annet isolerende materiale.",sev:"",rel:["hypotermi","spaceblanket"]},
+  /* ── Nødnumre ── */
+  ring113:          {name:"113 – Ambulanse",plain:"",body:"Ring ved livstruende tilstand: hjertestans, bevistløshet, alvorlig skade, akutt brystsmerter, slag. AMK kan veilede deg underveis. Hold linjen åpen.",sev:"d",rel:[]},
+  ring116117:       {name:"116 117 – Legevakt",plain:"",body:"Ring når du trenger legehjelp, men det ikke er livstruende. Åpent hele døgnet. Veiledning om du skal komme inn eller kan vente.",sev:"",rel:[]},
+  ring02415:        {name:"02415 – Oppfølging av førstehjelpsytere",plain:"",body:"Norsk Luftambulanse tilbyr gratis og konfidensiell oppfølging til deg som har vært involvert i en krevende hendelse. Ring etter hjertestans, alvorlige ulykker eller hendelser som setter seg fast.",sev:"",rel:[]},
+  ringGift:         {name:"22 59 13 00 – Giftinformasjonen",plain:"",body:"Norsk Giftinformasjon. Åpent 24/7. Ring ved mistanke om forgiftning, overdose eller uhell med kjemikalier. De kan gi råd om videre håndtering.",sev:"",rel:[]},
+  /* ── SAMPLER ── */
+  opqrst:           {name:"OPQRST",plain:"Strukturert smerteanamnese",body:"Onset: Når startet det? Plutselig eller gradvis?\nProvokasjon: Hva gjør det bedre/verre?\nKvalitet: Trykkende, stikkende, brennende?\nUtstråling: Stråler smerten et annet sted?\nStyrke: 0–10?\nTid: Hvor lenge?",sev:"",rel:["utstråling_hjerte","infarkt"]},
+  allergi_med:      {name:"Medikamentallergi",plain:"",body:"Spesielt viktig: penicillin, NSAIDs (ibux), kontrastvæske. Allergiske reaksjoner varierer fra utslett til anafylaksi.",sev:"",rel:["anafylaksi"]},
+  allergi_mat:      {name:"Matallergi",plain:"",body:"Vanligste: peanøtter, nøtter, fisk/skalldyr, melk, egg. Kan gi anafylaksi.",sev:"",rel:["anafylaksi"]},
+  insulin_med:      {name:"Insulinbehandling",plain:"",body:"Pasienter på insulin kan få hypoglykemi ved: utilstrekkelig matinntak, uvanlig aktivitet, feil dose.",sev:"",rel:["hypoglykemi"]},
+  siste_maltid:     {name:"Siste måltid",plain:"",body:"Relevant ved bevissthetspåvirkning (hypoglykemi?) og aspirasjonrisiko. Mat i magen øker aspirasjonsfaren.",sev:"",rel:["hypoglykemi","aspirasjon"]},
+  hendelsesforlop:  {name:"Hendelsesforløp",plain:"",body:"Hva skjedde rett før? Aktivitet, posisjon. Er pasienten funnet eller bevitnet? Vitner gir avgjørende informasjon.",sev:"",rel:[]},
+  aktivitet_debut:  {name:"Aktivitet ved debut",plain:"",body:"Brystsmerter ved hvile = mer alvorlig. Besvimelse under anstrengelse = mistenkelig for arytmi.",sev:"",rel:["infarkt","arytmi"]},
+  risiko_royk:      {name:"Røyking",plain:"",body:"Sterk risikofaktor for hjerte-/karsykdom, KOLS og kreft.",sev:"",rel:["infarkt","fast"]},
+  risiko_hjerte:    {name:"Hjertesykdom i familien",plain:"",body:"Familiær hjertesykdom (infarkt under 55 år hos nær slektning) øker risiko.",sev:"",rel:["infarkt","arytmi"]},
+  risiko_alder:     {name:"Alder som risikofaktor",plain:"",body:"Eldre: økt risiko for hjerte-/karsykdom og fall. Under 35 år med hjertesymptomer: vurder medfødt hjertesykdom.",sev:"",rel:["hofte","infarkt","hjertestans"]},
   /* ── ISBAR ── */
-  isbar_i:          {name:"I – Identify",plain:"",body:"Presentér deg selv med navn og rolle. Mottakeren må vite hvem du er for å vite hvilken kompetanse du representerer. Eks: «Hei, jeg heter Lars fra Røde Kors hjelpekorps.»",sev:"",rel:[]},
-  isbar_s:          {name:"S – Situation",plain:"",body:"Beskriv hva som skjer: pasientens alder/kjønn, hovedproblem og nøyaktig adresse/lokasjon. Kortest mulig, klarest mulig.",sev:"",rel:[]},
-  isbar_b:          {name:"B – Background",plain:"",body:"Kontekst: hva skjedde, kjent sykehistorie, medisiner, tid siden hendelse. Gi det som er nødvendig for å forstå situasjonen.",sev:"",rel:[]},
-  vitalia:          {name:"Vitale parametere",plain:"Puls, RF, SpO₂, BT, bevissthet",body:"Gi konkrete tall: «Puls 118, svak. RF 22. SpO₂ 94%. GCS 8.» Unngå vage beskrivelser. AMK kan gi bedre råd med konkrete tall.",sev:"",rel:["puls_vurdering","rf_normal","spo2","gcs"]},
-  isbar_r:          {name:"R – Recommendation",plain:"",body:"Si hva du ber om: hastegrad, traumeteam, helikopter, spesiell kompetanse. Spør om ETA. Eks: «Ber om traumeteam klart og vil ha ETA på ambulanse.»",sev:"",rel:[]},
+  isbar_i:          {name:"I – Identify",plain:"",body:"Presentér deg med navn og rolle. Eks: «Hei, jeg heter Lars fra Røde Kors hjelpekorps.»",sev:"",rel:[]},
+  isbar_s:          {name:"S – Situation",plain:"",body:"Pasientens alder/kjønn, hovedproblem og nøyaktig adresse/lokasjon.",sev:"",rel:[]},
+  isbar_b:          {name:"B – Background",plain:"",body:"Hva skjedde, kjent sykehistorie, medisiner, tid siden hendelse.",sev:"",rel:[]},
+  vitalia:          {name:"Vitale parametere",plain:"",body:"Gi konkrete tall: «Puls 118, svak. RF 22. SpO₂ 94%. GCS 8.» AMK gir bedre råd med konkrete tall.",sev:"",rel:["puls_vurdering","rf_normal","spo2","gcs"]},
+  isbar_r:          {name:"R – Recommendation",plain:"",body:"Hva du ber om: hastegrad, traumeteam, helikopter. Spør om ETA.",sev:"",rel:[]},
+  /* ── Normalverdier ── */
+  puls_normal:      {name:"Normal puls: 60–100",plain:"",body:"Under 60 = bradykardi. Over 100 = takykardi. Atleter kan ha hvile-puls under 50 – normalt for dem.",sev:"",rel:["takykardi","bradykardi","arytmi"]},
+  bt_normal:        {name:"Blodtrykk – normalt 100–140 mmHg",plain:"",body:"Systolisk BT under 90 = hypotensjon = sjokk inntil annet bevist. Relativ hypotensjon (fall fra basislinje) kan være viktigere enn absolutt verdi.",sev:"",rel:["hypotensjon","sjokk","hypovolemi"]},
+  temp_normal:      {name:"Normal temperatur 36,5–37,5°C",plain:"",body:"Under 35°C = hypotermi. Over 38°C = feber. Over 40°C med CNS-påvirkning = varmeslag.",sev:"",rel:["hypotermi","varmeslag"]},
+  bs_normal:        {name:"Normalt blodsukker 4–7 mmol/L",plain:"",body:"Under 4 mmol/L = hypoglykemi. Over 14 = høyt. Mål alltid ved bevissthetspåvirkning.",sev:"",rel:["hypoglykemi"]},
+  avpu_a:           {name:"A – Alert",plain:"Våken og orientert",body:"Pasienten er våken, reagerer spontant og er orientert for sted, tid og person.",sev:"",rel:["avpu_v","gcs"]},
+  avpu_v:           {name:"V – Voice",plain:"Reagerer på stemme",body:"Reagerer på tiltale, men ikke spontant våken. Tilsvarer GCS 9–12.",sev:"w",rel:["avpu_a","avpu_p","gcs","bevissth"]},
+  avpu_p:           {name:"P – Pain",plain:"Reagerer kun på smertestimulus",body:"Tilsvarer GCS 5–8. Alvorlig – sikre luftvei, ring 113.",sev:"d",rel:["avpu_v","avpu_u","gcs","luftvei"]},
+  avpu_u:           {name:"U – Unresponsive",plain:"Ingen respons",body:"Ingen reaksjon på stemme eller smerte. GCS 3–4. Kritisk – umiddelbar luftvei og HLR-vurdering.",sev:"d",rel:["avpu_p","gcs","hjertestans","luftvei"]},
+  gcs_normal:       {name:"GCS 15 – normal",plain:"Full bevissthet",body:"Øyne åpnes spontant (4), orientert verbal respons (5), følger motoriske kommandoer (6).",sev:"",rel:["gcs","avpu"]},
+  gcs_paavirket:    {name:"GCS 13–14 – lett påvirket",plain:"",body:"Liten svikt i orientering eller motorisk respons. Følg nøye – kan raskt forverres.",sev:"w",rel:["gcs","hodeskade","hypoglykemi"]},
+  gcs_alvorlig:     {name:"GCS 8 eller under – alvorlig",plain:"",body:"Grensen for alvorlig hodeskade. Luftvei i fare – kan ikke beskytte den selv. Vurder NPA. Ring 113.",sev:"d",rel:["gcs","luftvei","npa","hodeskade"]},
   /* ── Medisinske tilstander ── */
-  utstråling_hjerte:{name:"Smerteutstråling ved hjerteinfarkt",plain:"",body:"Klassisk: trykkende brystsmerter som stråler til venstre arm, kjeve, nakke eller rygg. Atypisk (særlig kvinner/eldre/diabetikere): kvalme, dyspné, trettheta – uten brystsmerter.",sev:"d",rel:["infarkt","fast"]},
-  infarkt_tegn:     {name:"Tegn på hjerteinfarkt",plain:"",body:"Svette, kvalme, dyspné, blek hud. Svetten er karakteristisk kald (klamsvette). Pasienten ser ofte syk ut og er urolig.",sev:"d",rel:["infarkt","sjokk","arytmi"]},
-  fast_f:           {name:"F – Face (ansiktshenge)",plain:"",body:"Be pasienten smile. Ved slag henger den ene munviken ned og ansiktet er asymmetrisk. Kan også gi taleproblemer.",sev:"d",rel:["fast","fast_a","fast_s"]},
-  fast_a:           {name:"A – Arms (armsvakhet)",plain:"",body:"Be pasienten løfte begge armer rett frem med lukkede øyne. Ved slag synker den ene armen ned eller kan ikke løftes.",sev:"d",rel:["fast","fast_f","fast_s"]},
-  fast_s:           {name:"S – Speech (taleforstyrrelse)",plain:"",body:"Be pasienten si en setning. Utydelig tale, feil ord eller ingen tale kan tyde på slag. Kan også gi problemer med å forstå hva som sies.",sev:"d",rel:["fast","fast_f","fast_a"]},
-  epipen:           {name:"EpiPen – adrenalinpenn",plain:"Autoinjektor med adrenalin",body:"Injiseres i ytre lår (kan gå gjennom klær). Dose: 0,3 mg (voksen) eller 0,15 mg (barn under 25 kg). Trekk av sikring, trykk mot lår, hold i 10 sek. Adrenalin er eneste livreddende behandling ved anafylaksi.",sev:"d",rel:["anafylaksi","luftveisoedem","sjokk"]},
-  astma_alvorlig:   {name:"Alvorlig astmaanfall",plain:"",body:"Kan ikke snakke setninger (bare enkeltord), puls over 110, RF over 25, cyanose. Sitter foroverbøyd og bruker hjelpemusklatur. Behandling: bronkodilator, oksygen, ring 113.",sev:"d",rel:["astma","luftvei","spo2_kritisk"]},
-  astma_kritisk:    {name:"Stille thorax – kritisk astma",plain:"",body:"Ingen hvesing lenger = ingen luft passerer. Tegn på nær respirasjonsstans. Umiddelbar AMK. Cyanose, forvirring og utmattelse.",sev:"d",rel:["astma_alvorlig","respirasjonsdep","hjertestans"]},
-  hypoglykemi_bevisstlos:{name:"Bevisstløs ved hypoglykemi",plain:"",body:"Legg i stabilt sideleie (aspirasjonfare). Ring 113. Gi aldri noe oralt – kan aspireresre. AMK kan veilede om glukagon.",sev:"d",rel:["hypoglykemi","sideleie","aspirasjon"]},
-  ikke_oralt:       {name:"Aldri gi noe oralt til bevisstløs",plain:"",body:"En bevisstløs pasient mangler svelgerefleks. Mat, drikke eller tabletter kan aspireres til lungene og forårsake aspirasjonspneumoni eller kvelning.",sev:"d",rel:["aspirasjon","sideleie"]},
+  utstråling_hjerte:{name:"Smerteutstråling ved hjerteinfarkt",plain:"",body:"Klassisk: trykkende brystsmerter til venstre arm, kjeve, nakke eller rygg. Atypisk (kvinner/eldre/diabetikere): kvalme, dyspné, tretthet – uten brystsmerter.",sev:"d",rel:["infarkt","fast"]},
+  infarkt_tegn:     {name:"Tegn på hjerteinfarkt",plain:"",body:"Svette, kvalme, dyspné, blek hud. Klamsvette er karakteristisk.",sev:"d",rel:["infarkt","sjokk","arytmi"]},
+  epipen:           {name:"EpiPen – adrenalinpenn",plain:"",body:"Injiseres i ytre lår (kan gå gjennom klær). Dose: 0,3 mg (voksen), 0,15 mg (barn under 25 kg). Trekk av sikring, trykk mot lår, hold 10 sek.",sev:"d",rel:["anafylaksi","luftveisoedem","sjokk"]},
+  astma_alvorlig:   {name:"Alvorlig astmaanfall",plain:"",body:"Kan ikke snakke setninger, puls over 110, RF over 25, cyanose. Bronkodilator, oksygen, ring 113.",sev:"d",rel:["astma","luftvei","spo2_kritisk"]},
+  astma_kritisk:    {name:"Stille thorax – kritisk astma",plain:"",body:"Ingen hvesing lenger = ingen luft passerer = nær respirasjonsstans. Umiddelbar AMK.",sev:"d",rel:["astma_alvorlig","respirasjonsdep","hjertestans"]},
+  hypoglykemi_bevisstlos:{name:"Bevisstløs ved hypoglykemi",plain:"",body:"Legg i stabilt sideleie. Ring 113. Gi aldri noe oralt – aspirasjonfare.",sev:"d",rel:["hypoglykemi","sideleie","aspirasjon"]},
+  ikke_oralt:       {name:"Aldri gi noe oralt til bevisstløs",plain:"",body:"En bevisstløs pasient mangler svelgerefleks. Mat, drikke eller tabletter kan aspireres.",sev:"d",rel:["aspirasjon","sideleie"]},
   /* ── Rus ── */
-  alkohol_tale:     {name:"Utydelig tale ved alkohol",plain:"",body:"Alkohol demper CNS og gir slørete, utydelig tale (dysartri). Kan forveksles med slag eller hodeskade. Vurder FAST ved usikkerhet.",sev:"w",rel:["alkohol","fast","hodeskade"]},
-  alkohol_atferd:   {name:"Alkohol – aggresjon og eufori",plain:"",body:"Hemningene reduseres av alkohol – kan gi eufori (lavt nivå), agitasjon eller aggresjon (moderat). Vær oppmerksom på sikkerhet. Aggresjon kan også skyldes hodeskade, hypoglykemi eller psykose.",sev:"w",rel:["alkohol","rus_maskerer","hodeskade"]},
-  hallusinasjon:    {name:"Hallusinasjon",plain:"Sanseopplevelse uten ytre stimulus",body:"Kan se, høre eller kjenne ting som ikke er der. Vanlig ved: LSD, psylocybin, høydose cannabis. Behandling: rolig trygt miljø, talk-down. Ring 113 ved aggresjon eller bevisstløshet.",sev:"w",rel:["vidpupiller","desorientering","talkdown"]},
-  desorientering:   {name:"Desorientering",plain:"Forvirring om tid, sted eller person",body:"Vet ikke hvem de er, hvor de er eller hvilken tid det er. Vanlig ved rus, hodeskade, hypoglykemi, demens, søvnmangel. Vurder alltid medisinsk årsak.",sev:"w",rel:["bevissth","hodeskade","hypoglykemi","hallusinasjon"]},
-  talkdown:         {name:"Talk-down teknikk",plain:"Verbal beroligelse ved hallusinogen rus",body:"Snakk rolig og tydelig. Unngå skarpe lyder, sterkt lys. Ikke kjefte eller irettesett. Si hva du heter og at du er der for å hjelpe. Fjern stimuli. Minimer antall folk rundt pasienten.",sev:"",rel:["hallusinasjon","desorientering"]},
-  sedasjon:         {name:"Sedasjon / sløvhet",plain:"",body:"Unormalt nedsatt aktivitetsnivå og responshastighet. Tegn: sakte svar, tunge øyelokk, mumling. Observér nøye – kan utvikle seg til bevisstløshet.",sev:"w",rel:["bevissth","respirasjonsdep","avpu_v"]},
-  amnesi:           {name:"Amnesi / hukommelsestap",plain:"",body:"Vanlig etter benzodiazepiner, alkohol og GHB. Pasienten husker ikke hva som skjedde. Ikke ensbetydende med alvorlig skade, men vurder alltid hodeskade.",sev:"w",rel:["hodeskade","hjernerystelse","alkohol"]},
-  benzo_alkohol:    {name:"Benzo + alkohol",plain:"Livsfarlig kombinasjon",body:"Begge demper CNS og respirasjon. Kombinert effekt er kraftig forsterket. Selv normale doser av begge kan gi respirasjonsstans. En av de vanligste dødelige overdosekombinasjonene.",sev:"d",rel:["respirasjonsdep","luftvei","sideleie"]},
-  ghb_vaakne:       {name:"GHB – brått oppvåkning",plain:"",body:"Etter 1–4 timer kan pasienten våkne brått fra bevisstløshet, desorientert og agitert. Hold avstand og vær forberedt på aggressiv atferd. Ikke forlat pasienten.",sev:"w",rel:["ghb","desorientering"]},
-  psykose:          {name:"Akutt psykose",plain:"",body:"Tap av kontakt med virkeligheten. Hallusinasjoner, vrangforestillinger, desorganisert atferd. Kan utløses av syntetisk cannabis, amfetamin og andre rusmidler. Medisinsk nødsituasjon – ring 113 ved aggressiv atferd.",sev:"w",rel:["hallusinasjon","stimulanter","bevissth"]},
-  rode_oyne:        {name:"Røde øyne",plain:"",body:"Konjunktival injeksjon (rødhet i øynene) er et klassisk tegn på cannabisrus. Skyldes utvidelse av blodårene i øyet. Ikke medisinsk alvorlig isolert sett.",sev:"",rel:["cannabis_rus"]},
-  cannabis_rus:     {name:"Cannabispåvirkning",plain:"",body:"Latter, eufori, tørr munn, økt appetitt, paranoia, røde øyne, nedsatt tidsoppfatning. Vanligvis ikke medisinsk farlig i seg selv. Unntaket: psykose, panikkanfall og syntetisk cannabis.",sev:"",rel:["psykose","rode_oyne","vidpupiller"]},
-  kvalme_oppkast:   {name:"Kvalme og oppkast",plain:"",body:"Aspirasjonfare ved nedsatt bevissthet. Legg i sideleie umiddelbart. Kraftig/repetert oppkast kan tyde på: intrakranialt trykk (hodeskade), forgiftning, GHB. Prosjektiloppkast = alvorlig tegn.",sev:"w",rel:["sideleie","aspirasjon","hodeskade","ghb"]},
-  /* ── Skader (sport, MOI) ── */
-  lyske:            {name:"Lyske / hamstringskade",plain:"Muskelstrekk indre lår eller bakside",body:"Akutt smerte ved sprint eller spark. Grad 1–3 avhengig av alvor. Hvile, is, kompresjon. Kan ta uker til måneder å heles. Sjekk for femoraliskar ved penetrerende skade.",sev:"w",rel:["femur"]},
-  multippeltraume:  {name:"Multippeltraume",plain:"Skade på flere organsystemer",body:"Traume som affiserer mer enn ett organsystem. Krever systematisk ABCDE og tidlig kontakt med AMK. Transportbeslutning er kritisk. Ikke bruk tid på sekundære skader.",sev:"d",rel:["sjokk","hodeskade","thorax"]},
-  ansiktsfraktur:   {name:"Ansiktsfraktur",plain:"Brudd i ansiktsskjelettet",body:"Neseben, kinnben, orbita (rundt øyet), underkjeve. Gi smertelindring. Vurder luftvei – blødning kan true luftveien. Øyeskade: dekk med skål, ikke trykk.",sev:"w",rel:["luftvei","hodeskade"]},
-  hodepine:         {name:"Hodepine etter traume",plain:"",body:"Vanlig etter hjernerystelse. Vedvarende, forverrende eller «thunderclap»-hodepine (plutselig maksimal smerte) er alvorlig og kan tyde på intrakranialt hematom. Observer nøye.",sev:"w",rel:["hjernerystelse","intrakranialt","hodeskade"]},
-  lysoemt:          {name:"Lysømfintlighet (fotofobi)",plain:"",body:"Vondt av lys. Vanlig ved hjernerystelse og meningitt. Indikerer CNS-irritasjon. Pasienten holder øynene lukket og skjermer dem.",sev:"w",rel:["hjernerystelse","hodeskade"]},
-  uttomming:        {name:"Uttømming / utmattelse",plain:"",body:"Glykogenlagre tømt. Symptomer: ekstrem slapphet, forvirring. Skilles fra hjertestans ved bevissthet og pust. Gi mat/drikke med sukker.",sev:"w",rel:["hypoglykemi","varmeslag","dehydrering"]},
-  luftror:          {name:"Luftrørsskade",plain:"",body:"Skade på trakea kan gi subkutant emfysem (luft under huden), stridor og cyanose. Alvorlig og raskt forverrende. Prioriter luftvei og rask transport.",sev:"d",rel:["luftvei","luftveisskade","krepitasjon"]},
-  spiseror:         {name:"Spiserørsskade",plain:"",body:"Sjelden isolert skade. Kan gi mediastinitt (infeksjon i brysthulen) over timer–dager. Mistenkelig ved nakke-stikk med svelgvansker og brystsmerter.",sev:"w",rel:["tarmperf"]},
-  barn_kompenserer: {name:"Barn kompenserer lenge",plain:"",body:"Barn har god fysiologisk reserve og kan opprettholde normalt BT og bevissthet selv ved alvorlig sjokk. Kollapsen kommer brått og uten forvarsel. Stol ikke på normalverdier alene – vurder mekanisme og klinisk bilde.",sev:"d",rel:["hodeskade","sjokk","lungekont"]},
-  triage_gul:       {name:"Gul triage – utsettbar",plain:"",body:"Pasienten er skadet men stabil. Kan vente til røde pasienter er behandlet. Overvåk tett – gule kan bli røde.",sev:"w",rel:["sjokk","blodning_kontrollert"]},
-  triage_gronn:     {name:"Grønn triage – lettere skadet",plain:"",body:"Gangbar med lettere skader. Kan hjelpe seg selv og vente lengst. Samle på et felles område.",sev:"",rel:[]},
-  triage_sort:      {name:"Svart triage – ikke prioriter",plain:"",body:"Ingen puls og ingen åndedrett, eller skade som ikke er overlevbar gitt tilgjengelige ressurser. Gjør mest for flest – bruk ikke ressurser på ikke-overlevbare.",sev:"",rel:[]},
-  blodning_stopp:   {name:"Ukontrollert blødning",plain:"",body:"Arteriell blødning (pulserende, lys rød) dreper på minutter. Tiltak: direkte trykk minimum 10 minutter uten å slippe. Tourniquet ved ekstremitetsblødning som ikke lar seg kontrollere. Wound packing ved lyske/armhule.",sev:"d",rel:["sjokk","hypovolemi","tourniquet_info"]},
-  blodning_kontrollert:{name:"Kontrollert blødning",plain:"",body:"Blødningen er stoppet eller under kontroll med trykk eller bandasje. Pasienten er stabil. Overvåk – kontrollert blødning kan igjen bli ukontrollert.",sev:"w",rel:["sjokk","hypovolemi"]},
-  tourniquet_info:  {name:"Tourniquet",plain:"Avsnøringsmansjett for å stoppe blødning",body:"Brukes ved ekstremitetsblødning som ikke stopper med direkte trykk. Legg så høyt og trangt på lemmet som mulig. Stram til blødning stopper – ikke bare til det strammer. Skriv tidspunkt. Fjern ikke i felt.",sev:"d",rel:["blodning_stopp","sjokk"]},
-  /* ── Allerede definerte (beholdes) ── */
-  hodeskade:        {name:"Hodeskade",plain:"Skade på hjerne eller kranium",body:"Kan gi bevissthetspåvirkning, hukommelsestap, forvirring, oppkast og ulik pupillstørrelse. Vurder alltid GCS. Mistenk alltid ved relevant MOI selv om pasienten ser OK ut.",sev:"d",rel:["gcs","avpu","pupiller","hjernerystelse","intrakranialt","subduralt"]},
+  alkohol_tale:     {name:"Utydelig tale ved alkohol",plain:"",body:"Alkohol demper CNS og gir slørete tale. Kan forveksles med slag eller hodeskade. Vurder FAST ved usikkerhet.",sev:"w",rel:["alkohol","fast","hodeskade"]},
+  hallusinasjon:    {name:"Hallusinasjon",plain:"Sanseopplevelse uten ytre stimulus",body:"Kan se, høre eller kjenne ting som ikke er der. Rolig trygt miljø, talk-down. Ring 113 ved aggresjon eller bevisstløshet.",sev:"w",rel:["vidpupiller","desorientering","talkdown"]},
+  desorientering:   {name:"Desorientering",plain:"Forvirring om tid, sted eller person",body:"Vanlig ved rus, hodeskade, hypoglykemi, demens. Vurder alltid medisinsk årsak.",sev:"w",rel:["bevissth","hodeskade","hypoglykemi","hallusinasjon"]},
+  talkdown:         {name:"Talk-down teknikk",plain:"Verbal beroligelse",body:"Snakk rolig og tydelig. Unngå skarpe lyder, sterkt lys. Minimer antall folk. Si hvem du er og at du er der for å hjelpe.",sev:"",rel:["hallusinasjon","desorientering"]},
+  sedasjon:         {name:"Sedasjon / sløvhet",plain:"",body:"Unormalt nedsatt aktivitetsnivå. Observér nøye – kan utvikle seg til bevisstløshet.",sev:"w",rel:["bevissth","respirasjonsdep","avpu_v"]},
+  amnesi:           {name:"Amnesi / hukommelsestap",plain:"",body:"Vanlig etter benzodiazepiner, alkohol og GHB. Vurder alltid hodeskade.",sev:"w",rel:["hodeskade","hjernerystelse","alkohol"]},
+  benzo_alkohol:    {name:"Benzo + alkohol",plain:"Livsfarlig kombinasjon",body:"Begge demper CNS og respirasjon. Kombinert effekt er kraftig forsterket. En av de vanligste dødelige overdosekombinasjonene.",sev:"d",rel:["respirasjonsdep","luftvei","sideleie"]},
+  ghb_vaakne:       {name:"GHB – brått oppvåkning",plain:"",body:"Etter 1–4 timer kan pasienten våkne brått fra bevisstløshet, desorientert og agitert. Hold avstand.",sev:"w",rel:["ghb","desorientering"]},
+  psykose:          {name:"Akutt psykose",plain:"",body:"Tap av kontakt med virkeligheten. Kan utløses av syntetisk cannabis, amfetamin. Ring 113 ved aggressiv atferd.",sev:"w",rel:["hallusinasjon","stimulanter","bevissth"]},
+  rode_oyne:        {name:"Røde øyne",plain:"",body:"Konjunktival injeksjon (rødhet i øynene) er et klassisk tegn på cannabisrus.",sev:"",rel:["cannabis_rus"]},
+  cannabis_rus:     {name:"Cannabispåvirkning",plain:"",body:"Latter, eufori, tørr munn, økt appetitt, paranoia, røde øyne. Vanligvis ikke medisinsk farlig i seg selv.",sev:"",rel:["psykose","rode_oyne","vidpupiller"]},
+  kvalme_oppkast:   {name:"Kvalme og oppkast",plain:"",body:"Aspirasjonfare ved nedsatt bevissthet – sideleie umiddelbart. Kraftig/repetert oppkast kan tyde på intrakranialt trykk eller forgiftning.",sev:"w",rel:["sideleie","aspirasjon","hodeskade","ghb"]},
+  /* ── Skader ── */
+  lyske:            {name:"Lyske / hamstringskade",plain:"",body:"Akutt smerte ved sprint eller spark. Hvile, is, kompresjon.",sev:"w",rel:["femur"]},
+  multippeltraume:  {name:"Multippeltraume",plain:"Skade på flere organsystemer",body:"Krever systematisk ABCDE og tidlig AMK. Transportbeslutning er kritisk.",sev:"d",rel:["sjokk","hodeskade","thorax"]},
+  ansiktsfraktur:   {name:"Ansiktsfraktur",plain:"",body:"Vurder luftvei – blødning kan true den. Øyeskade: dekk med skål, ikke trykk.",sev:"w",rel:["luftvei","hodeskade"]},
+  hodepine:         {name:"Hodepine etter traume",plain:"",body:"Vedvarende eller forverrende hodepine er alvorlig og kan tyde på intrakranialt hematom.",sev:"w",rel:["hjernerystelse","intrakranialt","hodeskade"]},
+  lysoemt:          {name:"Lysømfintlighet (fotofobi)",plain:"",body:"Vondt av lys. Vanlig ved hjernerystelse og meningitt. Indikerer CNS-irritasjon.",sev:"w",rel:["hjernerystelse","hodeskade"]},
+  uttomming:        {name:"Uttømming / utmattelse",plain:"",body:"Glykogenlagre tømt. Symptomer: ekstrem slapphet, forvirring. Gi mat/drikke med sukker.",sev:"w",rel:["hypoglykemi","varmeslag","dehydrering"]},
+  luftror:          {name:"Luftrørsskade",plain:"",body:"Skade på trakea kan gi stridor og cyanose. Alvorlig og raskt forverrende.",sev:"d",rel:["luftvei","luftveisskade","krepitasjon"]},
+  spiseror:         {name:"Spiserørsskade",plain:"",body:"Sjelden. Kan gi mediastinitt over timer–dager. Mistenkelig ved nakke-stikk med svelgvansker.",sev:"w",rel:["tarmperf"]},
+  barn_kompenserer: {name:"Barn kompenserer lenge",plain:"",body:"Barn har god fysiologisk reserve og kan opprettholde normalt BT og bevissthet selv ved alvorlig sjokk. Kollapsen kommer brått.",sev:"d",rel:["hodeskade","sjokk","lungekont"]},
+  triage_gul:       {name:"Gul triage – utsettbar",plain:"",body:"Skadet men stabil. Kan vente til røde er behandlet. Overvåk tett.",sev:"w",rel:["sjokk","blodning_kontrollert"]},
+  triage_gronn:     {name:"Grønn triage – lettere skadet",plain:"",body:"Gangbar med lettere skader. Samle på et felles område.",sev:"",rel:[]},
+  triage_sort:      {name:"Svart triage – ikke prioriter",plain:"",body:"Ingen puls og ingen åndedrett, eller skade som ikke er overlevbar gitt tilgjengelige ressurser.",sev:"",rel:[]},
+  blodning_kontrollert:{name:"Kontrollert blødning",plain:"",body:"Blødningen er stoppet eller under kontroll. Overvåk – kan igjen bli ukontrollert.",sev:"w",rel:["sjokk","hypovolemi"]},
+  puls_distalt:     {name:"Puls distalt for skade",plain:"",body:"Etter ekstremitetsskade: sjekk puls distalt. Fraværende puls = karskade – øyeblikkelig tiltak og transport.",sev:"d",rel:["deformitet","compartment","femur","tibia"]},
+  deformitet:       {name:"Deformitet / hevelse",plain:"",body:"Tyder på fraktur eller dislokasjon. Vurder puls og sensibilitet distalt. Stabiliser i funnet stilling.",sev:"w",rel:["femur","tibia","ankel","kne"]},
+  /* ── Hoved-TIPS (beholdes fra tidligere) ── */
+  hodeskade:        {name:"Hodeskade",plain:"Skade på hjerne eller kranium",body:"Kan gi bevissthetspåvirkning, hukommelsestap, forvirring, oppkast og ulik pupillstørrelse. Vurder alltid GCS. Mistenk alltid ved relevant MOI.",sev:"d",rel:["gcs","avpu","pupiller","hjernerystelse","intrakranialt","subduralt"]},
   cervikalcolumna:  {name:"Cervikalcolumna",plain:"Nakkevirvelkolumnen (C1–C7)",body:"De 7 nakkevirvlene som beskytter ryggmargen. Skade kan gi lammelse fra skuldrene og ned. Stabiliser alltid ved relevant MOI.",sev:"d",rel:["columna","hodeskade","kjevetak"]},
   thorax:           {name:"Thorax",plain:"Brystkassen",body:"Inneholder lunger, hjerte og store kar. Skader kan gi pneumothorax, hemothorax eller aortaskade. Vurder symmetrisk pustelyd.",sev:"w",rel:["pneumothorax","hemothorax","hjerteskade","aorta","ribbeinsbrudd","tensjon"]},
-  pneumothorax:     {name:"Pneumothorax",plain:"Sammenfallt lunge",body:"Luft lekker inn mellom lunge og brystvegg. Tegn: ensidig svekket pustelyd, dyspné.\n\nNåldekompresjonen:\n① 2. IKR, midklavikulærlinje (over 3. ribbein)\n② 4.–5. IKR, fremre aksillærlinje\n\nBruk 14G nål, minst 8 cm. Stikk over ribbeinkanten. Høring av luft bekrefter diagnosen.",sev:"d",rel:["hemothorax","tensjon","blastlung","ribbeinsbrudd"]},
+  pneumothorax:     {name:"Pneumothorax",plain:"Sammenfallt lunge",body:"Luft lekker inn mellom lunge og brystvegg. Tegn: ensidig svekket pustelyd, dyspné.\n\nNåldekompresjonen:\n① 2. IKR, midklavikulærlinje (over 3. ribbein)\n② 4.–5. IKR, fremre aksillærlinje\n\nBruk 14G nål, minst 8 cm. Stikk over ribbeinkanten.",sev:"d",rel:["hemothorax","tensjon","blastlung","ribbeinsbrudd"]},
   hemothorax:       {name:"Hemothorax",plain:"Blod i brysthule",body:"Blod samler seg mellom lunge og brystvegg. Dempet perkusjon. Kan gi respirasjonssvikt og sjokk. Krever dren på sykehus.",sev:"d",rel:["pneumothorax","sjokk","thorax"]},
   milt:             {name:"Miltskade",plain:"Milten kan sprekke",body:"Sitter øverst til venstre i buken. Svært blødningsvillig. Kan rupturere forsinket.",sev:"d",rel:["miltruptur","sjokk","leverruptur"]},
   miltruptur:       {name:"Miltruptur",plain:"Milten sprekker",body:"Gir intern blødning i buken. Forsinket debut er vanlig – stabil 30–60 min, så rask forverring.",sev:"d",rel:["sjokk","leverruptur","hypovolemi"]},
@@ -968,19 +1112,19 @@ var TIPS = {
   ankel:            {name:"Ankelskade",plain:"Ankel",body:"Ottawa-reglene: ømhet over malleol + ikke bæreevne = røntgen.",sev:"",rel:["tibia","kne","acl"]},
   kne:              {name:"Kneskade",plain:"Kne",body:"ACL, menisk eller patellafraktur. Rask hevelse tyder på blod i leddet.",sev:"",rel:["acl","ankel","akillesruptur"]},
   akillesruptur:    {name:"Akillesruptur",plain:"Akillessenen ryker",body:"Hørbart smell + kollaps. Kan ikke stå på tå. Thompson-test: klem på legg – foten beveger seg ikke.",sev:"d",rel:["acl","kne"]},
-  hjertestans:      {name:"Hjertestans",plain:"Hjertet slutter å pumpe",body:"Ingen puls, ingen pusting. Start HLR umiddelbart. AED så raskt som mulig – hvert minutt uten defibrillering = 10% lavere overlevelse.",sev:"d",rel:["hlr","aed","arytmi","agonalpust","tamponade","tensjon","trombose","hypoxi","hypovolemi"]},
-  arytmi:           {name:"Arytmi",plain:"Uregelmessig hjerterytme",body:"Kan gi svimmelhet, besvimelse eller plutselig hjertestans. Utløst av elektrisk støt, hypotermi eller elektrolyttforstyrrelse.",sev:"w",rel:["hjertestans","hypotermi","hypokalemi","tamponade"]},
+  hjertestans:      {name:"Hjertestans",plain:"Hjertet slutter å pumpe",body:"Ingen puls, ingen pusting. Start HLR umiddelbart. AED så raskt som mulig.",sev:"d",rel:["hlr","aed","arytmi","agonalpust","tamponade","tensjon","trombose","hypoxi","hypovolemi"]},
+  arytmi:           {name:"Arytmi",plain:"Uregelmessig hjerterytme",body:"Kan gi svimmelhet, besvimelse eller plutselig hjertestans.",sev:"w",rel:["hjertestans","hypotermi","hypokalemi","tamponade"]},
   hypotermi:        {name:"Hypotermi",plain:"Farlig nedkjøling",body:"Under 35°C. Mild: skjelving. Moderat: forvirring. Alvorlig: bevisstløshet. Fjern våte klær, isoler.",sev:"d",rel:["arytmi","koagulopati","sjokk"]},
   hypoglykemi:      {name:"Hypoglykemi",plain:"For lavt blodsukker",body:"Under 4 mmol/L. Svette, skjelving, forvirring, aggresjon, bevisstløshet. Ligner rus og hodeskade. Mål alltid blodsukker ved bevissthetspåvirkning.",sev:"d",rel:["bevissth","synkope","varmeslag"]},
   varmeslag:        {name:"Varmeslag",plain:"Farlig overoppheting",body:"Over 40°C med CNS-påvirkning. Varm tørr hud + forvirring. Avkjøl aktivt.",sev:"d",rel:["hypoglykemi","dehydrering","bevissth"]},
   hyponatremi:      {name:"Hyponatremi",plain:"For lavt natrium i blodet",body:"Overdreven vanninntak under løp. Kvalme, hodepine, forvirring, kramper. Ikke gi mer vann.",sev:"d",rel:["dehydrering","hypoglykemi","bevissth"]},
   hjernerystelse:   {name:"Hjernerystelse",plain:"Hjernen rystes",body:"Forvirring, amnesi, hodepine, kvalme. Ikke tilbake til aktivitet samme dag – risiko for second impact syndrome.",sev:"d",rel:["hodeskade","intrakranialt","subduralt","gcs"]},
-  synkope:          {name:"Vasovagal synkope",plain:"Vanlig besvimelse",body:"Utløses av smerte, stress, varme eller langvarig stående. Legg flat, hev bena. Vanligvis ufarlig.",sev:"",rel:["hypoglykemi","arytmi","dehydrering"]},
+  synkope:          {name:"Vasovagal synkope",plain:"Vanlig besvimelse",body:"Utløses av smerte, stress, varme eller langvarig stående. Legg flat, hev bena.",sev:"",rel:["hypoglykemi","arytmi","dehydrering"]},
   overdose:         {name:"Rus / overdose",plain:"For mye rusmidler",body:"Opiater: langsom pusting, små pupiller, bevisstløshet. Alltid luftvei og sideleie.",sev:"d",rel:["respirasjonsdep","bevissth","luftvei","hypoglykemi"]},
   respirasjonsdep:  {name:"Respirasjonsdepresjon",plain:"Pustingen hemmes",body:"Pustefrekvens under 10/min. Vanligst ved opiatrus. Behandling: luftvei, oksygen.",sev:"d",rel:["overdose","luftvei","bevissth"]},
   epilepsi:         {name:"Epileptisk anfall",plain:"Kramper",body:"Beskytt mot skader. Anfallet går som regel over av seg selv. Ring 113 ved anfall over 5 min.",sev:"w",rel:["bevissth","hypoglykemi","hodeskade"]},
   crowdcrush:       {name:"Crowd crush",plain:"Mengdetrykk mot brystet",body:"Kan stoppe pusteevnen selv i stående stilling. Frigjøring er behandlingen.",sev:"d",rel:["thorax","ribbeinsbrudd","sjokk","trampling"]},
-  trampling:        {name:"Trampling",plain:"Tråkket ned av folkemasse",body:"Kan gi multippelt traume og hodeskader. Særlig farlig for barn og eldre.",sev:"d",rel:["hodeskade","thorax","crowdcrush"]},
+  trampling:        {name:"Trampling",plain:"Tråkket ned av folkemasse",body:"Kan gi multippelt traume og hodeskader.",sev:"d",rel:["hodeskade","thorax","crowdcrush"]},
   crush:            {name:"Crush-skade",plain:"Klemskade fra tung gjenstand",body:"Vev og organer knuses. Langvarig klem = risiko for rabdomyolyse og nyresvikt ved frigjøring.",sev:"d",rel:["rabdomyolyse","compartment","sjokk"]},
   blastlung:        {name:"Blast lung",plain:"Lungeblødning fra trykkbølge",body:"Gir lungeblødning uten ytre tegn. Dyspné, blod i oppspytt, hypoksi.",sev:"d",rel:["pneumothorax","hemothorax","hypoxi","tympanisk"]},
   tympanisk:        {name:"Tympanisk membranruptur",plain:"Trommehinnen sprekker",body:"Markør for primærblast-eksponering. Hørselstap og øresmerter.",sev:"w",rel:["blastlung"]},
@@ -988,7 +1132,7 @@ var TIPS = {
   inhalasjon:       {name:"Inhalasjonsskade",plain:"Skade fra røyk/varme",body:"Varm luft og giftige gasser kan brenne luftveiene. Forsinket ødem kan lukke luftveien timer etter.",sev:"d",rel:["luftveisoedem","luftvei","co","brannskade"]},
   luftveisoedem:    {name:"Luftveisødem",plain:"Hevelse i luftveiene",body:"Stridor og heshet = handle nå. Kan lukke seg fullstendig.",sev:"d",rel:["inhalasjon","luftvei","anafylaksi"]},
   brannskade:       {name:"Brannskade",plain:"Forbrenningsskade",body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: dyp hudskade. Kjøl med romtemperert vann 20 min. Ikke is.",sev:"w",rel:["inhalasjon","luftveisoedem","co","hypotermi"]},
-  impalement:       {name:"Impalement",plain:"Gjennomboret av en gjenstand",body:"ALDRI fjern gjenstanden i felt. Stabiliser den mekanisk og transport til sykehus.",sev:"d",rel:["tarmperf","aorta","hjerteskade"]},
+  impalement:       {name:"Impalement",plain:"Gjennomboret av en gjenstand",body:"ALDRI fjern gjenstanden i felt. Stabiliser mekanisk og transport til sykehus.",sev:"d",rel:["tarmperf","aorta","hjerteskade"]},
   karotis:          {name:"Karotis / jugular",plain:"Halspulsåre / halsblodåre",body:"Store kar i nakken. Direkte trykk umiddelbart ved stikk.",sev:"d",rel:["sjokk","luftveisskade","hypovolemi"]},
   luftveisskade:    {name:"Luftveisskade",plain:"Skade på luftrøret eller strupen",body:"Slag mot nakken kan skade strupen. Stridor kan gi raskt lukket luftvei.",sev:"d",rel:["luftveisoedem","luftvei","karotis"]},
   hjerteskade:      {name:"Hjerteskade",plain:"Skade på selve hjertemuskelen",body:"Penetrerende mot midtre thorax. Becks triade: hypotensjon + distenderte halsvener + dempede hjertelyder.",sev:"d",rel:["tamponade","aorta","sjokk"]},
@@ -996,13 +1140,13 @@ var TIPS = {
   hofte:            {name:"Hoftebrudd",plain:"Brudd i øvre del av lårbenet",body:"Typisk hos eldre ved lavenergi-fall. Kan gi livstruende blødning.",sev:"d",rel:["sjokk","bekken","antikoag"]},
   abruptio:         {name:"Abruptio placentae",plain:"Morkaken løsner",body:"Løsner ved stumpt abdominaltraume. Livstruende for foster og mor.",sev:"d",rel:["aortokavalt","sjokk","hypovolemi"]},
   aortokavalt:      {name:"Aortokavalt kompr.",plain:"Livmoren klemmer store blodårer",body:"Livmoren i ryggeleie trykker på aorta og vena cava. Legg gravide på venstre side ved >20 ukers graviditet.",sev:"w",rel:["abruptio","sjokk"]},
-  antikoag:         {name:"Antikoagulasjon",plain:"Blodfortynnende medisiner",body:"Warfarin, Pradaxa, Xarelto øker blødningsrisikoen kraftig. Selv små skader kan gi store indre blødninger.",sev:"w",rel:["subduralt","hofte","sjokk"]},
-  lungekont:        {name:"Lungekontusjon",plain:"Blåmerke på lungen",body:"Lungen blør innvendig. Hos barn: ribben bøyelige, men kraften overføres til lungen. Tiltagende dyspné.",sev:"w",rel:["pneumothorax","hemothorax","thorax","ribbeinsbrudd"]},
+  antikoag:         {name:"Antikoagulasjon",plain:"Blodfortynnende medisiner",body:"Warfarin, Pradaxa, Xarelto øker blødningsrisikoen kraftig.",sev:"w",rel:["subduralt","hofte","sjokk"]},
+  lungekont:        {name:"Lungekontusjon",plain:"Blåmerke på lungen",body:"Lungen blør innvendig. Hos barn: ribben bøyelige, men kraften overføres til lungen.",sev:"w",rel:["pneumothorax","hemothorax","thorax","ribbeinsbrudd"]},
   dehydrering:      {name:"Dehydrering",plain:"Kroppen mangler væske",body:"Tørr munn, mørk urin, svimmelhet. Eldre er spesielt sårbare.",sev:"w",rel:["hyponatremi","sjokk","hypoglykemi"]},
   skipolletommel:   {name:"Skipolletommel (UCL)",plain:"Leddbåndet i tommelens rotledd",body:"UCL ryker ved fall med skistav i hånden. Instabilt tommelgrep.",sev:"i",rel:["handledd"]},
-  frostskader:      {name:"Frostskader",plain:"Vevet er frosset",body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: nekrose. Ikke gni. Varm forsiktig med kroppen.",sev:"w",rel:["hypotermi"]},
-  sjokk:            {name:"Sjokk",plain:"Utilstrekkelig blodforsyning til organer",body:"Organer får ikke nok oksygenrikt blod til å fungere.\n\nTidlige tegn (kompensert):\n• Takykardi – rask puls (>100)\n• Kald, klam, blek hud\n• Kapillærfyll >2 sek\n• Uro og angst\n\nSene tegn (dekompensert):\n• Hypotensjon – lavt BT (<90 systolisk)\n• Forvirring / bevissthetspåvirkning\n\nBehandling:\n1. Behandle årsaken\n2. Legg flat – hev bena\n3. Hold varm\n4. Ring 113\n5. Ingen mat/drikke\n\nNB: Betablokkere maskerer takykardi!",sev:"d",rel:["hypovolemi","tamponade","tensjon","arytmi","anafylaksi","sepsis"]},
-  gcs:              {name:"GCS – Glasgow Coma Scale",plain:"Bevissthetsskala 3–15",body:"Øyne (1–4) + Verbal (1–5) + Motorisk (1–6). Sum 15 = normal. Synkende GCS er alvorlig.",sev:"w",rel:["avpu","hodeskade","bevissth","pupiller"]},
+  frostskader:      {name:"Frostskader",plain:"Vevet er frosset",body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: nekrose. Ikke gni. Varm forsiktig.",sev:"w",rel:["hypotermi"]},
+  sjokk:            {name:"Sjokk",plain:"Utilstrekkelig blodforsyning til organer",body:"Organer får ikke nok oksygenrikt blod.\n\nTidlige tegn (kompensert):\n• Takykardi – rask puls (>100)\n• Blek, klam og kald hud\n• Kapillærfyll >2 sek\n• Uro og angst\n\nSene tegn (dekompensert):\n• Hypotensjon – BT <90 systolisk\n• Forvirring / bevissthetspåvirkning\n\nBehandling:\n1. Behandle årsaken\n2. Legg flat – hev bena (unntak: hode/bekken/hjerte)\n3. Hold varm\n4. Ring 113\n\nNB: Betablokkere maskerer takykardi!",sev:"d",rel:["hypovolemi","tamponade","tensjon","arytmi","anafylaksi","sepsis"]},
+  gcs:              {name:"GCS – Glasgow Coma Scale",plain:"Bevissthetsskala 3–15",body:"Øyne (1–4) + Verbal (1–5) + Motorisk (1–6). Synkende GCS er alvorlig.",sev:"w",rel:["avpu","hodeskade","bevissth","pupiller"]},
   avpu:             {name:"AVPU",plain:"Rask bevissthetsskala",body:"A = Alert: våken. V = Voice: reagerer på stemme. P = Pain: kun smertereaksjon. U = Unresponsive: ingen respons.",sev:"w",rel:["gcs","bevissth","hypoglykemi"]},
   pupiller:         {name:"Pupillevurdering",plain:"Sjekk øynene",body:"Normal: like store, reagerer på lys. Ensidig vid og treig = økt intrakranialt trykk. Begge faste og vide = kritisk.",sev:"d",rel:["hodeskade","intrakranialt","gcs"]},
   bevissth:         {name:"Bevissthetspåvirkning",plain:"Redusert bevissthet",body:"Enhver grad er alvorlig inntil årsak er kjent. Sikre luftvei. Mål blodsukker.",sev:"d",rel:["gcs","avpu","hypoglykemi","hodeskade","overdose"]},
@@ -1011,48 +1155,53 @@ var TIPS = {
   kompfrekvens:     {name:"100–120/min",plain:"Kompresjonshastighet",body:"Tilsvarer tempoet i 'Stayin' Alive'. Tell høyt for å holde tempo.",sev:"w",rel:["hlr","kompresjonsdyp"]},
   aed:              {name:"AED – hjertestarter",plain:"Automatisk ekstern defibrillator",body:"Analyserer rytmen og gir støt ved VF/VT. Fortsett HLR umiddelbart etter støt.",sev:"d",rel:["hlr","hjertestans","arytmi"]},
   agonalpust:       {name:"Agonal pust",plain:"Gisp rett etter hjertestans",body:"Uregelmessig snorkende pust de første minuttene etter hjertestans. IKKE normal pust – start HLR.",sev:"d",rel:["hjertestans","hlr","luftvei"]},
-  hosteoppfordring: {name:"Oppmuntre til hosting",plain:"Be pasienten hoste kraftig",body:"Første tiltak ved delvis luftveisblokk. Kraftig hosting kan løsne fremmedlegeme.",sev:"w",rel:["ryggslagg","heimlich","luftvei"]},
+  hosteoppfordring: {name:"Oppmuntre til hosting",plain:"",body:"Første tiltak ved delvis luftveisblokk. Kraftig hosting kan løsne fremmedlegeme.",sev:"w",rel:["ryggslagg","heimlich","luftvei"]},
   ryggslagg:        {name:"5 ryggslag",plain:"Slag mellom skulderbladene",body:"Bøy pasienten forover. Gi 5 kraftige slag med flat hånd mellom skulderbladene.",sev:"d",rel:["heimlich","hosteoppfordring","luftvei"]},
   heimlich:         {name:"Heimlich-manøver",plain:"Abdominale støt",body:"Stå bak pasienten. Knytt hånden under navlen. 5 kraftige støt innover og oppover.",sev:"d",rel:["ryggslagg","hosteoppfordring","luftvei"]},
   drukning:         {name:"Drukning – 5 innblåsninger",plain:"Start med pust ved drukning",body:"NRR: gi 5 innledende innblåsninger før kompresjoner. Kald drukning: fortsett HLR selv etter lang tid.",sev:"d",rel:["hlr","hypotermi","hypoxi"]},
   hypoxi:           {name:"Hypoksi",plain:"For lite oksygen",body:"Luftveisobstruksjon, drukning eller inhalasjonsskade. Behandling: åpen luftvei, oksygen.",sev:"d",rel:["luftvei","hjertestans","co","blastlung"]},
   hypovolemi:       {name:"Hypovolemi",plain:"For lite blod i kroppen",body:"Blødning eller væsketap. Stopp blødning, gi væske.",sev:"d",rel:["sjokk","bekken","femur","miltruptur"]},
-  hypokalemi:       {name:"Hypo/hyperkalemi",plain:"Forstyrrelser i kaliumnivå",body:"Elektrolyttforstyrrelse kan utløse dødelig arytmi. Vanlig ved nyresykdom og diuretika.",sev:"w",rel:["arytmi","hjertestans"]},
+  hypokalemi:       {name:"Hypo/hyperkalemi",plain:"Forstyrrelser i kaliumnivå",body:"Elektrolyttforstyrrelse kan utløse dødelig arytmi.",sev:"w",rel:["arytmi","hjertestans"]},
   tamponade:        {name:"Hjertetamponade",plain:"Blod trykker rundt hjertet",body:"Blod samler seg i hjertesekken og komprimerer hjertet.\n\nBecks triade:\n• Hypotensjon\n• Distenderte halsvener\n• Dempede hjertelyder\n\nBehandling: nåledrenasje på sykehus. I felt: ring 113, legg ned, rask transport.",sev:"d",rel:["hjerteskade","sjokk","hjertestans","tensjon"]},
   tensjon:          {name:"Tensjonspneumothorax",plain:"Luft bygger trykk i brysthulen",body:"Presser hjertet til frisk side. Dyspné, fraværende pustelyd, hypotensjon, trakeal deviasjon.\n\nNåldekompresjonen umiddelbart:\n① 2. IKR, midklavikulærlinje\n② 4.–5. IKR, fremre aksillærlinje\n\nNål over ribbeinkanten. Ikke vent på røntgen.",sev:"d",rel:["pneumothorax","tamponade","sjokk","hjertestans"]},
   trombose:         {name:"Trombose",plain:"Blodpropp i lunge eller hjerte",body:"Massiv lungeemboli eller STEMI kan gi hjertestans.",sev:"d",rel:["infarkt","hjertestans","sjokk"]},
-  toksiner:         {name:"Toksiner / forgiftning",plain:"Giftstoffer som hemmer hjertet",body:"Overdose, CO, cyanid. Behandling avhenger av agens.",sev:"d",rel:["co","overdose","hjertestans"]},
+  toksiner:         {name:"Toksiner / forgiftning",plain:"",body:"Overdose, CO, cyanid. Behandling avhenger av agens.",sev:"d",rel:["co","overdose","hjertestans"]},
   infarkt:          {name:"Hjerteinfarkt",plain:"Blodpropp i hjertekaret",body:"Trykkende brystsmerter >20 min, utstråling til venstre arm/kjeve/rygg, svette, kvalme. Ring 113.",sev:"d",rel:["hjertestans","arytmi","sjokk","trombose"]},
-  fast:             {name:"FAST – slagscreening",plain:"Rask slagtest",body:"F: Ansiktshenge. A: Armsvakhet. S: Taleforstyrrelse. T: Tid – ring 113. Trombolyse-vindu 4,5 timer.",sev:"d",rel:["bevissth","gcs","hodeskade"]},
+  fast:             {name:"FAST – slagscreening",plain:"Rask slagtest",body:"F: Ansiktshenge. A: Armsvakhet. S: Taleforstyrrelse. T: Tid – ring 113. Trombolyse-vindu 4,5 timer.",sev:"d",rel:["bevissth","gcs","hodeskade","nihss_tip"]},
   astma:            {name:"Astmaanfall",plain:"Luftveiene trekker seg sammen",body:"Piping i utpust. Alvorlig: kan ikke snakke setninger. Kritisk: stille thorax. Bronkodilator, ring 113.",sev:"w",rel:["luftvei","anafylaksi","pneumothorax"]},
   anafylaksi:       {name:"Anafylaksi",plain:"Livstruende allergisk reaksjon",body:"Elveblest + luftveissymptomer eller hypotensjon. Adrenalin 0,5 mg i.m. ytre lår (EpiPen). Ring 113.",sev:"d",rel:["luftveisoedem","sjokk","arytmi"]},
   ribbeinsbrudd:    {name:"Ribbeinsbrudd",plain:"Et eller flere ribbein er brutt",body:"Gir smertefull pusting. Fare for pneumothorax. Tre eller flere = flail chest.",sev:"w",rel:["pneumothorax","hemothorax","lungekont"]},
-  rabdomyolyse:     {name:"Rabdomyolyse",plain:"Muskelceller brytes ned",body:"Skadede muskelceller frigjøres i blodet og kan gi nyresvikt. Cola-farget urin.",sev:"d",rel:["crush","compartment"]},
+  rabdomyolyse:     {name:"Rabdomyolyse",plain:"Muskelceller brytes ned",body:"Cola-farget urin, nyresvikt. Ved langvarig klemskade.",sev:"d",rel:["crush","compartment"]},
   compartment:      {name:"Compartment-syndrom",plain:"Trykk i muskelfascier",body:"Økt trykk stenger av blodsirkulasjonen. Intens smerte, blek og kald ekstremitet. Kirurgisk nødsituasjon.",sev:"d",rel:["crush","rabdomyolyse","tibia","femur"]},
-  koagulopati:      {name:"Koagulopati",plain:"Nedsatt evne til å danne blodpropp",body:"Pasienten blør mer og stopper ikke. Forverres av hypotermi og acidose – den dødelige triaden.",sev:"d",rel:["hypotermi","sjokk","antikoag"]},
-  sepsis:           {name:"Sepsis",plain:"Livstruende infeksjon i blodet",body:"Kroppen overreagerer på infeksjon. Tegn: feber eller hypotermi, rask puls, rask pust, forvirring. Distributivt sjokk.",sev:"d",rel:["sjokk","bevissth","arytmi"]},
-  ryggmargsjokk:    {name:"Nevrogent sjokk",plain:"Sjokk fra ryggmargsskade",body:"Ryggmargsskade over Th6 gir hypotensjon og bradykardi (ikke takykardi som vanlig sjokk). Varm hud under skadenivå.",sev:"d",rel:["columna","cervikalcolumna","sjokk"]},
-  rus_maskerer:     {name:"Rus maskerer skade",plain:"Rusmidler skjuler tegn på skade",body:"Smertedempende effekt skjuler indre skader. Agitasjon kan skyldes hodeskade, hypoglykemi eller hypoksi – ikke bare rus. Alltid ABCDE. Aldri anta 'bare rus'.",sev:"d",rel:["hodeskade","hypoglykemi","bevissth","sjokk"]},
-  alkohol:          {name:"Alkoholforgiftning",plain:"For mye alkohol i blodet",body:"0,5–1,5 promille: koordinasjonssvikt. 2–3 promille: alvorlig, aspirasjonfare. Over 3 promille: bevisstløshet, livstruende. Mål alltid blodsukker.",sev:"w",rel:["aspirasjon","respirasjonsdep","hypoglykemi","hypotermi"]},
-  aspirasjon:       {name:"Aspirasjon",plain:"Innånding av mageinnhold",body:"Oppkast som trekkes ned i luftveiene. Sideleie er det viktigste forebyggende tiltaket hos bevisstløse.",sev:"d",rel:["luftvei","respirasjonsdep","bevissth"]},
-  nalokson:         {name:"Nalokson (Narcanti)",plain:"Motgift mot opioider",body:"Blokkerer opioidreseptorene. Dose: 0,4–0,8 mg i.m. Virkningstid 30–90 min – kortere enn mange opioider. Pasienten kan falle tilbake i overdose.",sev:"d",rel:["opioidtriade","respirasjonsdep","luftvei"]},
+  koagulopati:      {name:"Koagulopati",plain:"Nedsatt evne til å danne blodpropp",body:"Forverres av hypotermi og acidose – den dødelige triaden.",sev:"d",rel:["hypotermi","sjokk","antikoag"]},
+  sepsis:           {name:"Sepsis",plain:"Livstruende infeksjon i blodet",body:"Feber eller hypotermi, rask puls, rask pust, forvirring. Distributivt sjokk.",sev:"d",rel:["sjokk","bevissth","arytmi"]},
+  ryggmargsjokk:    {name:"Nevrogent sjokk",plain:"Sjokk fra ryggmargsskade",body:"Hypotensjon og bradykardi (ikke takykardi). Varm hud under skadenivå.",sev:"d",rel:["columna","cervikalcolumna","sjokk"]},
+  rus_maskerer:     {name:"Rus maskerer skade",plain:"Rusmidler skjuler tegn på skade",body:"Smertedempende effekt skjuler indre skader. Agitasjon kan skyldes hodeskade, hypoglykemi eller hypoksi. Alltid ABCDE.",sev:"d",rel:["hodeskade","hypoglykemi","bevissth","sjokk"]},
+  alkohol:          {name:"Alkoholforgiftning",plain:"",body:"0,5–1,5 promille: koordinasjonssvikt. 2–3 promille: alvorlig, aspirasjonfare. Over 3 promille: bevisstløshet, livstruende.",sev:"w",rel:["aspirasjon","respirasjonsdep","hypoglykemi","hypotermi"]},
+  aspirasjon:       {name:"Aspirasjon",plain:"Innånding av mageinnhold",body:"Oppkast som trekkes ned i luftveiene. Sideleie er det viktigste forebyggende tiltaket.",sev:"d",rel:["luftvei","respirasjonsdep","bevissth"]},
+  nalokson:         {name:"Nalokson (Narcanti)",plain:"Motgift mot opioider",body:"Dose: 0,4–0,8 mg i.m. Virkningstid 30–90 min – kortere enn mange opioider. Pasienten kan falle tilbake i overdose.",sev:"d",rel:["opioidtriade","respirasjonsdep","luftvei"]},
   opioidtriade:     {name:"Opioid triade",plain:"Tre klassiske overdosetegn",body:"1. Respirasjonsdepresjon. 2. Bevisstløshet. 3. Nålespisse pupiller. Alle tre = opioidoverdose. Behandling: Nalokson + luftvei.",sev:"d",rel:["nalokson","miosepupiller","respirasjonsdep","luftvei"]},
-  miosepupiller:    {name:"Miose",plain:"Nålespisse / trange pupiller",body:"Tyder på opioidpåvirkning, benzodiazepiner eller pontint slag. Kontrast: vide pupiller (mydriasis) = stimulanter.",sev:"w",rel:["opioidtriade","vidpupiller","pupiller"]},
+  miosepupiller:    {name:"Miose",plain:"Nålespisse / trange pupiller",body:"Tyder på opioidpåvirkning, benzodiazepiner eller pontint slag.",sev:"w",rel:["opioidtriade","vidpupiller","pupiller"]},
   vidpupiller:      {name:"Mydriasis",plain:"Vide / store pupiller",body:"Stimulantpåvirkning (amfetamin, kokain, MDMA), hallusinogener, eller alvorlig hypoksi. Ensidig vid pupill = intrakranialt trykk.",sev:"w",rel:["miosepupiller","pupiller","stimulanter"]},
-  stimulanter:      {name:"Stimulantpåvirkning",plain:"Amfetamin, kokain, MDMA",body:"Øker aktiviteten i sentralnervesystemet. Agitasjon, takykardi, hypertensjon, hypertermi, vide pupiller. Kan utløse hjertearytmi.",sev:"w",rel:["arytmi","infarkt","hypertermi_rus","hyponatremi"]},
-  hypertermi_rus:   {name:"Rusrelatert hypertermi",plain:"Farlig overoppheting fra rus",body:"MDMA + fysisk aktivitet + varme kan gi kjernetemperatur over 40–42°C. Avkjøl aktivt: klær av, vann, vifte. Ring 113.",sev:"d",rel:["varmeslag","hyponatremi","arytmi"]},
-  ghb:              {name:"GHB-forgiftning",plain:"Brå bevisstløshet fra GHB",body:"GHB gir doseavhengig CNS-depresjon. Smal terapeutisk margin – liten ekstra dose kan gi bevisstløshet.",sev:"d",rel:["aspirasjon","respirasjonsdep","luftvei","bevissth"]},
-  ketaminhole:      {name:"K-hole",plain:"Dyp dissosiert tilstand av ketamin",body:"Ved høy dose mister pasienten kontakt med omgivelsene – ser tilsynelatende våken ut. Varer 15–45 min. Høy dose kan gi respirasjonsdepresjon.",sev:"d",rel:["respirasjonsdep","bevissth","luftvei"]},
+  stimulanter:      {name:"Stimulantpåvirkning",plain:"Amfetamin, kokain, MDMA",body:"Agitasjon, takykardi, hypertensjon, hypertermi, vide pupiller. Kan utløse hjertearytmi.",sev:"w",rel:["arytmi","infarkt","hypertermi_rus","hyponatremi"]},
+  hypertermi_rus:   {name:"Rusrelatert hypertermi",plain:"Farlig overoppheting fra rus",body:"MDMA + fysisk aktivitet + varme kan gi kjernetemperatur over 40–42°C. Avkjøl aktivt.",sev:"d",rel:["varmeslag","hyponatremi","arytmi"]},
+  ghb:              {name:"GHB-forgiftning",plain:"Brå bevisstløshet fra GHB",body:"Smal terapeutisk margin – liten ekstra dose kan gi bevisstløshet.",sev:"d",rel:["aspirasjon","respirasjonsdep","luftvei","bevissth"]},
+  ketaminhole:      {name:"K-hole",plain:"Dyp dissosiert tilstand av ketamin",body:"Pasienten ser tilsynelatende våken ut men er ikke tilstede. Varer 15–45 min. Høy dose kan gi respirasjonsdepresjon.",sev:"d",rel:["respirasjonsdep","bevissth","luftvei"]},
   degloving:        {name:"Degloving",plain:"Huden rives av fra underliggende vev",body:"Typisk ved motorsykkelulykker. Stor infeksjonsrisiko. Dekk med sterilt bandasje.",sev:"w",rel:["sjokk"]},
-  aeiou_a:          {name:"A – Alkohol / Acidose",plain:"",body:"Alkohol: demper CNS, kan gi bevisstløshet, hypotermi og hypoglykemi.\n\nAcidose: for mye syre i blodet. Ved traume skyldes det oksygenmangel til cellene (anaerob forbrenning → melkesyre). Forverrer koagulasjonen og hjertefunksjonen.",sev:"w",rel:["alkohol","hypoglykemi","koagulopati"]},
-  aeiou_e:          {name:"E – Epilepsi",plain:"",body:"Etter et epileptisk anfall er pasienten ofte bevisstløs eller svært forvirret (postiktal fase). Kan vare minutter til over en time. Ligner hodeskade eller rus.\n\nSpør: kjent epilepsi? Tungeskade? Urinavgang?",sev:"w",rel:["epilepsi","hodeskade","bevissth"]},
-  aeiou_i1:         {name:"I – Insulin (hypoglykemi)",plain:"",body:"For lavt blodsukker (<4 mmol/L) er den vanligste behandlbare årsaken til nedsatt bevissthet.\n\nMål alltid blodsukker. Ligner rus, hodeskade og slag. Behandling: sukker oralt hvis bevisst.",sev:"d",rel:["hypoglykemi","bevissth"]},
-  aeiou_o:          {name:"O – Overdose",plain:"",body:"Legemidler eller rusmidler som demper CNS:\n• Opioider: trang pupill, langsom pust\n• Benzodiazepiner: sløvhet, koordinasjonssvikt\n• Alkohol: koordinasjonssvikt, aspirasjonfare\n\nVurder alltid nalokson ved mistanke om opioidoverdose.",sev:"d",rel:["overdose","nalokson","respirasjonsdep","miosepupiller"]},
-  aeiou_u:          {name:"U – Uremi",plain:"Avfallsstoffer hoper seg opp i blodet",body:"Uremi oppstår ved nyresvikt – kroppen klarer ikke skille ut avfallsstoffer. Gir gradvis bevissthetspåvirkning, kløe, kvalme og kramper. Vanlig hos dialysepasienter.",sev:"w",rel:["bevissth","sepsis"]},
-  aeiou_t:          {name:"T – Traume",plain:"",body:"Hodeskade er en vanlig årsak til nedsatt bevissthet. Kan gi direkte hjerneskade, blødning eller økt intrakranialt trykk.\n\nViktig: traume kan maskeres av rus, og rus kan etterligne hodeskade. Vurder alltid begge.",sev:"d",rel:["hodeskade","subduralt","intrakranialt","gcs","rus_maskerer"]},
-  aeiou_i2:         {name:"I – Infeksjon (sepsis)",plain:"",body:"Alvorlig infeksjon kan gi septisk sjokk med bevissthetspåvirkning. Tegn: feber eller hypotermi, rask puls, rask pust, forvirring.\n\nMistenk sepsis ved: syk pasient + forvirring + uklar årsak.",sev:"d",rel:["sepsis","sjokk","bevissth"]},
+  aeiou_a:          {name:"A – Alkohol / Acidose",plain:"",body:"Alkohol: demper CNS, kan gi bevisstløshet, hypotermi og hypoglykemi.\n\nAcidose: for mye syre i blodet. Ved traume: oksygenmangel til cellene → melkesyre. Forverrer koagulasjonen.",sev:"w",rel:["alkohol","hypoglykemi","koagulopati"]},
+  aeiou_e:          {name:"E – Epilepsi",plain:"",body:"Etter anfall er pasienten ofte bevisstløs eller forvirret (postiktal fase). Varer minutter til over en time. Ligner hodeskade eller rus.",sev:"w",rel:["epilepsi","hodeskade","bevissth"]},
+  aeiou_i1:         {name:"I – Insulin (hypoglykemi)",plain:"",body:"For lavt blodsukker (<4 mmol/L) er vanligste behandlbare årsak til nedsatt bevissthet. Mål alltid blodsukker.",sev:"d",rel:["hypoglykemi","bevissth"]},
+  aeiou_o:          {name:"O – Overdose",plain:"",body:"• Opioider: trang pupill, langsom pust\n• Benzodiazepiner: sløvhet, koordinasjonssvikt\n• Alkohol: koordinasjonssvikt, aspirasjonfare\n\nVurder nalokson ved mistanke om opioidoverdose.",sev:"d",rel:["overdose","nalokson","respirasjonsdep","miosepupiller"]},
+  aeiou_u:          {name:"U – Uremi",plain:"Avfallsstoffer hoper seg opp i blodet",body:"Uremi ved nyresvikt gir gradvis bevissthetspåvirkning, kløe, kvalme og kramper. Vanlig hos dialysepasienter.",sev:"w",rel:["bevissth","sepsis"]},
+  aeiou_t:          {name:"T – Traume",plain:"",body:"Hodeskade kan gi direkte hjerneskade, blødning eller økt intrakranialt trykk.\n\nViktig: traume kan maskeres av rus, og rus kan etterligne hodeskade.",sev:"d",rel:["hodeskade","subduralt","intrakranialt","gcs","rus_maskerer"]},
+  aeiou_i2:         {name:"I – Infeksjon (sepsis)",plain:"",body:"Alvorlig infeksjon kan gi septisk sjokk med bevissthetspåvirkning. Tegn: feber/hypotermi, rask puls, rask pust, forvirring.",sev:"d",rel:["sepsis","sjokk","bevissth"]},
   aeiou_p:          {name:"P – Psykiatri / Slag",plain:"",body:"Hjerneslag: plutselig bevissthetspåvirkning, ansiktshenge, armsvakhet, taleforstyrrelse. Bruk FAST.\n\nPsykiatrisk: utelukkelsesdiagnose – vurder alltid somatiske årsaker først.",sev:"d",rel:["fast","bevissth","hodeskade"]},
-  aeiou_s:          {name:"S – Sjokk / Stroke",plain:"",body:"Sjokk: utilstrekkelig blodforsyning til hjernen gir bevissthetspåvirkning.\n\nStroke (slag): akutt forstyrrelse i hjernens blodtilførsel. Blodpropp (iskemisk) eller blødning (hemoragisk).",sev:"d",rel:["sjokk","fast","bevissth"]}
+  infarkt_kvinner:  {name:"Hjerteinfarkt hos kvinner – atypisk",plain:"Kvinner har ofte andre symptomer enn menn",body:"Klassiske brystsmerter mangler oftere hos kvinner. Vanlige atypiske tegn:\n• Uttalt tretthet / utmattelse\n• Kvalme og oppkast\n• Smerter i rygg, nakke, kjeve eller skulder\n• Kortpustethet uten brystsmerter\n• Svimmelhet\n\nRisikofaktorer hos kvinner: menopause, diabetes og røyking gir høy risiko. Ring 113 ved mistanke – ikke vent på klassiske tegn.",sev:"d",rel:["infarkt","arytmi","sjokk"]},
+  ektopisk:         {name:"Ektopisk graviditet",plain:"Fosteret fester seg utenfor livmoren",body:"Fosteret fester seg i egglederen i stedet for livmoren. Kan gi livstruende indre blødning ved ruptur.\n\nTegn: ensidig underlivssmerter, vaginalblødning, skuldersmerter (blod irriterer mellomgulvet). Kollaps.\n\nMistenk ved: kvinne i fruktbar alder + akutt abdomen + sjokk. Ring 113.",sev:"d",rel:["sjokk","hypovolemi","abruptio"]},
+  ovariecyste:      {name:"Ovariecyste / torsjon",plain:"Cystisk blære eller vridd eggstokk",body:"Ovarietorsjon (vridd eggstokk): plutselig intens ensidig underlivssmerter, kvalme og oppkast. Kirurgisk nødsituasjon.\n\nRuptert cyste: akutte smerter, kan gi intern blødning. Ikke alltid synlig ytre skade.",sev:"d",rel:["ektopisk","sjokk","abdomen_distensjon"]},
+  trombose_kvinner: {name:"DVT / lungeemboli – økt risiko",plain:"Blodpropp i ben eller lunge",body:"Økt risiko ved: p-piller (særlig kombinert med røyking), graviditet og postpartum, immobilisering.\n\nDVT: hevelse, varme og smerter i legg. Lungeemboli: plutselig dyspné, brystsmerter, takykardi. Kan gi hjertestans.",sev:"d",rel:["trombose","sjokk","takykardi"]},
+  osteoporose_kvinner:{name:"Osteoporose hos kvinner",plain:"Redusert bentetthet – lettere å brekke",body:"Postmenopausale kvinner har økt risiko for osteoporose. Konsekvens: lavenergi-MOI kan gi alvorlige frakturer.\n\nSpesielt: hoftebrudd ved fall fra stående, kompresjonsbrudd i ryggraden, håndleddsbrudd. Mistenk fraktur ved lavere terskel enn hos menn.",sev:"w",rel:["hofte","columna","handledd","antikoag"]},
+  aeiou_s:          {name:"S – Sjokk / Stroke",plain:"",body:"Sjokk: utilstrekkelig blodforsyning til hjernen gir bevissthetspåvirkning.\n\nStroke (slag): akutt forstyrrelse i hjernens blodtilførsel.",sev:"d",rel:["sjokk","fast","bevissth"]}
 };
 
 var activeTip = null;
