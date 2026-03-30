@@ -5,555 +5,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>MOI – Komplett</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; background: #111; color: #f0f0f0; padding-bottom: 2rem; }
-  .header { background: #1a1a1a; padding: 14px 16px 10px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #333; }
-  .header h1 { font-size: 16px; font-weight: 600; color: #fff; }
-  .header p { font-size: 11px; color: #888; margin-top: 2px; }
-  .search { width: 100%; background: #222; border: 1px solid #333; border-radius: 8px; color: #f0f0f0; font-size: 14px; padding: 8px 12px; margin-top: 10px; outline: none; }
-  .search::placeholder { color: #555; }
-  .group-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; padding: 14px 12px 4px; }
-  .section { margin: 6px 10px 0; }
-  .section-header { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 10px; padding: 11px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
-  .section-header.open { border-radius: 10px 10px 0 0; }
-  .section-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; flex: 1; }
-  .badge { font-size: 10px; padding: 2px 7px; border-radius: 20px; font-weight: 500; flex-shrink: 0; }
-  .badge-red    { background: #3d1a1a; color: #f87171; }
-  .badge-amber  { background: #3d2d10; color: #fbbf24; }
-  .badge-blue   { background: #0f2540; color: #60a5fa; }
-  .badge-gray   { background: #252525; color: #9ca3af; }
-  .chevron { font-size: 11px; color: #555; transition: transform 0.2s; margin-left: 8px; flex-shrink: 0; }
-  .chevron.open { transform: rotate(180deg); }
-  .section-body { background: #161616; border: 1px solid #2a2a2a; border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; }
-  .row { border-bottom: 1px solid #1e1e1e; padding: 9px 14px; }
-  .row:last-child { border-bottom: none; }
-  .moi-label { font-size: 12px; font-weight: 600; color: #ccc; margin-bottom: 5px; }
-  .tags { line-height: 1.8; }
-  .t { display: inline-block; background: #222; border: 1px solid #333; border-radius: 4px; padding: 2px 7px; margin: 1px 2px 1px 0; color: #bbb; font-size: 11px; cursor: pointer; transition: opacity 0.15s; -webkit-tap-highlight-color: transparent; }
-  .t:active { opacity: 0.7; }
-  .t.w { border-color: #4a3200; background: #2a1e00; color: #e5a820; }
-  .t.d { border-color: #3d1a1a; background: #220e0e; color: #f87171; }
-  .t.i { border-color: #0f2540; background: #091828; color: #60a5fa; }
-  .t.active-tip { outline: 2px solid #60a5fa; outline-offset: 1px; }
-  .divider { font-size: 10px; color: #555; padding: 7px 14px 3px; text-transform: uppercase; letter-spacing: 0.8px; border-top: 1px solid #1e1e1e; }
-  .divider:first-child { border-top: none; }
-  .note { font-size: 11px; color: #e5a820; background: #2a1e00; border-radius: 6px; padding: 5px 9px; margin: 5px 14px 4px; border-left: 2px solid #e5a820; line-height: 1.4; }
-  .note.r { color: #f87171; background: #220e0e; border-left-color: #f87171; }
-  .note.b { color: #60a5fa; background: #091828; border-left-color: #60a5fa; }
-  .hidden { display: none; }
-
-  /* Tooltip */
-  #tooltip { position: fixed; z-index: 9999; background: #1e2535; border: 1px solid #3a5080; border-radius: 10px; padding: 10px 13px; max-width: 260px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); pointer-events: none; transition: opacity 0.15s; opacity: 0; }
-  #tooltip.show { opacity: 1; pointer-events: auto; }
-  #tooltip .tip-name { font-size: 13px; font-weight: 600; color: #90c4ff; margin-bottom: 3px; }
-  #tooltip .tip-plain { font-size: 11px; color: #7aa0cc; margin-bottom: 6px; font-style: italic; }
-  #tooltip .tip-body { font-size: 12px; color: #ccd9ee; line-height: 1.5; }
-  #tooltip .tip-severity { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-top: 6px; }
-  #tooltip .tip-severity.d { background: #3d1a1a; color: #f87171; }
-  #tooltip .tip-severity.w { background: #3d2d10; color: #fbbf24; }
-  #tooltip .tip-severity.i { background: #0f2540; color: #60a5fa; }
-  #tooltip-close { position: absolute; top: 6px; right: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 18px; line-height: 1; color: #aaa; cursor: pointer; pointer-events: auto; background: #2a3550; border-radius: 50%; border: none; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; background: #111; color: #f0f0f0; padding-bottom: 2rem; }
+.header { background: #1a1a1a; padding: 14px 16px 10px; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #333; }
+.header h1 { font-size: 16px; font-weight: 600; color: #fff; }
+.header p { font-size: 11px; color: #888; margin-top: 2px; }
+.search { width: 100%; background: #222; border: 1px solid #333; border-radius: 8px; color: #f0f0f0; font-size: 14px; padding: 8px 12px; margin-top: 10px; outline: none; }
+.search::placeholder { color: #555; }
+.group-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; padding: 14px 12px 4px; }
+.section { margin: 6px 10px 0; }
+.section-header { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 10px; padding: 11px 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.section-header.open { border-radius: 10px 10px 0 0; }
+.section-title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 7px; flex: 1; }
+.badge { font-size: 10px; padding: 2px 7px; border-radius: 20px; font-weight: 500; flex-shrink: 0; }
+.badge-red   { background: #3d1a1a; color: #f87171; }
+.badge-amber { background: #3d2d10; color: #fbbf24; }
+.badge-blue  { background: #0f2540; color: #60a5fa; }
+.badge-gray  { background: #252525; color: #9ca3af; }
+.chevron { font-size: 11px; color: #555; transition: transform 0.2s; margin-left: 8px; flex-shrink: 0; }
+.chevron.open { transform: rotate(180deg); }
+.section-body { background: #161616; border: 1px solid #2a2a2a; border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; }
+.row { border-bottom: 1px solid #1e1e1e; padding: 9px 14px; }
+.row:last-child { border-bottom: none; }
+.moi-label { font-size: 12px; font-weight: 600; color: #ccc; margin-bottom: 5px; }
+.tags { line-height: 1.8; }
+.t { display: inline-block; background: #222; border: 1px solid #333; border-radius: 4px; padding: 2px 7px; margin: 1px 2px 1px 0; color: #bbb; font-size: 11px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.t.w { border-color: #4a3200; background: #2a1e00; color: #e5a820; }
+.t.d { border-color: #3d1a1a; background: #220e0e; color: #f87171; }
+.t.i { border-color: #0f2540; background: #091828; color: #60a5fa; }
+.t.active-tip { outline: 2px solid #60a5fa; outline-offset: 1px; }
+.divider { font-size: 10px; color: #555; padding: 7px 14px 3px; text-transform: uppercase; letter-spacing: 0.8px; border-top: 1px solid #1e1e1e; }
+.divider:first-child { border-top: none; }
+.note { font-size: 11px; color: #e5a820; background: #2a1e00; border-radius: 6px; padding: 5px 9px; margin: 5px 14px 4px; border-left: 2px solid #e5a820; line-height: 1.4; }
+.note.r { color: #f87171; background: #220e0e; border-left-color: #f87171; }
+.note.b { color: #60a5fa; background: #091828; border-left-color: #60a5fa; }
+.hidden { display: none; }
+#tooltip { position: fixed; z-index: 9999; background: #1e2535; border: 1px solid #3a5080; border-radius: 10px; padding: 10px 36px 10px 13px; max-width: 260px; pointer-events: none; opacity: 0; transition: opacity 0.15s; }
+#tooltip.show { opacity: 1; pointer-events: auto; }
+#tip-name { font-size: 13px; font-weight: 600; color: #90c4ff; margin-bottom: 3px; }
+#tip-plain { font-size: 11px; color: #7aa0cc; margin-bottom: 6px; font-style: italic; }
+#tip-body { font-size: 12px; color: #ccd9ee; line-height: 1.5; }
+.tip-sev { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-top: 6px; }
+.tip-sev.d { background: #3d1a1a; color: #f87171; }
+.tip-sev.w { background: #3d2d10; color: #fbbf24; }
+.tip-sev.i { background: #0f2540; color: #60a5fa; }
+#tip-close { position: absolute; top: 8px; right: 10px; font-size: 22px; color: #aaa; line-height: 1; padding: 2px 6px; cursor: pointer; pointer-events: auto; }
+#tip-related { margin-top: 8px; border-top: 1px solid #2a3550; padding-top: 7px; }
+#tip-related-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+.tip-link { display: inline-block; background: #1a2a40; border: 1px solid #3a5080; border-radius: 4px; padding: 3px 8px; margin: 2px 3px 2px 0; color: #60a5fa; font-size: 11px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 </style>
 </head>
 <body>
 
 <div id="tooltip">
-  <button id="tooltip-close" onclick="hideTip()">&#215;</button>
-  <div class="tip-name" id="tip-name"></div>
-  <div class="tip-plain" id="tip-plain"></div>
-  <div class="tip-body" id="tip-body"></div>
-  <span class="tip-severity" id="tip-sev"></span>
+  <div id="tip-close">&#215;</div>
+  <div id="tip-name"></div>
+  <div id="tip-plain"></div>
+  <div id="tip-body"></div>
+  <span id="tip-sev-el"></span>
+  <div id="tip-related" style="display:none;">
+    <div id="tip-related-label">Les mer</div>
+    <div id="tip-related-links"></div>
+  </div>
 </div>
 
 <div class="header">
   <h1>MOI – Komplett referanse</h1>
   <p>Trykk på en tag for mer info · RK feltbruk</p>
-  <input class="search" type="search" placeholder="Søk skade, sport, mekanisme..." id="search" oninput="filterRows()">
+  <input class="search" type="search" id="search" placeholder="Søk skade, sport, mekanisme..." oninput="filterRows()">
 </div>
 
 <div id="all-sections">
-
-<div class="group-label">RK – sport og arrangement</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">⛷ Alpint / snowboard / langrenn</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">Alpint – kollisjon og fall</div>
-    <div class="row" data-row>
-      <div class="moi-label">Høyhastighetskollisjon</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="thorax">Thorax / pneumothorax</span><span class="t d" data-tip="milt">Milt / lever</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span></div>
-      <div class="note r">Hjelm ≠ ingen hodeskade – vurder alltid</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall med rotasjon / fastkjørt ski</div>
-      <div class="tags"><span class="t d" data-tip="acl">Kneskade ACL/MCL</span><span class="t w" data-tip="tibia">Tibia</span><span class="t w" data-tip="columna">Columna thorakolumbal</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall på utstrakt arm</div>
-      <div class="tags"><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="skulder">Skulder / klavikkel</span><span class="t i" data-tip="skipolletommel">Skipolletommel UCL</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Snowboard – fall bakover</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Occipital hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="handledd">Håndledd</span></div>
-    </div>
-    <div class="divider">Langrenn</div>
-    <div class="row" data-row>
-      <div class="moi-label">Medisinske årsaker i felt</div>
-      <div class="tags"><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t d" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="uttomming">Uttømming / kollaps</span><span class="t w" data-tip="frostskader">Frostskader</span></div>
-      <div class="note">Kaldt + bevissthetspåvirkning = mål blodsukker først</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🚴 Sykkel – vei og terreng</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">Landevei / criterium</div>
-    <div class="row" data-row>
-      <div class="moi-label">Massestyrt – høy hastighet</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="klavikkel">Klavikkel</span><span class="t w" data-tip="thorax">Thorax</span><span class="t w" data-tip="skulder">Skulder</span><span class="t" data-tip="degloving">Veimerker / degloving</span></div>
-      <div class="note r">Hjelm med synlig skade = mistenk hodeskade uansett</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Over styret (OTB)</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t w" data-tip="ansikt">Ansikt / tenner</span><span class="t w" data-tip="klavikkel">Klavikkel</span><span class="t w" data-tip="handledd">Håndledd</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Styret i abdomen / thorax</div>
-      <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t d" data-tip="leverruptur">Leverruptur</span><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
-      <div class="note">Intern blødning kan debutere forsinket</div>
-    </div>
-    <div class="divider">MTB / gravel / terreng</div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall i høy fart / hopp</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="thorax">Thorax</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur / tibia</span><span class="t w" data-tip="columna">Columna</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Lav hastighet / teknisk terreng</div>
-      <div class="tags"><span class="t w" data-tip="skulder">Skulder</span><span class="t w" data-tip="handledd">Håndledd</span><span class="t" data-tip="ankel">Ankel</span><span class="t" data-tip="kne">Kne</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🏉 Rugby / amerikansk fotball</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Takling – feil teknikk / høy hastighet</div>
-      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hjernerystelse">Hodeskade / hjernerystelse</span><span class="t w" data-tip="skulder">Skulder AC-ledd</span><span class="t w" data-tip="klavikkel">Klavikkel</span></div>
-      <div class="note r">Spinalprotokoll ved takling + hodeskade inntil avkreftet</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Scrum-kollaps</div>
-      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hodeskade">Hodeskade</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Slag mot truncus</div>
-      <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span><span class="t w" data-tip="pneumothorax">Pneumothorax</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Hjernerystelse – gjenkjenn</div>
-      <div class="tags"><span class="t d" data-tip="hjernerystelse">Forvirring / amnesi</span><span class="t d" data-tip="hodeskade">Hodepine</span><span class="t w" data-tip="kvalme">Kvalme</span><span class="t w" data-tip="lysomt">Lysømfintlighet</span></div>
-      <div class="note r">Ut av spill – ikke tilbake samme dag</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">⚽ Fotball / futsal / håndball</span>
-    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Takling / kollisjon</div>
-      <div class="tags"><span class="t w" data-tip="ankel">Ankel</span><span class="t w" data-tip="acl">Kne ACL / menisk</span><span class="t w" data-tip="hodeskade">Hodeskade ved duell</span><span class="t" data-tip="tibia">Tibia</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Keeper – landing / kollisjon</div>
-      <div class="tags"><span class="t w" data-tip="skulder">Skulder dislokasjon</span><span class="t w" data-tip="fingre">Fingre</span><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="hodeskade">Hodeskade</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Ikke-kontaktskader</div>
-      <div class="tags"><span class="t d" data-tip="akillesruptur">Akillesruptur</span><span class="t w" data-tip="lyske">Lyske / hamstring</span><span class="t w" data-tip="acl">Kne ACL vridning</span></div>
-      <div class="note">Hørte smell + kollapset = mistenk akillesruptur</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Medisinsk kollaps på banen</div>
-      <div class="tags"><span class="t d" data-tip="hjertestans">Hjertestans ung utøver!</span><span class="t d" data-tip="arytmi">Arytmi</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="varmeslag">Varmeslag</span></div>
-      <div class="note r">Ung utøver kollaps = hjertestans inntil annet bevist. AED umiddelbart.</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🥊 Kampsport / boksing / MMA</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Slag mot hode</div>
-      <div class="tags"><span class="t d" data-tip="hjernerystelse">Hjernerystelse</span><span class="t d" data-tip="intrakranialt">Intrakranialt hematom</span><span class="t w" data-tip="ansikt">Ansiktsfrakturer</span><span class="t w" data-tip="oye">Øyeskade</span></div>
-      <div class="note r">Gjentatte slag: symptomer kan komme forsinket</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Slag mot truncus</div>
-      <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t w" data-tip="leverruptur">Lever</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span><span class="t w" data-tip="pneumothorax">Pneumothorax</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">KO / bevisstløs</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade til avkreftet</span><span class="t d" data-tip="luftvei">Luftvei</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna</span></div>
-      <div class="note r">Ikke tilbake til kamp. Observer minimum 1 time.</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Kvelertag / struping</div>
-      <div class="tags"><span class="t d" data-tip="luftveisskade">Luftveisskade</span><span class="t d" data-tip="karotis">Karotisdisseksjon</span><span class="t w" data-tip="bevissth">Bevissthetspåvirkning</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🎵 Konsert / festival / scene</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">Folkemengde og trykk</div>
-    <div class="row" data-row>
-      <div class="moi-label">Crowd crush / mengdetrykk</div>
-      <div class="tags"><span class="t d" data-tip="crowdcrush">Thoraxkompresjon</span><span class="t d" data-tip="crowdcrush">Pustestopp</span><span class="t d" data-tip="trampling">Trampling</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
-      <div class="note r">Stående kompresjon = puster ikke selv om oppreist</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall / trampling i mengde</div>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="thorax">Thorax</span><span class="t w" data-tip="columna">Columna</span><span class="t w">Ekstremiteter</span></div>
-    </div>
-    <div class="divider">Moshpit / crowd surfing</div>
-    <div class="row" data-row>
-      <div class="moi-label">Fall fra crowd surfing</div>
-      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t w" data-tip="skulder">Skulder</span><span class="t w" data-tip="handledd">Håndledd</span></div>
-    </div>
-    <div class="divider">Medisinske årsaker</div>
-    <div class="row" data-row>
-      <div class="moi-label">Kollaps i folkemengde</div>
-      <div class="tags"><span class="t d" data-tip="overdose">Rus / overdose</span><span class="t d" data-tip="varmeslag">Varmeslag</span><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="epilepsi">Epilepsi</span><span class="t d" data-tip="hjertestans">Hjertestans</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Rus / kombinasjonsrus</div>
-      <div class="tags"><span class="t d" data-tip="respirasjonsdep">Respirasjonsdepresjon</span><span class="t d" data-tip="bevissth">Bevissthetspåvirkning</span><span class="t w" data-tip="agitasjon">Agitasjon</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi (alkohol)</span></div>
-      <div class="note">Bevisstløs + rus = sideleie, luftvei, aldri la dem være alene</div>
-    </div>
-    <div class="divider">Scene / rigg</div>
-    <div class="row" data-row>
-      <div class="moi-label">Rigg- / scenekolaps</div>
-      <div class="tags"><span class="t d" data-tip="crush">Crush-skader</span><span class="t d" data-tip="multippel">Multippeltraume</span><span class="t d" data-tip="penetrerende">Penetrerende skader</span></div>
-      <div class="note r">Masseskade-protokoll – triage, ikke alt på én pasient</div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">👥 Løp / folkemengde / arrangement</span>
-    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Kollaps under / etter løp</div>
-      <div class="tags"><span class="t d" data-tip="hjertestans">Hjertestans</span><span class="t d" data-tip="varmeslag">Varmeslag</span><span class="t d" data-tip="hyponatremi">Hyponatremi</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="uttomming">Uttømming</span></div>
-      <div class="note r">Kollaps etter målgang = hjertestans inntil annet bevist</div>
-      <div class="note">Hyponatremi: forvirret + mye væskeinntak = ikke gi mer vann</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Besvimelse / synkope</div>
-      <div class="tags"><span class="t w" data-tip="synkope">Vasovagal</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t d" data-tip="arytmi">Arytmi (eldre)</span></div>
-      <div class="note">Vasovagal: varm + stående lenge → legg ned, hev bena</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Eldre på arrangement</div>
-      <div class="tags"><span class="t d" data-tip="hofte">Fall = hoftebrudd</span><span class="t w" data-tip="arytmi">Kardiologisk kollaps</span><span class="t w" data-tip="dehydrering">Dehydrering</span></div>
-      <div class="note">Betablokkere maskerer takykardi ved sjokk</div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Trafikk</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🚗 Bil – kollisjon og velting</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Frontkollisjon høy hastighet</div>
-      <div class="tags"><span class="t d" data-tip="aorta">Aorta</span><span class="t d" data-tip="milt">Milt</span><span class="t d" data-tip="leverruptur">Lever</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="thorax">Thorax</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Sidekollisjon</div>
-      <div class="tags"><span class="t w" data-tip="thorax">Ipsilateral thorax</span><span class="t d" data-tip="milt">Milt (venstre)</span><span class="t d" data-tip="leverruptur">Lever (høyre)</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Velting</div>
-      <div class="tags"><span class="t d" data-tip="columna">Columna alle nivåer</span><span class="t w" data-tip="thorax">Thorax</span><span class="t w" data-tip="hodeskade">Hodeskade</span><span class="t w" data-tip="milt">Indre organer</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Fotgjenger påkjørt</div>
-      <div class="tags"><span class="t w" data-tip="tibia">Tibia/fibula (bumper)</span><span class="t d" data-tip="thorax">Thorax/abdomen (panser)</span><span class="t d" data-tip="hodeskade">Hodeskade (bakkefall)</span></div>
-      <div class="note">Triangelmønster – tre kontaktpunkter</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Motorsykkel</div>
-      <div class="tags"><span class="t d" data-tip="thorax">Thorax</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span><span class="t w" data-tip="tibia">Tibia</span><span class="t w" data-tip="hodeskade">Hodeskade</span><span class="t" data-tip="degloving">Degloving</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Fall</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">⬇ Fall – høyde og mekanisme</span>
-    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Under 1 m – eldre!</div>
-      <div class="tags"><span class="t d" data-tip="hofte">Hoftebrudd</span><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="columna">Columna</span><span class="t w" data-tip="subduralt">Subduralt hematom</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Over 3 m / 2× høyde</div>
-      <div class="tags"><span class="t d" data-tip="calcaneus">Calcaneus</span><span class="t d" data-tip="columna">Columna aksial</span><span class="t d" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span><span class="t w" data-tip="thorax">Thorax</span><span class="t d" data-tip="milt">Milt / lever</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Diving / stuping grunt vann</div>
-      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna C4–C6</span><span class="t d" data-tip="hodeskade">Hodeskade</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Penetrerende</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🔪 Kniv / stikkvåpen</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Thorax</div>
-      <div class="tags"><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t d" data-tip="hemothorax">Hemothorax</span><span class="t d" data-tip="hjerteskade">Hjerteskade</span><span class="t d" data-tip="aorta">Store kar</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Abdomen</div>
-      <div class="tags"><span class="t d" data-tip="tarmperf">Tarmperforasjon</span><span class="t d" data-tip="milt">Milt</span><span class="t d" data-tip="leverruptur">Lever</span><span class="t d" data-tip="aorta">Aorta / v. cava</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Nakke</div>
-      <div class="tags"><span class="t d" data-tip="karotis">Karotis / jugular</span><span class="t d" data-tip="luftrøret">Luftrør</span><span class="t w" data-tip="spiserør">Spiserør</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Impalement</div>
-      <div class="tags"><span class="t d" data-tip="impalement">IKKE fjern – stabiliser</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Eksplosjon og termisk</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">💥 Eksplosjon / blast</span>
-    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Primær – trykkbølge</div>
-      <div class="tags"><span class="t d" data-tip="blastlung">Blast lung</span><span class="t w" data-tip="tympanisk">Tympanisk membran</span><span class="t w">Tarm</span><span class="t w">Øyne</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Sekundær – fragmenter</div>
-      <div class="tags"><span class="t d" data-tip="penetrerende">Penetrerende alle steder</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Kvartær – varme / kjemikalier</div>
-      <div class="tags"><span class="t w" data-tip="brannskade">Brannskader</span><span class="t d" data-tip="inhalasjon">Inhalasjonsskade</span><span class="t w" data-tip="co">CO-forgiftning</span></div>
-    </div>
-    <div class="note r">Primærskader er usynlige – ser bedre ut enn de er</div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🔥 Termisk / kjemisk</span>
-    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Brannskade ansikt / hals</div>
-      <div class="tags"><span class="t d" data-tip="inhalasjon">Inhalasjonsskade</span><span class="t d" data-tip="luftveisoedem">Luftveisødem forsinket</span></div>
-      <div class="note r">Stridor / heshet = handle raskt, kan lukke luftveien</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Brann i lukket rom</div>
-      <div class="tags"><span class="t d" data-tip="co">CO-forgiftning</span><span class="t d" data-tip="cyanid">Cyanid (plast)</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Hypotermi</div>
-      <div class="tags"><span class="t d" data-tip="arytmi">Arytmi</span><span class="t w" data-tip="koagulopati">Koagulopati</span><span class="t w" data-tip="bevissth">Bevissthetspåvirkning</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Arbeidsulykker</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🏗 Industri / arbeidsulykker</span>
-    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="row" data-row>
-      <div class="moi-label">Klemskade – langvarig</div>
-      <div class="tags"><span class="t d" data-tip="rabdomyolyse">Crush-syndrom / rabdomyolyse</span><span class="t d" data-tip="compartment">Compartment-syndrom</span><span class="t w">Indre blødning</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Elektrisk lavspent</div>
-      <div class="tags"><span class="t w" data-tip="elskade">Inn-/utgangssår</span><span class="t d" data-tip="arytmi">Hjertearytmi</span><span class="t w">Muskelskade</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Trykkluft-injeksjon</div>
-      <div class="tags"><span class="t d" data-tip="trykkluft">Alvorlig vevsskade langs bane</span></div>
-      <div class="note r">Ser uskyldig ut utenpå – er det ikke</div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Spesielle populasjoner</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">👶 Barn / eldre / gravide</span>
-    <span class="badge badge-blue">OBS</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">Eldre</div>
-    <div class="row" data-row>
-      <div class="tags"><span class="t d" data-tip="hofte">Hoftebrudd ved fall fra stående</span><span class="t d" data-tip="subduralt">Subduralt hematom</span><span class="t w" data-tip="antikoag">Antikoagulasjon</span></div>
-      <div class="note">Betablokkere maskerer takykardi. Lav terskel for alvorlig skade.</div>
-    </div>
-    <div class="divider">Barn</div>
-    <div class="row" data-row>
-      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade (stort hode)</span><span class="t w" data-tip="lungekont">Lungekontusjon uten ribbensbrudd</span><span class="t w">Indre org. uten hudskade</span></div>
-      <div class="note r">Kompenserer lenge – kollapser brått</div>
-    </div>
-    <div class="divider">Gravide</div>
-    <div class="row" data-row>
-      <div class="tags"><span class="t d" data-tip="abruptio">Abruptio placentae</span><span class="t w" data-tip="aortokavalt">Aortokavalt kompr.</span></div>
-      <div class="note">Legg på venstre side. Foster kan ha det dårlig selv om mor er stabil.</div>
-    </div>
-  </div>
-</div>
-
-<div class="group-label">Norske retningslinjer – NRR</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">🇳🇴 Norsk Råd for Gjenoppliving – nøkkelpunkter</span>
-    <span class="badge badge-blue">NRR</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">HLR – voksen</div>
-    <div class="row" data-row>
-      <div class="moi-label">Kjede: gjenkjenn → ring 113 → start HLR</div>
-      <div class="tags"><span class="t d" data-tip="hlr30_2">30:2 kompresjoner/innblåsninger</span><span class="t d" data-tip="kompresjonsdyp">5–6 cm dybde</span><span class="t d" data-tip="kompfrekvens">100–120/min</span><span class="t w" data-tip="aed">AED så raskt som mulig</span></div>
-      <div class="note r">Ikke avbryt kompresjoner unødig – pause maks 10 sek</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Agonal pust</div>
-      <div class="tags"><span class="t d" data-tip="agonalpust">Uregelmessig gisp</span></div>
-      <div class="note r">Agonal pust = start HLR umiddelbart – det er ikke normal pust</div>
-    </div>
-    <div class="divider">Fremmedlegeme i luftveien – voksen</div>
-    <div class="row" data-row>
-      <div class="moi-label">Bevisst pasient</div>
-      <div class="tags"><span class="t w" data-tip="hosteoppfordring">Oppmuntre til hosting</span><span class="t d" data-tip="ryggslagg">5 ryggslag</span><span class="t d" data-tip="heimlich">5 abdominale støt (Heimlich)</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Bevisstløs pasient</div>
-      <div class="tags"><span class="t d">Start HLR</span><span class="t w">Se etter fremmedlegeme i munn</span></div>
-    </div>
-    <div class="divider">Drukningsulykke</div>
-    <div class="row" data-row>
-      <div class="moi-label">Rekkefølge i vann</div>
-      <div class="tags"><span class="t d" data-tip="drukning">5 innblåsninger først</span><span class="t d">Deretter 30:2</span><span class="t w">Hypotermi = ikke gi opp tidlig</span></div>
-      <div class="note">Kald drukning: HLR til 32°C kjernetemperatur – "ikke død før varm og død"</div>
-    </div>
-    <div class="divider">Hjertestans – spesielle årsaker (4H/4T)</div>
-    <div class="row" data-row>
-      <div class="moi-label">4H</div>
-      <div class="tags"><span class="t w" data-tip="hypoxi">Hypoksi</span><span class="t w" data-tip="hypovolemi">Hypovolemi</span><span class="t w" data-tip="hypotermihjerte">Hypotermi</span><span class="t w" data-tip="hypokalemi">Hypo/hyperkalemi</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">4T</div>
-      <div class="tags"><span class="t w" data-tip="tamponade">Tamponade</span><span class="t w" data-tip="tensjon">Tensjonspneumothorax</span><span class="t w" data-tip="trombose">Trombose</span><span class="t w" data-tip="toksiner">Toksiner / forgiftning</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="section" data-section>
-  <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">💊 Vanlige medisinske tilstander – felt</span>
-    <span class="badge badge-blue">MED</span><span class="chevron">▼</span>
-  </div>
-  <div class="section-body hidden">
-    <div class="divider">Hjerte / kar</div>
-    <div class="row" data-row>
-      <div class="moi-label">Mistenkt hjerteinfarkt</div>
-      <div class="tags"><span class="t d" data-tip="infarkt">Brystsmerter > 20 min</span><span class="t d">Utstråling arm/kjeve/rygg</span><span class="t w">Svette / kvalme</span><span class="t w">Kortpustethet</span></div>
-      <div class="note r">Ring 113 umiddelbart. Legg pasienten til ro. Ikke la dem gå.</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Hjertesvikt / lungeødem</div>
-      <div class="tags"><span class="t d" data-tip="lungeoedem">Akutt dyspné</span><span class="t w">Sitter fremoverlent</span><span class="t w">Gurgling i lungene</span><span class="t w">Cyanose</span></div>
-    </div>
-    <div class="divider">Nevrologi</div>
-    <div class="row" data-row>
-      <div class="moi-label">Mistenkt hjerneslag – FAST</div>
-      <div class="tags"><span class="t d" data-tip="fast">Facial drooping (ansiktshenge)</span><span class="t d">Arm weakness (armsvakhet)</span><span class="t d">Speech (taleforstyrrelse)</span><span class="t d">Time – ring 113</span></div>
-      <div class="note r">Tid er hjerneceller. Trombolyse-vindu er 4,5 timer fra symptomdebut.</div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Epileptisk anfall – varighet</div>
-      <div class="tags"><span class="t w" data-tip="epilepsi">Under 5 min: beskytt, observer</span><span class="t d">Over 5 min: ring 113 (status epilepticus)</span></div>
-    </div>
-    <div class="divider">Respirasjon</div>
-    <div class="row" data-row>
-      <div class="moi-label">Astmaanfall</div>
-      <div class="tags"><span class="t w" data-tip="astma">Piping i utpust</span><span class="t d">Kan ikke snakke setninger = alvorlig</span><span class="t d">Stille thorax = kritisk</span></div>
-    </div>
-    <div class="row" data-row>
-      <div class="moi-label">Anafylaksi</div>
-      <div class="tags"><span class="t d" data-tip="anafylaksi">Elveblest + luftveissvikt</span><span class="t d">Hypotensjon + takykardi</span><span class="t d">Adrenalin (EpiPen)</span></div>
-      <div class="note r">Adrenalin er eneste behandling – gi umiddelbart ved luftveispåvirkning</div>
-    </div>
-    <div class="divider">Diabetes</div>
-    <div class="row" data-row>
-      <div class="moi-label">Hypoglykemi – behandling</div>
-      <div class="tags"><span class="t w" data-tip="hypoglykemi">Bevisst: gi sukker oralt</span><span class="t d">Bevisstløs: sideleie, ring 113</span><span class="t i">Aldri gi noe oralt til bevisstløs</span></div>
-    </div>
-  </div>
-</div>
 
 <div class="group-label">Referansekort</div>
 
@@ -566,15 +88,15 @@
     <div class="row" data-row>
       <div class="moi-label" style="color:#f87171;">A – Airway (Luftvei)</div>
       <div class="tags"><span class="t d" data-tip="luftvei">Er luftveien åpen?</span><span class="t w">Snorking → kjevetak / NPA</span><span class="t w">Gurgling → sideleie / sug</span><span class="t w">Stridor → obstruksjon</span></div>
-      <div class="note">Ved traume: jaw thrust, ikke head-tilt. Spinalstabilisering ved MOI.</div>
+      <div class="note">Ved traume: jaw thrust. Spinalstabilisering ved MOI.</div>
     </div>
     <div class="row" data-row>
       <div class="moi-label" style="color:#e5a820;">B – Breathing (Pust)</div>
-      <div class="tags"><span class="t w">RF normal: 12–20/min</span><span class="t d">RF &lt;10 eller &gt;29 = kritisk</span><span class="t w">Symmetrisk bevegelse?</span><span class="t w" data-tip="pneumothorax">Ensidig svekket pustelyd?</span><span class="t w">SpO₂ mål &gt;94%</span></div>
+      <div class="tags"><span class="t i">RF normal: 12–20/min</span><span class="t d">RF &lt;10 eller &gt;29 = kritisk</span><span class="t w" data-tip="pneumothorax">Ensidig svekket pustelyd?</span><span class="t i">SpO₂ mål &gt;94%</span></div>
     </div>
     <div class="row" data-row>
       <div class="moi-label" style="color:#60a5fa;">C – Circulation (Sirkulasjon)</div>
-      <div class="tags"><span class="t w">Puls: frekvens, styrke, reg.</span><span class="t d" data-tip="sjokk">Kapillærfyll &gt;2 sek = sjokk</span><span class="t w">Hudstatus: farge, temp, fukt</span><span class="t d">Blødning kontrollert?</span></div>
+      <div class="tags"><span class="t i">Puls: frekvens, styrke, reg.</span><span class="t d" data-tip="sjokk">Kapillærfyll &gt;2 sek = sjokk</span><span class="t w">Hudstatus: farge, temp, fukt</span></div>
     </div>
     <div class="row" data-row>
       <div class="moi-label" style="color:#34d399;">D – Disability (Bevissthet)</div>
@@ -594,69 +116,69 @@
   </div>
   <div class="section-body hidden">
     <div class="row" data-row>
-      <div class="moi-label" style="color:#f87171;">S – Symptoms (Symptomer)</div>
-      <div class="tags"><span class="t w">Hva plager pasienten nå?</span><span class="t i">OPQRST: Onset, Provocasjon, Kvalitet, Utstråling, Styrke, Tid</span></div>
+      <div class="moi-label" style="color:#f87171;">S – Symptoms</div>
+      <div class="tags"><span class="t w">Hva plager pasienten nå?</span><span class="t i">OPQRST: Onset, Provokasjon, Kvalitet, Utstråling, Styrke, Tid</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#e5a820;">A – Allergies (Allergier)</div>
+      <div class="moi-label" style="color:#e5a820;">A – Allergies</div>
       <div class="tags"><span class="t w">Medisiner?</span><span class="t w">Mat?</span><span class="t w" data-tip="anafylaksi">Tidligere anafylaksi?</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#60a5fa;">M – Medications (Medisiner)</div>
-      <div class="tags"><span class="t w" data-tip="antikoag">Blodfortynnende?</span><span class="t w">Betablokkere?</span><span class="t w">Insulin?</span><span class="t w">Hjertemed.?</span></div>
-      <div class="note">Medisiner kan maskere symptomer – betablokkere skjuler takykardi</div>
+      <div class="moi-label" style="color:#60a5fa;">M – Medications</div>
+      <div class="tags"><span class="t w" data-tip="antikoag">Blodfortynnende?</span><span class="t w">Betablokkere?</span><span class="t w">Insulin?</span></div>
+      <div class="note">Betablokkere skjuler takykardi ved sjokk</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#34d399;">P – Past history (Sykehistorie)</div>
-      <div class="tags"><span class="t w">Hjertesykdom?</span><span class="t w">Diabetes?</span><span class="t w">Epilepsi?</span><span class="t w">Tidligere samme plager?</span></div>
+      <div class="moi-label" style="color:#34d399;">P – Past history</div>
+      <div class="tags"><span class="t w">Hjertesykdom?</span><span class="t w">Diabetes?</span><span class="t w">Epilepsi?</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#c084fc;">L – Last oral intake (Siste måltid)</div>
-      <div class="tags"><span class="t w">Hva og når spiste/drakk sist?</span><span class="t i">Relevant ved bevisstløshet og kirurgi</span></div>
+      <div class="moi-label" style="color:#c084fc;">L – Last oral intake</div>
+      <div class="tags"><span class="t w">Hva og når spiste/drakk sist?</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#fb923c;">E – Events (Hendelsesforløp)</div>
-      <div class="tags"><span class="t w">Hva skjedde rett før?</span><span class="t w" data-tip="fast">Aktivitet ved debut?</span><span class="t w">Besvimelse? Fall?</span></div>
+      <div class="moi-label" style="color:#fb923c;">E – Events</div>
+      <div class="tags"><span class="t w">Hva skjedde rett før?</span><span class="t w">Aktivitet ved debut?</span><span class="t w">Besvimelse? Fall?</span></div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#a78bfa;">R – Risk factors (Risikofaktorer)</div>
-      <div class="tags"><span class="t w">Røyker?</span><span class="t w">Tidligere hjertesykdom?</span><span class="t w">Alder?</span></div>
+      <div class="moi-label" style="color:#a78bfa;">R – Risk factors</div>
+      <div class="tags"><span class="t w">Røyker?</span><span class="t w">Hjertesykdom i familien?</span><span class="t w">Alder?</span></div>
     </div>
   </div>
 </div>
 
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
-    <span class="section-title">📞 ISBAR – overlevering til AMK / ambulanse</span>
+    <span class="section-title">📞 ISBAR – overlevering</span>
     <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
   </div>
   <div class="section-body hidden">
     <div class="row" data-row>
-      <div class="moi-label" style="color:#f87171;">I – Identify (Hvem er du?)</div>
-      <div class="tags"><span class="t w">Navn + rolle</span><span class="t w">Organisasjon (RK / Forsvar)</span></div>
-      <div class="note b">«Hei, jeg heter Lars, jeg er fra Røde Kors hjelpekorps»</div>
+      <div class="moi-label" style="color:#f87171;">I – Identify</div>
+      <div class="tags"><span class="t w">Navn + rolle</span><span class="t w">Organisasjon</span></div>
+      <div class="note b">«Hei, jeg heter Lars, Røde Kors hjelpekorps»</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#e5a820;">S – Situation (Hva skjer?)</div>
-      <div class="tags"><span class="t w">Pasientens alder / kjønn</span><span class="t d">Hovedproblem</span><span class="t w">Sted / adresse</span></div>
-      <div class="note b">«Mann ca. 40 år, bevisstløs etter fall fra 4 meter, Holmenkollen»</div>
+      <div class="moi-label" style="color:#e5a820;">S – Situation</div>
+      <div class="tags"><span class="t w">Alder / kjønn</span><span class="t d">Hovedproblem</span><span class="t w">Sted / adresse</span></div>
+      <div class="note b">«Mann ca. 40 år, bevisstløs etter fall fra 4 meter»</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#60a5fa;">B – Background (Bakgrunn)</div>
+      <div class="moi-label" style="color:#60a5fa;">B – Background</div>
       <div class="tags"><span class="t w">MOI / hendelsesforløp</span><span class="t w">Kjent sykehistorie</span><span class="t w">Tid siden hendelse</span></div>
-      <div class="note b">«Funnet av kolleger, bevisstløs ca. 5 min, ukjent sykehistorie»</div>
+      <div class="note b">«Funnet bevisstløs ca. 5 min, ukjent sykehistorie»</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#34d399;">A – Assessment (Din vurdering)</div>
-      <div class="tags"><span class="t w" data-tip="gcs">GCS</span><span class="t w">Puls / RF / SpO₂</span><span class="t w" data-tip="pupiller">Pupiller</span><span class="t w">Synlige skader</span></div>
-      <div class="note b">«GCS 8, puls 118 og svak, RF 22, pupiller asymmetriske»</div>
+      <div class="moi-label" style="color:#34d399;">A – Assessment</div>
+      <div class="tags"><span class="t w" data-tip="gcs">GCS</span><span class="t w">Puls / RF / SpO₂</span><span class="t w" data-tip="pupiller">Pupiller</span></div>
+      <div class="note b">«GCS 8, puls 118 svak, RF 22, pupiller asymmetriske»</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label" style="color:#c084fc;">R – Recommendation (Hva ber du om?)</div>
-      <div class="tags"><span class="t d">Hastegrad</span><span class="t w">Traumeteam?</span><span class="t w">Helikopter?</span><span class="t w">ETA til deg</span></div>
-      <div class="note b">«Ber om traumeteam klart, ETA for ambulanse?»</div>
+      <div class="moi-label" style="color:#c084fc;">R – Recommendation</div>
+      <div class="tags"><span class="t d">Hastegrad</span><span class="t w">Traumeteam?</span><span class="t w">ETA?</span></div>
+      <div class="note b">«Ber om traumeteam klart, hva er ETA ambulanse?»</div>
     </div>
-    <div class="note r" style="margin:8px 14px;">Det du IKKE sier til AMK eksisterer ikke for dem. Si alt.</div>
+    <div class="note r" style="margin:8px 14px;">Det du IKKE sier til AMK eksisterer ikke for dem.</div>
   </div>
 </div>
 
@@ -668,73 +190,404 @@
   <div class="section-body hidden">
     <div class="divider">Vitale tegn</div>
     <div class="row" data-row>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-        <div>
-          <div class="moi-label">Puls</div>
-          <div class="tags"><span class="t i">Normal: 60–100</span><span class="t w">&lt;50 = bradykardi</span><span class="t d">&gt;130 = alvorlig takykardi</span></div>
-        </div>
-        <div>
-          <div class="moi-label">Blodtrykk systolisk</div>
-          <div class="tags"><span class="t i">Normal: 100–140</span><span class="t d">&lt;90 = hypotensjon</span><span class="t w">&gt;180 = hypertensjon</span></div>
-        </div>
-        <div>
-          <div class="moi-label">Resp.frekvens</div>
-          <div class="tags"><span class="t i">Normal: 12–20</span><span class="t d">&lt;10 = kritisk</span><span class="t d">&gt;29 = kritisk</span></div>
-        </div>
-        <div>
-          <div class="moi-label">SpO₂</div>
-          <div class="tags"><span class="t i">Normal: 95–100%</span><span class="t w">90–94% = bekymringsfullt</span><span class="t d">&lt;90% = kritisk</span></div>
-        </div>
-        <div>
-          <div class="moi-label">Temperatur</div>
-          <div class="tags"><span class="t i">Normal: 36,5–37,5°C</span><span class="t d">&lt;35°C = hypotermi</span><span class="t d">&gt;40°C = varmeslag</span></div>
-        </div>
-        <div>
-          <div class="moi-label">Blodsukker</div>
-          <div class="tags"><span class="t i">Normal: 4–7 mmol/L</span><span class="t d">&lt;4 = hypoglykemi</span><span class="t w">&gt;14 = høyt</span></div>
-        </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div><div class="moi-label">Puls</div><div class="tags"><span class="t i">Normal: 60–100</span><span class="t w">&lt;50 bradykardi</span><span class="t d">&gt;130 alvorlig</span></div></div>
+        <div><div class="moi-label">BT systolisk</div><div class="tags"><span class="t i">Normal: 100–140</span><span class="t d">&lt;90 hypotensjon</span></div></div>
+        <div><div class="moi-label">Respirasjonsfrekvens</div><div class="tags"><span class="t i">Normal: 12–20</span><span class="t d">&lt;10 kritisk</span><span class="t d">&gt;29 kritisk</span></div></div>
+        <div><div class="moi-label">SpO₂</div><div class="tags"><span class="t i">Normal: 95–100%</span><span class="t w">90–94% obs</span><span class="t d">&lt;90% kritisk</span></div></div>
+        <div><div class="moi-label">Temperatur</div><div class="tags"><span class="t i">Normal: 36,5–37,5°C</span><span class="t d">&lt;35° hypotermi</span><span class="t d">&gt;40° varmeslag</span></div></div>
+        <div><div class="moi-label">Blodsukker</div><div class="tags"><span class="t i">Normal: 4–7 mmol/L</span><span class="t d">&lt;4 hypoglykemi</span></div></div>
       </div>
     </div>
     <div class="divider">AVPU</div>
     <div class="row" data-row>
-      <div class="tags">
-        <span class="t i" data-tip="avpu">A – Alert (våken)</span>
-        <span class="t w">V – Voice (reagerer på stemme)</span>
-        <span class="t w">P – Pain (kun smertereaksjon)</span>
-        <span class="t d">U – Unresponsive (ingen respons)</span>
-      </div>
+      <div class="tags"><span class="t i" data-tip="avpu">A – Alert</span><span class="t w">V – Voice</span><span class="t w">P – Pain</span><span class="t d">U – Unresponsive</span></div>
       <div class="note">V/P/U = ring 113 hvis ikke allerede gjort</div>
     </div>
-    <div class="divider">GCS – Glasgow Coma Scale</div>
+    <div class="divider">GCS</div>
     <div class="row" data-row>
-      <div style="font-size:11px; color:#888; line-height:1.9;">
-        <div style="display:grid; grid-template-columns:auto 1fr 1fr 1fr; gap:0 8px; color:#ccc;">
-          <span style="color:#555;"></span><span style="color:#60a5fa; font-weight:600;">Øyne</span><span style="color:#60a5fa; font-weight:600;">Verbal</span><span style="color:#60a5fa; font-weight:600;">Motorisk</span>
+      <div style="font-size:11px; color:#ccc; line-height:2;">
+        <div style="display:grid; grid-template-columns:20px 1fr 1fr 1fr; gap:0 8px;">
+          <span style="color:#555;"></span><span style="color:#60a5fa;font-weight:600;">Øyne</span><span style="color:#60a5fa;font-weight:600;">Verbal</span><span style="color:#60a5fa;font-weight:600;">Motorisk</span>
           <span style="color:#555;">4</span><span>Spontant</span><span>Orientert</span><span>Følger ordre</span>
           <span style="color:#555;">3</span><span>På stemme</span><span>Forvirret</span><span>Lokaliserer</span>
           <span style="color:#555;">2</span><span>På smerte</span><span>Enkeltord</span><span>Trekker unna</span>
-          <span style="color:#555;">1</span><span>Ingen</span><span>Lyder</span><span>Ekstensjon</span>
-          <span style="color:#555;"></span><span></span><span>Ingen</span><span>Ingen</span>
-        </div>
-        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
-          <span class="t i">15 = normal</span>
-          <span class="t w">≤13 = påvirket</span>
-          <span class="t d">≤8 = alvorlig – vurder luftvei</span>
+          <span style="color:#555;">1</span><span>Ingen</span><span>Lyder/ingen</span><span>Ext./ingen</span>
         </div>
       </div>
+      <div class="tags" style="margin-top:6px;"><span class="t i">15 = normal</span><span class="t w">≤13 = påvirket</span><span class="t d">≤8 = alvorlig</span></div>
     </div>
-    <div class="divider">Barn – normalverdier (orienterende)</div>
+    <div class="divider">Barn – orienterende</div>
     <div class="row" data-row>
-      <div style="font-size:11px; color:#888; line-height:1.9;">
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 4px; color:#ccc; font-size:11px;">
-          <span style="color:#60a5fa; font-weight:600;">Alder</span><span style="color:#60a5fa; font-weight:600;">Puls</span><span style="color:#60a5fa; font-weight:600;">RF</span><span style="color:#60a5fa; font-weight:600;">Syst. BT</span>
+      <div style="font-size:11px; color:#ccc; line-height:2;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 4px;">
+          <span style="color:#60a5fa;font-weight:600;">Alder</span><span style="color:#60a5fa;font-weight:600;">Puls</span><span style="color:#60a5fa;font-weight:600;">RF</span><span style="color:#60a5fa;font-weight:600;">BT syst.</span>
           <span>Nyfødt</span><span>100–160</span><span>30–60</span><span>&gt;60</span>
           <span>1 år</span><span>100–150</span><span>25–40</span><span>&gt;70</span>
           <span>5 år</span><span>80–120</span><span>20–30</span><span>&gt;80</span>
           <span>10 år</span><span>70–110</span><span>15–25</span><span>&gt;90</span>
         </div>
-        <div class="note" style="margin: 8px 0 0;">Min. syst. BT barn ≈ 70 + (2 × alder i år)</div>
       </div>
+      <div class="note" style="margin:6px 0 0;">Min. BT barn ≈ 70 + (2 × alder i år)</div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">NRR / Norske retningslinjer</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🇳🇴 HLR og hjertestans</span>
+    <span class="badge badge-blue">NRR</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="divider">HLR – voksen (30:2)</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="hlr">30:2 kompresjoner/innblåsninger</span><span class="t d" data-tip="kompresjonsdyp">5–6 cm dybde</span><span class="t d" data-tip="kompfrekvens">100–120/min</span><span class="t w" data-tip="aed">AED så raskt som mulig</span></div>
+      <div class="note r">Pause maks 10 sek – ikke avbryt unødig</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Agonal pust</div>
+      <div class="tags"><span class="t d" data-tip="agonalpust">Uregelmessig gisp ≠ normal pust</span></div>
+      <div class="note r">Start HLR umiddelbart</div>
+    </div>
+    <div class="divider">Fremmedlegeme – voksen</div>
+    <div class="row" data-row>
+      <div class="moi-label">Bevisst pasient</div>
+      <div class="tags"><span class="t w" data-tip="hosteoppfordring">Oppmuntre til hosting</span><span class="t d" data-tip="ryggslagg">5 ryggslag</span><span class="t d" data-tip="heimlich">5 Heimlich-støt</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Bevisstløs</div>
+      <div class="tags"><span class="t d">Start HLR</span><span class="t w">Se etter fremmedlegeme i munn</span></div>
+    </div>
+    <div class="divider">Drukning</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="drukning">5 innblåsninger først</span><span class="t d">Deretter 30:2</span><span class="t w" data-tip="hypotermi">Hypotermi = ikke gi opp tidlig</span></div>
+      <div class="note">Kald drukning: «ikke død før varm og død»</div>
+    </div>
+    <div class="divider">Reversible årsaker – 4H / 4T</div>
+    <div class="row" data-row>
+      <div class="moi-label">4H</div>
+      <div class="tags"><span class="t w" data-tip="hypoxi">Hypoksi</span><span class="t w" data-tip="hypovolemi">Hypovolemi</span><span class="t w" data-tip="hypotermi">Hypotermi</span><span class="t w" data-tip="hypokalemi">Hypo/hyperkalemi</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">4T</div>
+      <div class="tags"><span class="t w" data-tip="tamponade">Tamponade</span><span class="t w" data-tip="tensjon">Tensjonspneumothorax</span><span class="t w" data-tip="trombose">Trombose</span><span class="t w" data-tip="toksiner">Toksiner</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">💊 Medisinske tilstander – felt</span>
+    <span class="badge badge-blue">MED</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Mistenkt hjerteinfarkt</div>
+      <div class="tags"><span class="t d" data-tip="infarkt">Brystsmerter &gt;20 min</span><span class="t d">Utstråling arm/kjeve/rygg</span><span class="t w">Svette / kvalme</span></div>
+      <div class="note r">Ring 113. Legg til ro. Ikke la dem gå.</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Hjerneslag – FAST</div>
+      <div class="tags"><span class="t d" data-tip="fast">Ansiktshenge</span><span class="t d">Armsvakhet</span><span class="t d">Taleforstyrrelse</span><span class="t d">Tid – ring 113</span></div>
+      <div class="note r">Trombolyse-vindu: 4,5 timer fra symptomdebut</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Anafylaksi</div>
+      <div class="tags"><span class="t d" data-tip="anafylaksi">Elveblest + luftveissvikt</span><span class="t d">Hypotensjon + takykardi</span><span class="t d">Adrenalin (EpiPen)</span></div>
+      <div class="note r">Adrenalin er eneste behandling – gi umiddelbart</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Astmaanfall</div>
+      <div class="tags"><span class="t w" data-tip="astma">Piping i utpust</span><span class="t d">Kan ikke snakke setninger = alvorlig</span><span class="t d">Stille thorax = kritisk</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Hypoglykemi – behandling</div>
+      <div class="tags"><span class="t w" data-tip="hypoglykemi">Bevisst: gi sukker oralt</span><span class="t d">Bevisstløs: sideleie, ring 113</span><span class="t i">Aldri gi noe oralt til bevisstløs</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">RK – sport og arrangement</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">⛷ Alpint / snowboard / langrenn</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Høyhastighetskollisjon</div>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="thorax">Thorax / pneumothorax</span><span class="t d" data-tip="milt">Milt / lever</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span></div>
+      <div class="note r">Hjelm ≠ ingen hodeskade – vurder alltid</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Fall med rotasjon / fastkjørt ski</div>
+      <div class="tags"><span class="t d" data-tip="acl">Kneskade ACL/MCL</span><span class="t w" data-tip="tibia">Tibia</span><span class="t w" data-tip="columna">Columna thorakolumbal</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Fall på utstrakt arm</div>
+      <div class="tags"><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="skulder">Skulder / klavikkel</span><span class="t i" data-tip="skipolletommel">Skipolletommel UCL</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Medisinske årsaker i felt</div>
+      <div class="tags"><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t d" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w">Uttømming</span><span class="t w" data-tip="frostskader">Frostskader</span></div>
+      <div class="note">Kaldt + bevissthetspåvirkning = mål blodsukker først</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🚴 Sykkel – vei og terreng</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Massestyrt – høy hastighet</div>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="klavikkel">Klavikkel</span><span class="t w" data-tip="thorax">Thorax</span><span class="t">Degloving</span></div>
+      <div class="note r">Hjelm med synlig skade = mistenk hodeskade uansett</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Styret i abdomen / thorax</div>
+      <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t d" data-tip="leverruptur">Leverruptur</span><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
+      <div class="note">Intern blødning kan debutere forsinket</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🏉 Rugby / kontaktsport</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Takling – feil teknikk</div>
+      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hjernerystelse">Hjernerystelse</span><span class="t w" data-tip="skulder">Skulder AC-ledd</span></div>
+      <div class="note r">Spinalprotokoll ved takling + hodeskade inntil avkreftet</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Slag mot truncus</div>
+      <div class="tags"><span class="t d" data-tip="miltruptur">Miltruptur</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span><span class="t w" data-tip="pneumothorax">Pneumothorax</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Hjernerystelse – gjenkjenn</div>
+      <div class="tags"><span class="t d" data-tip="hjernerystelse">Forvirring / amnesi</span><span class="t d">Hodepine</span><span class="t w">Kvalme</span><span class="t w">Lysømfintlighet</span></div>
+      <div class="note r">Ut av spill – ikke tilbake samme dag</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">⚽ Fotball / futsal / håndball</span>
+    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Takling / kollisjon</div>
+      <div class="tags"><span class="t w" data-tip="ankel">Ankel</span><span class="t w" data-tip="acl">Kne ACL / menisk</span><span class="t w" data-tip="hodeskade">Hodeskade</span><span class="t" data-tip="tibia">Tibia</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Ikke-kontaktskader</div>
+      <div class="tags"><span class="t d" data-tip="akillesruptur">Akillesruptur</span><span class="t w">Lyske / hamstring</span><span class="t w" data-tip="acl">Kne ACL vridning</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Medisinsk kollaps på banen</div>
+      <div class="tags"><span class="t d" data-tip="hjertestans">Hjertestans ung utøver!</span><span class="t d" data-tip="arytmi">Arytmi</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span></div>
+      <div class="note r">Ung utøver kollaps = hjertestans inntil annet bevist. AED umiddelbart.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🥊 Kampsport / boksing / MMA</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Slag mot hode</div>
+      <div class="tags"><span class="t d" data-tip="hjernerystelse">Hjernerystelse</span><span class="t d" data-tip="intrakranialt">Intrakranialt hematom</span><span class="t w">Ansiktsfrakturer</span></div>
+      <div class="note r">Gjentatte slag: symptomer kan komme forsinket</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">KO / bevisstløs</div>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade til avkreftet</span><span class="t d" data-tip="luftvei">Luftvei</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna</span></div>
+      <div class="note r">Ikke tilbake til kamp. Observer minimum 1 time.</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Kvelertag / struping</div>
+      <div class="tags"><span class="t d" data-tip="luftveisskade">Luftveisskade</span><span class="t d" data-tip="karotis">Karotisdisseksjon</span><span class="t w" data-tip="bevissth">Bevissthetspåvirkning</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🎵 Konsert / festival / scene</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Crowd crush / mengdetrykk</div>
+      <div class="tags"><span class="t d" data-tip="crowdcrush">Thoraxkompresjon / pustestopp</span><span class="t d" data-tip="trampling">Trampling</span><span class="t w" data-tip="ribbeinsbrudd">Ribbeinsbrudd</span></div>
+      <div class="note r">Stående kompresjon = puster ikke selv om oppreist</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Fall fra crowd surfing</div>
+      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t w" data-tip="skulder">Skulder</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Kollaps i folkemengde</div>
+      <div class="tags"><span class="t d" data-tip="overdose">Rus / overdose</span><span class="t d" data-tip="varmeslag">Varmeslag</span><span class="t d" data-tip="hjertestans">Hjertestans</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t w" data-tip="epilepsi">Epilepsi</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Rigg- / scenekolaps</div>
+      <div class="tags"><span class="t d" data-tip="crush">Crush-skader</span><span class="t d">Multippeltraume</span><span class="t d">Penetrerende skader</span></div>
+      <div class="note r">Masseskade-protokoll – triage, ikke alt på én pasient</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">👥 Løp / folkemengde / arrangement</span>
+    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Kollaps under / etter løp</div>
+      <div class="tags"><span class="t d" data-tip="hjertestans">Hjertestans</span><span class="t d" data-tip="varmeslag">Varmeslag</span><span class="t d" data-tip="hyponatremi">Hyponatremi</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span></div>
+      <div class="note r">Kollaps etter målgang = hjertestans inntil annet bevist</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Besvimelse / synkope</div>
+      <div class="tags"><span class="t w" data-tip="synkope">Vasovagal</span><span class="t w" data-tip="hypoglykemi">Hypoglykemi</span><span class="t d" data-tip="arytmi">Arytmi (eldre)</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Eldre på arrangement</div>
+      <div class="tags"><span class="t d" data-tip="hofte">Fall = hoftebrudd</span><span class="t w" data-tip="arytmi">Kardiologisk kollaps</span><span class="t w" data-tip="dehydrering">Dehydrering</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">Trafikk</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🚗 Bil – kollisjon og velting</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Frontkollisjon høy hastighet</div>
+      <div class="tags"><span class="t d" data-tip="aorta">Aorta</span><span class="t d" data-tip="milt">Milt</span><span class="t d" data-tip="leverruptur">Lever</span><span class="t w" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="thorax">Thorax</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Fotgjenger påkjørt</div>
+      <div class="tags"><span class="t w" data-tip="tibia">Tibia/fibula (bumper)</span><span class="t d" data-tip="thorax">Thorax/abdomen (panser)</span><span class="t d" data-tip="hodeskade">Hodeskade (bakkefall)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">Fall</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">⬇ Fall – høyde og mekanisme</span>
+    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Under 1 m – eldre!</div>
+      <div class="tags"><span class="t d" data-tip="hofte">Hoftebrudd</span><span class="t w" data-tip="handledd">Håndledd</span><span class="t w" data-tip="columna">Columna</span><span class="t w" data-tip="subduralt">Subduralt hematom</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Over 3 m / 2× høyde</div>
+      <div class="tags"><span class="t d" data-tip="calcaneus">Calcaneus</span><span class="t d" data-tip="columna">Columna aksial</span><span class="t d" data-tip="bekken">Bekken</span><span class="t w" data-tip="femur">Femur</span><span class="t d" data-tip="milt">Milt / lever</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Diving / stuping grunt vann</div>
+      <div class="tags"><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna C4–C6</span><span class="t d" data-tip="hodeskade">Hodeskade</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">Penetrerende og eksplosjon</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🔪 Kniv / penetrerende</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Thorax</div>
+      <div class="tags"><span class="t d" data-tip="pneumothorax">Pneumothorax</span><span class="t d" data-tip="hemothorax">Hemothorax</span><span class="t d" data-tip="hjerteskade">Hjerteskade</span><span class="t d" data-tip="aorta">Store kar</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Abdomen</div>
+      <div class="tags"><span class="t d" data-tip="tarmperf">Tarmperforasjon</span><span class="t d" data-tip="milt">Milt</span><span class="t d" data-tip="leverruptur">Lever</span><span class="t d" data-tip="aorta">Aorta / v. cava</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Nakke</div>
+      <div class="tags"><span class="t d" data-tip="karotis">Karotis / jugular</span><span class="t d">Luftrør</span><span class="t w">Spiserør</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Impalement</div>
+      <div class="tags"><span class="t d" data-tip="impalement">IKKE fjern – stabiliser</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">💥 Eksplosjon / termisk</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Primær – trykkbølge</div>
+      <div class="tags"><span class="t d" data-tip="blastlung">Blast lung</span><span class="t w" data-tip="tympanisk">Tympanisk membran</span><span class="t w">Tarm / øyne</span></div>
+      <div class="note r">Primærskader er usynlige</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Kvartær – varme / kjemikalier</div>
+      <div class="tags"><span class="t w" data-tip="brannskade">Brannskader</span><span class="t d" data-tip="inhalasjon">Inhalasjonsskade</span><span class="t d" data-tip="co">CO-forgiftning</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Brannskade ansikt / hals</div>
+      <div class="tags"><span class="t d" data-tip="inhalasjon">Inhalasjonsskade</span><span class="t d" data-tip="luftveisoedem">Luftveisødem forsinket!</span></div>
+      <div class="note r">Stridor / heshet = handle raskt</div>
+    </div>
+  </div>
+</div>
+
+<div class="group-label">Spesielle populasjoner</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">👶 Barn / eldre / gravide</span>
+    <span class="badge badge-blue">OBS</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="divider">Eldre</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="hofte">Hoftebrudd ved fall fra stående</span><span class="t d" data-tip="subduralt">Subduralt hematom</span><span class="t w" data-tip="antikoag">Antikoagulasjon</span></div>
+      <div class="note">Betablokkere maskerer takykardi. Lav terskel.</div>
+    </div>
+    <div class="divider">Barn</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade (stort hode)</span><span class="t w" data-tip="lungekont">Lungekontusjon uten ribbeinsbrudd</span></div>
+      <div class="note r">Kompenserer lenge – kollapser brått</div>
+    </div>
+    <div class="divider">Gravide</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="abruptio">Abruptio placentae</span><span class="t w" data-tip="aortokavalt">Aortokavalt kompr.</span></div>
+      <div class="note">Legg på venstre side. Foster kan ha det dårlig selv om mor er stabil.</div>
     </div>
   </div>
 </div>
@@ -753,7 +606,7 @@
     </div>
     <div class="row" data-row>
       <div class="moi-label" style="color:#e5a820;">GUL – kan vente</div>
-      <div class="tags"><span class="t w">Stabil med skade</span><span class="t w">Kontrollert blødning</span><span class="t w">Isolert fraktur</span></div>
+      <div class="tags"><span class="t w">Stabil med skade</span><span class="t w">Kontrollert blødning</span></div>
     </div>
     <div class="row" data-row>
       <div class="moi-label" style="color:#34d399;">GRØNN – gå selv</div>
@@ -763,214 +616,249 @@
       <div class="moi-label" style="color:#666;">SORT – ikke prioriter</div>
       <div class="tags"><span class="t">Ingen puls</span><span class="t">Ikke-overlevbar ved ressursmangel</span></div>
     </div>
-    <div class="note r">Gjør mest mulig for flest mulig – ikke alt for én.</div>
+    <div class="note r">Gjør mest mulig for flest mulig.</div>
   </div>
 </div>
 
 </div>
 
 <script>
-const TIPS = {
-  hodeskade:       { name:"Hodeskade", plain:"Skade på hjerne eller kranium", body:"Kan gi bevissthetspåvirkning, hukommelsestap, forvirring, oppkast og ulik pupillstørrelse. Vurder alltid GCS. Mistenk alltid ved relevant MOI selv om pasienten ser OK ut.", sev:"d" },
-  cervikalcolumna: { name:"Cervikalcolumna", plain:"Nakkevirvelkolumnen (C1–C7)", body:"De 7 nakkevirvlene som beskytter ryggmargen i nakken. Skade kan gi lammelse fra skuldrene og ned. Alltid stabiliser ved relevant MOI inntil avkreftet.", sev:"d" },
-  thorax:          { name:"Thorax / brystkasse", plain:"Brystkassen", body:"Inneholder lunger, hjerte og store kar. Skader kan gi pneumothorax, hemothorax, hjertekontusjon eller aortaskade. Vurder symmetrisk pustelyd.", sev:"w" },
-  pneumothorax:    { name:"Pneumothorax", plain:"Sammenfallt lunge", body:"Luft lekker inn mellom lunge og brystvegg slik at lungen kollapser. Tegn: ensidig svekket pustelyd, dyspné. Spenningspneumothorax er livstruende – presser hjertet til side.", sev:"d" },
-  hemothorax:      { name:"Hemothorax", plain:"Blod i brysthule", body:"Blod samler seg mellom lunge og brystvegg. Kan gi respirasjonssvikt og sjokk ved stor mengde. Dempet perkusjon. Krever dren på sykehus.", sev:"d" },
-  milt:            { name:"Miltruptur", plain:"Milten sprekker", body:"Milten sitter øverst til venstre i buken og er svært blødningsvillig. Kan rupturere forsinket – pasienten ser stabil ut initialt. Mistenkelig ved slag/trykk mot venstre side.", sev:"d" },
-  miltruptur:      { name:"Miltruptur", plain:"Milten sprekker", body:"Milten sitter øverst til venstre i buken. Ruptur gir intern blødning. Forsinket debut er vanlig – pasienten kan se stabil ut i 30–60 min før forverring.", sev:"d" },
-  leverruptur:     { name:"Leverruptur", plain:"Leveren sprekker", body:"Leveren sitter øverst til høyre i buken. Svært blødningsvillig organ. Stump traume mot høyre side, styret i sykkelulykke eller bilkollisjon er vanlige årsaker.", sev:"d" },
-  aorta:           { name:"Aortaskade", plain:"Skade på kroppens hovedpulsåre", body:"Aorta er den store pulsåren fra hjertet. Ruptur eller disseksjon er raskt dødelig ved massiv blødning. Mistenk ved høyenergi frontkollisjon eller fall.", sev:"d" },
-  bekken:          { name:"Bekkenfraktur", plain:"Brudd i bekkenet", body:"Bekkenet kan blø svært mye internt – opptil 3–4 liter. Kan gi livstruende sjokk uten synlig blødning. Komprimer bekken hvis instabilt, ikke gjenta test.", sev:"w" },
-  femur:           { name:"Femurfraktur", plain:"Brudd i lårbenet", body:"Lårbenet er kroppens sterkeste ben. Brudd kan gi 1–2 liter internt blodtap. Mistenkelig ved deformitet, hevelse og smerter i låret.", sev:"w" },
-  tibia:           { name:"Tibia", plain:"Skinnebenet", body:"Det store beinet i underbenet. Brudd er vanlig ved direkte slag (takling, bilkollisjon). Åpne brudd gir infeksjonsrisiko.", sev:"" },
-  columna:         { name:"Columna", plain:"Ryggraden (virvelsøylen)", body:"Ryggraden beskytter ryggmargen. Skade kan gi lammelse. Ved mistanke: stabiliser i nøytral posisjon, unngå rotasjon og fleksjon. Mistenk ved høyenergi-MOI.", sev:"d" },
-  calcaneus:       { name:"Calcaneus", plain:"Hælbenet", body:"Brekker ved aksial belastning – typisk fall på rett bein. Ofte kombinert med lumbale vertebrafrakturer og bekkenskader. Smerter i hælen etter fall fra høyde.", sev:"d" },
-  subduralt:       { name:"Subduralt hematom", plain:"Blodansamling under hjernehinna", body:"Blod samles mellom hjernen og den harde hjernehinna. Kan gi forsinket bevissthetspåvirkning timer etter skaden. Særlig risiko hos eldre og de som bruker blodfortynnende.", sev:"d" },
-  intrakranialt:   { name:"Intrakranialt hematom", plain:"Blodansamling inne i skallen", body:"Blødning inne i eller rundt hjernen. Økt trykk i skallen gir hodepine, oppkast, og til slutt bevissthetspåvirkning. Ensidig vid pupill er et alvorlig tegn.", sev:"d" },
-  acl:             { name:"ACL/MCL-skade", plain:"Korsband / sidebånd i kneet", body:"ACL = fremre korsbånd. MCL = mediale sidebånd. Typisk ved vridning eller takling. Hørt smell + hevelse + ustabilt kne. Krever MR for diagnose.", sev:"w" },
-  skulder:         { name:"Skulder­skade", plain:"Skulder", body:"Kan være dislokasjon (skulder ut av ledd), AC-leddskade (toppen av skulderen) eller klavikkelbrudd. Dislokasjon gir tydelig deformitet og smerter ved bevegelse.", sev:"w" },
-  klavikkel:       { name:"Klavikkelbrudd", plain:"Kragebensbrudd", body:"Det mest brutte beinet i kroppen. Typisk ved fall på skulder eller OTB. Tydelig ømhet og hevelse over kragebeinet. Sjelden farlig, men smertefull.", sev:"" },
-  handledd:        { name:"Håndleddsskade", plain:"Håndledd", body:"Vanligst er Colles-fraktur ved fall på utstrakt hånd. Gir deformitet (bajonettform) og hevelse. Sjekk alltid puls og sensibilitet distalt.", sev:"" },
-  ankel:           { name:"Ankelskade", plain:"Ankel", body:"Distorsjon (forstuing) er vanligst – men vurder alltid fraktur. Ottawa-reglene: ømhet over malleol + ikke bæreevne = røntgen. Fibula og calcaneus kan også brekke.", sev:"" },
-  kne:             { name:"Kneskade", plain:"Kne", body:"Vanlige skader: ACL (korsbånd), menisk, patellafraktur. Ved kollisjon: mistenk karskade (sjekk puls distalt). Hevelse raskt etter skade tyder på blod i leddet.", sev:"" },
-  akillesruptur:   { name:"Akillesrupturs", plain:"Akillessenen ryker", body:"Hørbart smell bak ankelen etterfulgt av kollaps. Pasienten kan ikke stå på tå. Thompson-test: klem på legg = foten beveger seg ikke. Krever operasjon.", sev:"d" },
-  hjertestans:     { name:"Hjertestans", plain:"Hjertet slutter å pumpe", body:"Ingen puls, ingen pusting. Start HLR umiddelbart. Hos unge utøvere er hypertrofisk kardiomyopati vanligste årsak. AED så raskt som mulig – hvert minutt uten defibrillering = 10% lavere overlevelse.", sev:"d" },
-  arytmi:          { name:"Arytmi", plain:"Uregelmessig hjerterytme", body:"Hjertet slår for raskt, for sakte eller uregelmessig. Kan gi svimmelhet, besvimelse eller plutselig hjertestans. Vanlig utløser: elektrisk støt, hypotermi, elektrolyttforstyrrelse.", sev:"w" },
-  hypotermi:       { name:"Hypotermi", plain:"Farlig nedkjøling av kroppen", body:"Kjernetemperatur under 35°C. Symptomer: skjelving (mild), forvirring og sløvhet (moderat), bevisstløshet og stiv kropp (alvorlig). Forebygg aktivt – fjern våte klær, isoler.", sev:"d" },
-  hypoglykemi:     { name:"Hypoglykemi", plain:"For lavt blodsukker", body:"Blodsukker under 4 mmol/L. Symptomer: svette, skjelving, forvirring, aggresjon, bevisstløshet. Ligner rus og hodeskade. Mål alltid blodsukker ved bevissthetspåvirkning.", sev:"d" },
-  varmeslag:       { name:"Varmeslag", plain:"Farlig overoppheting", body:"Kjernetemperatur over 40°C med CNS-påvirkning. Klassisk varmeslag: varm, tørr hud + forvirring. Anstrengelsesvarmeslag: svetter fortsatt. Avkjøl aktivt – legg i skygge, kle av, vann.", sev:"d" },
-  hyponatremi:     { name:"Hyponatremi", plain:"For lavt natriuminnhold i blodet", body:"Kan skje ved overdreven vanninntak under løp. Symptomer: kvalme, hodepine, forvirring, kramper. Ikke gi mer vann – gi saltholdige drikker. Farlig å forveksle med dehydrering.", sev:"d" },
-  hjernerystelse:  { name:"Hjernerystelse (Commotio cerebri)", plain:"Hjernen rystes", body:"Funksjonsforstyrrelse uten nødvendigvis strukturskade. Tegn: forvirring, amnesi (husker ikke hva som skjedde), hodepine, kvalme. Pasienten skal IKKE tilbake til aktivitet samme dag – risiko for second impact syndrome.", sev:"d" },
-  synkope:         { name:"Vasovagal synkope", plain:"Vanlig besvimelse", body:"Utløses av smerte, stress, varme eller langvarig stående. Hjertefrekvens og blodtrykk faller brått. Kortvarig bevisstløshet. Behandling: legg flat, hev bena. Vanligvis ufarlig.", sev:"" },
-  overdose:        { name:"Rus / overdose", plain:"For mye rusmidler", body:"Opiater gir respirasjonsdepresjon (langsom, overfladisk pusting), små pupiller og bevisstløshet. Alkohol gir aspirasjon­risiko. Stimulanter gir agitasjon og hjertearytmi. Alltid luftvei og sideleie.", sev:"d" },
-  respirasjonsdep: { name:"Respirasjonsdepresjon", plain:"Pustingen hemmes", body:"Pustefrekvens under 10/min eller overfladisk pusting. Vanligst ved opiatrus. Oksygenmetning synker. Behandling: luftvei, oksygen, ev. nalokson ved opiater.", sev:"d" },
-  epilepsi:        { name:"Epileptisk anfall", plain:"Kramper / epilepsi", body:"Ukontrollerte elektriske utladninger i hjernen. Kan gi kramper (tonisk-klonisk), bevissthetspåvirkning eller stirreanfall. Beskytt mot skader. Anfallet går som regel over av seg selv. Tilkall AMK ved >5 min eller gjentatte anfall.", sev:"w" },
-  crowdcrush:      { name:"Crowd crush", plain:"Mengdetrykk mot brystet", body:"Kan stoppe pusteevnen selv i stående stilling – buken og brystet komprimeres. Pasienten er ved bevissthet men puster ikke. Frigjøring er behandlingen – få dem ut av mengden.", sev:"d" },
-  trampling:       { name:"Trampling", plain:"Tråkket ned av folkemasse", body:"Kan gi multippelt traume, hodeskader og thoraxskader. Særlig farlig for barn og eldre. Se etter skader som ikke er åpenbare.", sev:"d" },
-  crush:           { name:"Crush-skade", plain:"Klemskade fra tung gjenstand", body:"Vev og organer knuses. Kan gi intern blødning og compartment-syndrom. Langvarig klem > 15 min = risiko for rabdomyolyse og nyresvikt ved frigjøring.", sev:"d" },
-  rabdomyolyse:    { name:"Rabdomyolyse", plain:"Muskelceller brytes ned", body:"Skadede muskelceller frigjøres i blodet og kan gi nyresvikt. Tegn: mørk urin (cola-farget), muskelsmerter. Oppstår ved langvarig klem, crush eller ekstrem anstrengelse.", sev:"d" },
-  compartment:     { name:"Compartment-syndrom", plain:"Trykk bygger seg opp i muskelfascier", body:"Økt trykk i et muskelrom stenger av blodsirkulasjonen. Gir intens smerte, blek og kald ekstremitet, nedsatt puls distalt. Kirurgisk nødsituasjon – fasciotomi.", sev:"d" },
-  degloving:       { name:"Degloving", plain:"Huden rives av fra underliggende vev", body:"Hud og underhud løsnes i store flater, typisk ved motorsykkelulykker. Ser dramatisk ut. Stor infeksjonsrisiko og blødning. Dekk med sterilt bandasje.", sev:"w" },
-  blastlung:       { name:"Blast lung", plain:"Lungeblødning fra trykkbølge", body:"Trykkbølgen fra eksplosjon gir lungeblødning og -kontusjon uten ytre tegn. Tegn: dyspné, hemoptysis (blod i oppspytt), hypoksi. Pasienten kan se uskadd ut.", sev:"d" },
-  tympanisk:       { name:"Tympanisk membranruptur", plain:"Trommehinnen sprekker", body:"Trykkbølge kan perforere trommehinna. Tegn: hørselstap, øresmerter, blod fra øret. Er markør for primærblast-eksponering – mistenk indre organskader.", sev:"w" },
-  co:              { name:"CO-forgiftning", plain:"Karbonmonoksid – luktfri drapsgass", body:"CO binder seg til hemoglobin 200× sterkere enn oksygen. Gir hypoksi uten cyanose. Symptomer: hodepine, kvalme, forvirring. Pulsoksymeter viser falskt normal oksygenmetning!", sev:"d" },
-  cyanid:          { name:"Cyanid­forgiftning", plain:"Giftig gass fra brennende plast", body:"Frigjøres ved forbrenning av mange plastmaterialer. Blokkerer cellenes evne til å bruke oksygen. Rask bevisstløshet. Behandling: frisk luft, antidot (hydroksykobalamin) på sykehus.", sev:"d" },
-  inhalasjon:      { name:"Inhalasjonsskade", plain:"Skade på luftveier fra røyk/varme", body:"Varm luft, røykpartikler og giftige gasser kan brenne og irritere luftveiene. Forsinket ødem kan lukke luftveien timer etter skaden. Heshet og stridor er alvorlige varseltegn.", sev:"d" },
-  luftveisoedem:   { name:"Luftveisødem", plain:"Hevelse i luftveiene", body:"Luftveiene hovner opp etter varme-/kjemisk eksponering eller allergisk reaksjon. Kan lukke seg over tid. Stridor (pipende innpust) og heshet = handle nå.", sev:"d" },
-  brannskade:      { name:"Brannskade", plain:"Forbrenningsskade på hud og vev", body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: dyphud/hud­nekrose. Kjøl med romtemperert vann 20 min. Ikke is, ikke glasur. Dekk med rent bandasje.", sev:"w" },
-  impalement:      { name:"Impalement", plain:"Gjennomboret av en gjenstand", body:"ALDRI fjern gjenstanden i felt – den kan komprimere et kar og hindre massiv blødning. Stabiliser gjenstanden mekanisk. Transport til sykehus med gjenstanden på plass.", sev:"d" },
-  pneumothorax2:   { name:"Pneumothorax", plain:"Sammenfallt lunge", body:"Se pneumothorax.", sev:"d" },
-  karotis:         { name:"Karotis / jugular", plain:"Halspulsåre / halsblodåre", body:"Karotis (arterie) og jugular (vene) er de store karene i nakken. Stikk her kan gi massiv blødning eller slag (karotisdisseksjon). Direkte trykk umiddelbart.", sev:"d" },
-  karotisdiss:     { name:"Karotisdisseksjon", plain:"Indre lag i halsarterien revner", body:"Veggen i karotisarterien revner, kan gi blodpropp og slag (CVA). Symptomer kan komme timer etter struping/kvelertag: hodepine, ansiktshenge, synsforstyrrelser.", sev:"d" },
-  luftveisskade:   { name:"Luftveisskade", plain:"Skade på luftrøret eller strupen", body:"Slag mot nakken eller struping kan skade strupen og luftrøret. Tegn: hevelse, krepitasjon (knaking), blodig spytt, vansker med å snakke. Kan gi raskt lukket luftvei.", sev:"d" },
-  hjerteskade:     { name:"Hjerteskade", plain:"Skade på selve hjertemuskelen", body:"Penetrerende skade mot midtre del av thorax kan treffe hjertet. Tegn: hypotensjon, distenderte halsvener, dempede hjertelyder (Becks triade). Tamponade er livstruende.", sev:"d" },
-  tarmperf:        { name:"Tarmperforasjon", plain:"Hull i tarmen", body:"Penetrerende skade gir hull i tarmen som lekker tarminnhold til bukhulen – gir peritonitt. Kan ikke behandles i felt. Rask transport.", sev:"d" },
-  luftrøret:       { name:"Luftrørsskade", plain:"Skade på luftrøret", body:"Kan gi luftlekkasje og subkutant emfysem (luftbobler under huden). Alvorlig og raskt forverrende. Prioriter luftvei og rask transport.", sev:"d" },
-  spiserør:        { name:"Spiserørsskade", plain:"Skade på spiserøret", body:"Relativt sjelden isolert. Kan gi mediastinitt (infeksjon i brysthulen) over timer–dager. Mistenkelig ved nakke-stikk med svelgvansker.", sev:"w" },
-  hofte:           { name:"Hoftebrudd", plain:"Brudd i øvre del av lårbenet", body:"Typisk hos eldre ved lavenergi-fall. Pasienten kan ikke belaste beinet, har utoverrotert og forkortet bein. Kan gi livstruende blødning og komplikasjoner hos eldre.", sev:"d" },
-  abruptio:        { name:"Abruptio placentae", plain:"Morkaken løsner", body:"Morkaken løsner fra livmorveggen ved stumpt abdominaltraume. Gir magesmerter, blødning og truet foster. Kan oppstå uten ytre tegn på alvorlig traume.", sev:"d" },
-  aortokavalt:     { name:"Aortokavalt kompr.", plain:"Livmoren klemmer store blodårer", body:"Livmoren i ryggeleie trykker på aorta og vena cava. Gir redusert blodstrøm tilbake til hjertet. Legg alltid gravide på venstre side ved >20 ukers graviditet.", sev:"w" },
-  antikoag:        { name:"Antikoagulasjon", plain:"Blodfortynnende medisiner", body:"Medisiner som Warfarin, Pradaxa, Xarelto øker blødningsrisikoen kraftig. Selv små skader kan gi store indre blødninger. Alltid spør om medisiner hos eldre.", sev:"w" },
-  subduralt2:      { name:"Subduralt hematom", plain:"Blodansamling under hjernehinna", body:"Se subduralt hematom.", sev:"d" },
-  lungekont:       { name:"Lungekontusjon", plain:"Blåmerke på lungen", body:"Lungen blør innvendig etter stumpt traume. Hos barn: ribbein er bøyelige og brekker sjelden, men kraften overføres til lungen. Tegn: tiltagende dyspné etter timer.", sev:"w" },
-  lysomt:          { name:"Lysømfintlighet (Fotofobi)", plain:"Vondt av lys", body:"Vanlig symptom ved hjernerystelse og hodeskade. Indikerer CNS-irritasjon. Pasienten holder øynene lukket eller skjermer dem for lys.", sev:"w" },
-  kvalme:          { name:"Kvalme / oppkast", plain:"Kvalme og brekning", body:"Ved hodeskade: kraftig oppkast (prosjektiloppkast) er et alvorlig tegn på økt intrakranialt trykk. Enkelt oppkast er vanligere og mindre alvorlig, men pasienten bør følges.", sev:"w" },
-  agitasjon:       { name:"Agitasjon / aggresjon", plain:"Uro og aggressiv oppførsel", body:"Kan skyldes rus, hypoglykemi, hodeskade eller psykisk krise. Vurder sikkerhet for deg selv. Ikke la deg distrahere fra klinisk vurdering – agitasjon kan maskere alvorlig tilstand.", sev:"w" },
-  bevissth:        { name:"Bevissthetspåvirkning", plain:"Redusert bevissthet", body:"Vurder med AVPU: Alert / Voice / Pain / Unresponsive. Enhver grad av bevissthetspåvirkning er alvorlig inntil årsak er kjent. Sikre luftvei. Mål blodsukker.", sev:"d" },
-  luftvei:         { name:"Luftveisproblem", plain:"Pusten er truet", body:"Vurder: Er luftveien åpen, truet eller lukket? Lyd: snorking = tungefall, gurgling = væske, stridor = obstruksjon. Tiltak: kjevetak, sideleie, NPA. Alltid A før B.", sev:"d" },
-  sjokk:           { name:"Sjokk", plain:"Utilstrekkelig blodforsyning til organer", body:"Tidlige tegn: uro, takykardi, kald klam hud, kapillærfyll > 2 sek. Sene tegn: hypotensjon (blodtrykksfall). Behandle årsaken. Legg flat, hev bena, hold varm.", sev:"d" },
-  gcs:             { name:"GCS – Glasgow Coma Scale", plain:"Bevissthetsskala 3–15", body:"Måler øyeåpning (1–4), verbal respons (1–5) og motorisk respons (1–6). Sum 15 = normal. Sum ≤ 8 = alvorlig. Dokumenter utvikling over tid – synkende GCS er alvorlig.", sev:"w" },
-  elskade:         { name:"Elektrisk inn-/utgangssår", plain:"Brannsår fra elektrisk strøm", body:"Inngangssår er lite og deceptivt. Utgangssår er større. Skaden langs strømbanen er langt mer alvorlig enn hudskaden indikerer. Sjekk for arytmi.", sev:"w" },
-  trykkluft:       { name:"Trykkluft-injeksjonsskade", plain:"Luft/fett injisert under trykk", body:"Trykkluftpistoler kan injisere luft, maling eller fett dypt inn i vev. Ser ut som et lite prikksår men forårsaker alvorlig vevsskade langs banen. Alltid til sykehus.", sev:"d" },
-  uttomming:       { name:"Uttømming / utmattelse", plain:"Kroppen er tom for energi", body:"Glykogenlagre tømt. Symptomer: ekstrem slapphet, forvirring, evt. kollaps. Skilles fra hjertestans ved at pasienten er bevisst og puster. Gi mat/drikke med sukker.", sev:"w" },
-  frostskader:     { name:"Frostskader", plain:"Vevet er frosset", body:"Grad 1: rødhet/brenning. Grad 2: blemmer. Grad 3: nekrose. Ikke gni. Varm forsiktig med kroppen. Ikke varm opp hvis risiko for refreezing.", sev:"w" },
-  skipolletommel:  { name:"Skipolletommel (Gamekeeper's thumb)", plain:"Skade på leddbåndet i tommelens rotstledd", body:"UCL (ulnart kollateralt ligament) ryker ved fall med skistav i hånden. Instabilt tommelgrep. Diagnostiseres klinisk + røntgen for å utelukke fraktur.", sev:"i" },
-  ansikt:          { name:"Ansiktsskade", plain:"Skader i ansiktet", body:"Kan inkludere tannskader, kjevefraktur, orbitafraktur (rundt øyet), nesefraktur. Vurder alltid luftvei – blodet kan renne bakover. Tilbakehelling av hodet kan hindre aspirasjon.", sev:"w" },
-  oye:             { name:"Øyeskade", plain:"Skade på øyet", body:"Kontusjon, laceration, fremmedlegeme eller orbita-fraktur. Ikke trykk på øyet. Dekk med skål (ikke trykk). Hvis perforert øye: begge øyne bandagjeres (sympatisk oftalmitt).", sev:"w" },
-  multippel:       { name:"Multippeltraume", plain:"Skade på flere organer / kroppsdeler", body:"Traume som affiserer mer enn ett organsystem. Krever systematisk XABCDE og tidlig kontakt med AMK. Transportbeslutning er kritisk – ikke bruk tid på sekundære skader.", sev:"d" },
-  penetrerende:    { name:"Penetrerende skade", plain:"Gjennomboret av et objekt", body:"Fragmenter fra eksplosjon kan nå alle kroppsdeler. Vurder bane. Mange inngangsår + ingen utgangssår = fragmenter er i kroppen. Dekk åpne sår.", sev:"d" },
-  hlr30_2:        { name:"HLR 30:2", plain:"30 kompresjoner, 2 innblåsninger", body:"ERC/NRR-standard. 30 brystkompresjoner (5–6 cm dybde, 100–120/min) etterfulgt av 2 innblåsninger. Fortsett til AED er klar eller ambulanse overtar. Ved hjelpeløse alene: kun kompresjoner (Hands-only HLR) er akseptabelt.", sev:"d" },
-  kompresjonsdyp: { name:"Kompresjonsdybde 5–6 cm", plain:"Trykk ned 5–6 cm på brystet", body:"NRR-anbefaling: minimum 5 cm, ikke over 6 cm. Hardt underlag er essensielt – harde gulv eller brett under ryggen. La brystet heve seg fullstendig mellom kompresjoner.", sev:"d" },
-  kompfrekvens:   { name:"100–120 slag/minutt", plain:"Kompresjonshastighet", body:"Tilsvarer tempoet i låten 'Stayin' Alive'. For raskt = for grunne kompresjoner. For sakte = utilstrekkelig sirkulasjon. Tell høyt for å holde tempo.", sev:"w" },
-  aed:            { name:"AED – hjertestarter", plain:"Automatisk ekstern defibrillator", body:"Analyserer hjerterytmen og gir støt ved shockbar rytme (VF/VT). Følg talekommandoene. Avbryt kompresjoner kun under analyse og støt. Etterpå: fortsett umiddelbart HLR.", sev:"d" },
-  agonalpust:     { name:"Agonal pust", plain:"Gisp rett etter hjertestans", body:"Uregelmessig, snorkende eller gispende pust de første minuttene etter hjertestans. Er IKKE normal pust. Start HLR umiddelbart – det er et tegn på at hjertestansen nettopp har inntruffet.", sev:"d" },
-  hosteoppfordring:{ name:"Oppmuntre til hosting", plain:"Be pasienten hoste kraftig", body:"Første tiltak ved delvis luftveisblokk (pasient kan snakke/hoste). Kraftig hosting genererer høyt luftveistrykk som kan løsne fremmedlegeme.", sev:"w" },
-  ryggslagg:      { name:"5 ryggslag", plain:"Slag mellom skulderbladene", body:"Bøy pasienten forover. Gi 5 kraftige slag med flat hånd mellom skulderbladene. Hvert slag er et forsøk på å løsne fremmedlegeme. Veksle med Heimlich.", sev:"d" },
-  heimlich:       { name:"Heimlich-manøver", plain:"Abdominale støt mot luftveisblokk", body:"Stå bak pasienten. Knytt hånden under navlen. Gi 5 kraftige støt innover og oppover. Kan frakturere ribben – akseptabelt ved fullstendig blokkert luftvei.", sev:"d" },
-  drukning:       { name:"Drukning – 5 innblåsninger", plain:"Start med pust, ikke kompresjoner", body:"NRR-anbefaling ved drukning: gi 5 innledende innblåsninger før kompresjoner, da hypoksi er primær årsak. Hypotermi beskytter hjernen – fortsett HLR selv etter lang tid under vann.", sev:"d" },
-  hypoxi:         { name:"Hypoksi", plain:"For lite oksygen i blodet", body:"En av de reversible årsakene til hjertestans (4H). Årsak: luftveisobstruksjon, drukning, inhalasjonsskade. Behandling: åpen luftvei, oksygen, ventilasjon.", sev:"d" },
-  hypovolemi:     { name:"Hypovolemi", plain:"For lite blod / væske i kroppen", body:"Blødning, dehydrering eller væsketap. En av 4H. Behandling: stopp blødning, IV/IO-tilgang, væske. Permissiv hypotensjon ved traume.", sev:"d" },
-  hypotermihjerte:{ name:"Hypotermi", plain:"Kjernetemperatur under 30°C", body:"Kald kropp kan gi livstruende arytmi og hjertestans. En av 4H. Behandling: forsiktig oppvarming, unngå brå bevegelser. HLR inntil oppvarmet.", sev:"d" },
-  hypokalemi:     { name:"Hypo/hyperkalemi", plain:"For lavt/høyt kalium i blodet", body:"Elektrolyttforstyrrelse kan utløse dødelig arytmi. Kalium regulerer hjertets elektriske aktivitet. Vanlig ved nyresykdom, diuretika, dialyse.", sev:"w" },
-  tamponade:      { name:"Hjertecamponade", plain:"Blod trykker rundt hjertet", body:"Blod samler seg i hjertesekken og komprimerer hjertet. En av 4T. Tegn: hypotensjon + distenderte halsvener + dempede hjertelyder (Becks triade). Behandling: nåledrenasje på sykehus.", sev:"d" },
-  tensjon:        { name:"Tensjonspneumothorax", plain:"Luft bygger trykk i brysthulen", body:"Luft samles i pleurahulen uten utveier og presser hjertet til frisk side. En av 4T. Tegn: dyspné, fraværende pustelyd, hypotensjon, trakeal deviasjon. Behandling: nåldekompresjonen.", sev:"d" },
-  trombose:       { name:"Trombose – lungeemboli / hjerteinfarkt", plain:"Blodpropp i lunge eller hjerte", body:"Massiv lungeemboli eller STEMI kan gi hjertestans. En av 4T. Mistenk ved plutselig kollaps uten klar årsak. Trombolyse under HLR er mulig.", sev:"d" },
-  toksiner:       { name:"Toksiner / forgiftning", plain:"Giftstoffer som hemmer hjertet", body:"Overdose (opioider, trisykliske, betablokkere), CO, cyanid. En av 4T. Behandling avhenger av agens – antidot hvis tilgjengelig.", sev:"d" },
-  infarkt:        { name:"Hjerteinfarkt (STEMI / NSTEMI)", plain:"Blodpropp i hjertekaret", body:"Klassiske tegn: trykkende brystsmerte > 20 min, utstråling til venstre arm, kjeve eller rygg, svette, kvalme. Atypisk presentasjon er vanlig hos eldre og kvinner. Ring 113 – ikke kjør selv.", sev:"d" },
-  lungeoedem:     { name:"Akutt lungeødem", plain:"Væske i lungene", body:"Hjertet pumper ikke effektivt – væske hope seg i lungene. Pasienten sitter fremoverlent, puster raskt og overfladisk, gurgling høres. Sittende stilling letter pustearbeidet. Ring 113.", sev:"d" },
-  fast:           { name:"FAST – slagscreening", plain:"Rask slagtest", body:"F: Ansiktshenge (be smile). A: Armsvakhet (løft begge armer). S: Taleforstyrrelse (si en setning). T: Tid – ring 113 umiddelbart. Negativ FAST utelukker ikke slag.", sev:"d" },
-  astma:          { name:"Astmaanfall", plain:"Luftveiene trekker seg sammen", body:"Piping i utpust, hoste, kortpustethet. Alvorlig: kan ikke snakke setninger, puls > 110, RF > 25. Kritisk: stille thorax (ingen luft passerer), cyanose. Bronkodilator (Ventolin) – ring 113.", sev:"w" },
-  anafylaksi:     { name:"Anafylaksi", plain:"Livstruende allergisk reaksjon", body:"Elveblest + en av: luftveissymptomer, hypotensjon, mage/tarm. Behandling: adrenalin 0,5 mg i.m. ytre lår (EpiPen). Legg flat, hev bena. Ring 113. Kan recidivere etter 1–8 timer.", sev:"d" },
-  dehydrering:     { name:"Dehydrering", plain:"Kroppen mangler væske", body:"Tegn: tørr munn, mørk urin, svimmelhet, hodepine. Alvorlig: forvirring, lavt blodtrykk. Gi væske oralt hvis bevisst. Eldre er spesielt sårbare.", sev:"w" },
-  lyske:           { name:"Lyske / hamstringskade", plain:"Muskelskade i lyske eller bakside lår", body:"Akutt strekk eller ruptur. Plutselig smerte ved sprint eller spark. Grad 1–3 avhengig av alvorlighet. Hvile, is, kompresjon. Sjekk for femoraliskar ved penetrerende skade.", sev:"w" },
-  fingre:          { name:"Fingerskade", plain:"Skade på fingre", body:"Dislokasjon, brudd eller seneskade. Keeper-fingre er vanlig. Vurder sirkulasjon og sensibilitet distalt. Ring av ved hevelse.", sev:"" },
-  ribbeinsbrudd:   { name:"Ribbeinsbrudd", plain:"Et eller flere ribbein er brutt", body:"Gir smertefull pusting. Fare for pneumothorax. Tre eller flere ribbein brutt på to steder = flail chest (paradoksal bevegelse). Eldre: selv lavenergi kan brekke mange ribbein.", sev:"w" },
+var TIPS = {
+  hodeskade:        {name:"Hodeskade",plain:"Skade på hjerne eller kranium",body:"Kan gi bevissthetspåvirkning, hukommelsestap, forvirring, oppkast og ulik pupillstørrelse. Vurder alltid GCS.",sev:"d",rel:["gcs","avpu","pupiller","hjernerystelse","intrakranialt","subduralt"]},
+  cervikalcolumna:  {name:"Cervikalcolumna",plain:"Nakkevirvelkolumnen (C1–C7)",body:"De 7 nakkevirvlene som beskytter ryggmargen. Skade kan gi lammelse fra skuldrene og ned. Stabiliser alltid ved relevant MOI.",sev:"d",rel:["columna","hodeskade"]},
+  thorax:           {name:"Thorax",plain:"Brystkassen",body:"Inneholder lunger, hjerte og store kar. Skader kan gi pneumothorax, hemothorax eller aortaskade. Vurder symmetrisk pustelyd.",sev:"w",rel:["pneumothorax","hemothorax","hjerteskade","aorta","ribbeinsbrudd","tensjon"]},
+  pneumothorax:     {name:"Pneumothorax",plain:"Sammenfallt lunge",body:"Luft lekker inn mellom lunge og brystvegg. Tegn: ensidig svekket pustelyd, dyspné.\n\nNåldekompresjonen – to alternativer:\n① 2. interkostalrom, midklavikulærlinje (over 3. ribbein)\n② 4.–5. interkostalrom, fremre aksillærlinje\n\nBruk 14G nål, minst 8 cm. Stikk rett inn over ribbeinkanten (unngå kar/nerver under hvert ribbein). Høring av luft bekrefter diagnosen. Følg opp med thoraxdren på sykehus.",sev:"d",rel:["hemothorax","tensjon","blastlung","ribbeinsbrudd"]},
+  hemothorax:       {name:"Hemothorax",plain:"Blod i brysthule",body:"Blod samler seg mellom lunge og brystvegg. Dempet perkusjon. Kan gi respirasjonssvikt og sjokk. Krever dren på sykehus.",sev:"d",rel:["pneumothorax","sjokk","thorax"]},
+  milt:             {name:"Miltskade",plain:"Milten kan sprekke",body:"Sitter øverst til venstre i buken. Svært blødningsvillig. Kan rupturere forsinket – pasienten ser stabil ut initialt.",sev:"d",rel:["miltruptur","sjokk","leverruptur"]},
+  miltruptur:       {name:"Miltruptur",plain:"Milten sprekker",body:"Gir intern blødning i buken. Forsinket debut er vanlig – stabil i 30–60 min, så rask forverring.",sev:"d",rel:["sjokk","leverruptur","hypovolemi"]},
+  leverruptur:      {name:"Leverruptur",plain:"Leveren sprekker",body:"Sitter øverst til høyre i buken. Svært blødningsvillig. Vanlig ved styretraume og høyenergi-kollisjon.",sev:"d",rel:["miltruptur","sjokk","hypovolemi"]},
+  aorta:            {name:"Aortaskade",plain:"Skade på kroppens hovedpulsåre",body:"Ruptur eller disseksjon er raskt dødelig. Mistenk ved høyenergi frontkollisjon eller fall.",sev:"d",rel:["sjokk","hypovolemi","tamponade"]},
+  bekken:           {name:"Bekkenfraktur",plain:"Brudd i bekkenet",body:"Kan blø svært mye internt – opptil 3–4 liter. Gir livstruende sjokk uten synlig blødning.",sev:"w",rel:["sjokk","hypovolemi","femur"]},
+  femur:            {name:"Femurfraktur",plain:"Brudd i lårbenet",body:"Kan gi 1–2 liter internt blodtap. Deformitet og hevelse i låret.",sev:"w",rel:["bekken","sjokk","tibia"]},
+  tibia:            {name:"Tibia",plain:"Skinnebenet",body:"Vanlig ved direkte slag. Åpne brudd gir infeksjonsrisiko. Sjekk puls og sensibilitet distalt.",sev:"",rel:["femur","ankel","compartment"]},
+  columna:          {name:"Columna",plain:"Ryggraden",body:"Beskytter ryggmargen. Skade kan gi lammelse. Stabiliser i nøytral posisjon ved mistanke.",sev:"d",rel:["cervikalcolumna","calcaneus","bekken"]},
+  calcaneus:        {name:"Calcaneus",plain:"Hælbenet",body:"Brekker ved aksial belastning (fall på rett bein). Ofte kombinert med lumbale frakturer og bekkenskader.",sev:"d",rel:["columna","bekken","femur"]},
+  subduralt:        {name:"Subduralt hematom",plain:"Blodansamling under hjernehinna",body:"Kan gi forsinket bevissthetspåvirkning timer etter skaden. Særlig risiko hos eldre og de som bruker blodfortynnende.",sev:"d",rel:["hodeskade","intrakranialt","antikoag","gcs"]},
+  intrakranialt:    {name:"Intrakranialt hematom",plain:"Blodansamling inne i skallen",body:"Økt trykk gir hodepine, oppkast og bevissthetspåvirkning. Ensidig vid pupill er et alvorlig tegn.",sev:"d",rel:["hodeskade","subduralt","pupiller","gcs"]},
+  acl:              {name:"ACL/MCL-skade",plain:"Korsband / sidebånd i kneet",body:"Typisk ved vridning eller takling. Hørt smell + hevelse + ustabilt kne.",sev:"w",rel:["kne","ankel","akillesruptur"]},
+  skulder:          {name:"Skulder­skade",plain:"Skulder",body:"Dislokasjon (skulder ut av ledd), AC-leddskade eller klavikkelbrudd. Dislokasjon gir tydelig deformitet.",sev:"w",rel:["klavikkel","handledd"]},
+  klavikkel:        {name:"Klavikkelbrudd",plain:"Kragebensbrudd",body:"Det mest brutte beinet i kroppen. Typisk ved fall på skulder eller OTB.",sev:"",rel:["skulder","handledd"]},
+  handledd:         {name:"Håndleddsskade",plain:"Håndledd",body:"Colles-fraktur er vanligst ved fall på utstrakt hånd. Sjekk puls og sensibilitet distalt.",sev:"",rel:["skulder","klavikkel"]},
+  ankel:            {name:"Ankelskade",plain:"Ankel",body:"Ottawa-reglene: ømhet over malleol + ikke bæreevne = røntgen. Vurder alltid fraktur.",sev:"",rel:["tibia","kne","acl"]},
+  kne:              {name:"Kneskade",plain:"Kne",body:"ACL, menisk eller patellafraktur. Hevelse raskt etter skade tyder på blod i leddet.",sev:"",rel:["acl","ankel","akillesruptur"]},
+  akillesruptur:    {name:"Akillesruptur",plain:"Akillessenen ryker",body:"Hørbart smell + kollaps. Pasienten kan ikke stå på tå. Thompson-test: klem på legg – foten beveger seg ikke.",sev:"d",rel:["acl","kne"]},
+  hjertestans:      {name:"Hjertestans",plain:"Hjertet slutter å pumpe",body:"Ingen puls, ingen pusting. Start HLR umiddelbart. AED så raskt som mulig – hvert minutt uten defibrillering = 10% lavere overlevelse.",sev:"d",rel:["hlr","aed","arytmi","agonalpust","tamponade","tensjon","trombose","hypoxi","hypovolemi"]},
+  arytmi:           {name:"Arytmi",plain:"Uregelmessig hjerterytme",body:"Kan gi svimmelhet, besvimelse eller plutselig hjertestans. Utløst av elektrisk støt, hypotermi eller elektrolyttforstyrrelse.",sev:"w",rel:["hjertestans","hypotermi","hypokalemi","tamponade"]},
+  hypotermi:        {name:"Hypotermi",plain:"Farlig nedkjøling",body:"Under 35°C. Mild: skjelving. Moderat: forvirring. Alvorlig: bevisstløshet. Fjern våte klær, isoler.",sev:"d",rel:["arytmi","koagulopati","sjokk"]},
+  hypoglykemi:      {name:"Hypoglykemi",plain:"For lavt blodsukker",body:"Under 4 mmol/L. Svette, skjelving, forvirring, aggresjon, bevisstløshet. Ligner rus og hodeskade. Mål alltid blodsukker ved bevissthetspåvirkning.",sev:"d",rel:["bevissth","synkope","varmeslag"]},
+  varmeslag:        {name:"Varmeslag",plain:"Farlig overoppheting",body:"Over 40°C med CNS-påvirkning. Varm tørr hud + forvirring. Avkjøl aktivt – skygge, kle av, vann.",sev:"d",rel:["hypoglykemi","dehydrering","bevissth"]},
+  hyponatremi:      {name:"Hyponatremi",plain:"For lavt natrium i blodet",body:"Overdreven vanninntak under løp. Kvalme, hodepine, forvirring, kramper. Ikke gi mer vann.",sev:"d",rel:["dehydrering","hypoglykemi","bevissth"]},
+  hjernerystelse:   {name:"Hjernerystelse",plain:"Hjernen rystes",body:"Forvirring, amnesi, hodepine, kvalme. Ikke tilbake til aktivitet samme dag – risiko for second impact syndrome.",sev:"d",rel:["hodeskade","intrakranialt","subduralt","gcs"]},
+  synkope:          {name:"Vasovagal synkope",plain:"Vanlig besvimelse",body:"Utløses av smerte, stress, varme eller langvarig stående. Legg flat, hev bena. Vanligvis ufarlig.",sev:"",rel:["hypoglykemi","arytmi","dehydrering"]},
+  overdose:         {name:"Rus / overdose",plain:"For mye rusmidler",body:"Opiater: langsom pusting, små pupiller, bevisstløshet. Alltid luftvei og sideleie.",sev:"d",rel:["respirasjonsdep","bevissth","luftvei","hypoglykemi"]},
+  respirasjonsdep:  {name:"Respirasjonsdepresjon",plain:"Pustingen hemmes",body:"Pustefrekvens under 10/min. Vanligst ved opiatrus. Behandling: luftvei, oksygen.",sev:"d",rel:["overdose","luftvei","bevissth"]},
+  epilepsi:         {name:"Epileptisk anfall",plain:"Kramper",body:"Beskytt mot skader. Anfallet går som regel over av seg selv. Ring 113 ved anfall over 5 min.",sev:"w",rel:["bevissth","hypoglykemi","hodeskade"]},
+  crowdcrush:       {name:"Crowd crush",plain:"Mengdetrykk mot brystet",body:"Kan stoppe pusteevnen selv i stående stilling. Frigjøring er behandlingen – få dem ut av mengden.",sev:"d",rel:["thorax","ribbeinsbrudd","sjokk","trampling"]},
+  trampling:        {name:"Trampling",plain:"Tråkket ned av folkemasse",body:"Kan gi multippelt traume og hodeskader. Særlig farlig for barn og eldre.",sev:"d",rel:["hodeskade","thorax","crowdcrush"]},
+  crush:            {name:"Crush-skade",plain:"Klemskade fra tung gjenstand",body:"Vev og organer knuses. Langvarig klem = risiko for rabdomyolyse og nyresvikt ved frigjøring.",sev:"d",rel:["rabdomyolyse","compartment","sjokk"]},
+  blastlung:        {name:"Blast lung",plain:"Lungeblødning fra trykkbølge",body:"Gir lungeblødning uten ytre tegn. Dyspné, blod i oppspytt, hypoksi.",sev:"d",rel:["pneumothorax","hemothorax","hypoxi","tympanisk"]},
+  tympanisk:        {name:"Tympanisk membranruptur",plain:"Trommehinnen sprekker",body:"Markør for primærblast-eksponering. Hørselstap og øresmerter.",sev:"w",rel:["blastlung"]},
+  co:               {name:"CO-forgiftning",plain:"Karbonmonoksid – luktfri gass",body:"Gir hypoksi uten cyanose. Hodepine, kvalme, forvirring. Pulsoksymeter viser FALSKT normalt!",sev:"d",rel:["hypoxi","bevissth","inhalasjon"]},
+  inhalasjon:       {name:"Inhalasjonsskade",plain:"Skade fra røyk/varme",body:"Varm luft og giftige gasser kan brenne luftveiene. Forsinket ødem kan lukke luftveien timer etter.",sev:"d",rel:["luftveisoedem","luftvei","co","brannskade"]},
+  luftveisoedem:    {name:"Luftveisødem",plain:"Hevelse i luftveiene",body:"Stridor og heshet = handle nå. Kan lukke seg fullstendig.",sev:"d",rel:["inhalasjon","luftvei","anafylaksi"]},
+  brannskade:       {name:"Brannskade",plain:"Forbrenningsskade",body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: dyp hudskade. Kjøl med romtemperert vann 20 min. Ikke is.",sev:"w",rel:["inhalasjon","luftveisoedem","co","hypotermi"]},
+  impalement:       {name:"Impalement",plain:"Gjennomboret av en gjenstand",body:"ALDRI fjern gjenstanden i felt. Stabiliser den mekanisk og transport til sykehus.",sev:"d",rel:["tarmperf","aorta","hjerteskade"]},
+  karotis:          {name:"Karotis / jugular",plain:"Halspulsåre / halsblodåre",body:"Store kar i nakken. Stikk her kan gi massiv blødning. Direkte trykk umiddelbart.",sev:"d",rel:["sjokk","luftveisskade","hypovolemi"]},
+  luftveisskade:    {name:"Luftveisskade",plain:"Skade på luftrøret eller strupen",body:"Slag mot nakken kan skade strupen. Hevelse og stridor kan gi raskt lukket luftvei.",sev:"d",rel:["luftveisoedem","luftvei","karotis"]},
+  hjerteskade:      {name:"Hjerteskade",plain:"Skade på selve hjertemuskelen",body:"Penetrerende mot midtre thorax. Becks triade: hypotensjon + distenderte halsvener + dempede hjertelyder.",sev:"d",rel:["tamponade","aorta","sjokk"]},
+  tarmperf:         {name:"Tarmperforasjon",plain:"Hull i tarmen",body:"Gir peritonitt. Kan ikke behandles i felt. Rask transport.",sev:"d",rel:["milt","leverruptur","aorta"]},
+  hofte:            {name:"Hoftebrudd",plain:"Brudd i øvre del av lårbenet",body:"Typisk hos eldre ved lavenergi-fall. Kan gi livstruende blødning og komplikasjoner.",sev:"d",rel:["sjokk","bekken","antikoag"]},
+  abruptio:         {name:"Abruptio placentae",plain:"Morkaken løsner",body:"Morkaken løsner ved stumpt abdominaltraume. Livstruende for foster og mor.",sev:"d",rel:["aortokavalt","sjokk","hypovolemi"]},
+  aortokavalt:      {name:"Aortokavalt kompr.",plain:"Livmoren klemmer store blodårer",body:"Livmoren i ryggeleie trykker på aorta og vena cava. Legg gravide på venstre side ved >20 ukers graviditet.",sev:"w",rel:["abruptio","sjokk"]},
+  antikoag:         {name:"Antikoagulasjon",plain:"Blodfortynnende medisiner",body:"Warfarin, Pradaxa, Xarelto øker blødningsrisikoen kraftig. Selv små skader kan gi store indre blødninger.",sev:"w",rel:["subduralt","hofte","sjokk"]},
+  lungekont:        {name:"Lungekontusjon",plain:"Blåmerke på lungen",body:"Lungen blør innvendig. Hos barn: ribben bøyelige, men kraften overføres til lungen. Tiltagende dyspné.",sev:"w",rel:["pneumothorax","hemothorax","thorax","ribbeinsbrudd"]},
+  dehydrering:      {name:"Dehydrering",plain:"Kroppen mangler væske",body:"Tørr munn, mørk urin, svimmelhet. Eldre er spesielt sårbare. Gi væske oralt hvis bevisst.",sev:"w",rel:["hyponatremi","sjokk","hypoglykemi"]},
+  skipolletommel:   {name:"Skipolletommel (UCL)",plain:"Leddbåndet i tommelens rotledd",body:"UCL ryker ved fall med skistav i hånden. Instabilt tommelgrep.",sev:"i",rel:["handledd"]},
+  frostskader:      {name:"Frostskader",plain:"Vevet er frosset",body:"Grad 1: rødhet. Grad 2: blemmer. Grad 3: nekrose. Ikke gni. Varm forsiktig med kroppen.",sev:"w",rel:["hypotermi"]},
+  sjokk:            {name:"Sjokk",plain:"Utilstrekkelig blodforsyning",body:"Tidlig: uro, takykardi, kald klam hud, kapillærfyll >2 sek. Sent: hypotensjon. Behandle årsaken.",sev:"d",rel:["hypovolemi","tamponade","tensjon","arytmi","anafylaksi"]},
+  gcs:              {name:"GCS – Glasgow Coma Scale",plain:"Bevissthetsskala 3–15",body:"Øyne (1–4) + Verbal (1–5) + Motorisk (1–6). Sum 15 = normal. Synkende GCS er alvorlig.",sev:"w",rel:["avpu","hodeskade","bevissth","pupiller"]},
+  avpu:             {name:"AVPU",plain:"Rask bevissthetsskala",body:"A = Alert: våken. V = Voice: reagerer på stemme. P = Pain: kun smertereaksjon. U = Unresponsive: ingen respons.",sev:"w",rel:["gcs","bevissth","hypoglykemi"]},
+  pupiller:         {name:"Pupillevurdering",plain:"Sjekk øynene",body:"Normal: like store, reagerer på lys. Ensidig vid og treig = økt intrakranialt trykk. Begge faste og vide = kritisk.",sev:"d",rel:["hodeskade","intrakranialt","gcs"]},
+  luftvei:          {name:"Luftveisproblem",plain:"Pusten er truet",body:"Snorking = tungefall, gurgling = væske, stridor = obstruksjon. Kjevetak, sideleie, NPA. Alltid A før B.",sev:"d",rel:["luftveisoedem","inhalasjon","bevissth","agonalpust"]},
+  bevissth:         {name:"Bevissthetspåvirkning",plain:"Redusert bevissthet",body:"Enhver grad er alvorlig inntil årsak er kjent. Sikre luftvei. Mål blodsukker.",sev:"d",rel:["gcs","avpu","hypoglykemi","hodeskade","overdose"]},
+  hlr:              {name:"HLR 30:2",plain:"30 kompresjoner, 2 innblåsninger",body:"ERC/NRR-standard. 30 brystkompresjoner etterfulgt av 2 innblåsninger. Ved hjelpeløs alene: kun kompresjoner er akseptabelt.",sev:"d",rel:["aed","agonalpust","hjertestans"]},
+  kompresjonsdyp:   {name:"5–6 cm dybde",plain:"Kompresjonsdybde",body:"Minimum 5 cm, ikke over 6 cm. La brystet heve seg fullstendig mellom kompresjoner.",sev:"d",rel:["hlr","kompfrekvens"]},
+  kompfrekvens:     {name:"100–120/min",plain:"Kompresjonshastighet",body:"Tilsvarer tempoet i 'Stayin' Alive'. Tell høyt for å holde tempo.",sev:"w",rel:["hlr","kompresjonsdyp"]},
+  aed:              {name:"AED – hjertestarter",plain:"Automatisk ekstern defibrillator",body:"Analyserer rytmen og gir støt ved VF/VT. Fortsett HLR umiddelbart etter støt.",sev:"d",rel:["hlr","hjertestans","arytmi"]},
+  agonalpust:       {name:"Agonal pust",plain:"Gisp rett etter hjertestans",body:"Uregelmessig snorkende pust de første minuttene etter hjertestans. Er IKKE normal pust – start HLR.",sev:"d",rel:["hjertestans","hlr","luftvei"]},
+  hosteoppfordring: {name:"Oppmuntre til hosting",plain:"Be pasienten hoste kraftig",body:"Første tiltak ved delvis luftveisblokk. Kraftig hosting kan løsne fremmedlegeme.",sev:"w",rel:["ryggslagg","heimlich","luftvei"]},
+  ryggslagg:        {name:"5 ryggslag",plain:"Slag mellom skulderbladene",body:"Bøy pasienten forover. Gi 5 kraftige slag med flat hånd mellom skulderbladene.",sev:"d",rel:["heimlich","hosteoppfordring","luftvei"]},
+  heimlich:         {name:"Heimlich-manøver",plain:"Abdominale støt",body:"Stå bak pasienten. Knytt hånden under navlen. 5 kraftige støt innover og oppover.",sev:"d",rel:["ryggslagg","hosteoppfordring","luftvei"]},
+  drukning:         {name:"Drukning – 5 innblåsninger",plain:"Start med pust ved drukning",body:"NRR: gi 5 innledende innblåsninger før kompresjoner. Kald drukning: fortsett HLR selv etter lang tid.",sev:"d",rel:["hlr","hypotermi","hypoxi"]},
+  hypoxi:           {name:"Hypoksi",plain:"For lite oksygen",body:"Luftveisobstruksjon, drukning eller inhalasjonsskade. Behandling: åpen luftvei, oksygen.",sev:"d",rel:["luftvei","hjertestans","co","blastlung"]},
+  hypovolemi:       {name:"Hypovolemi",plain:"For lite blod i kroppen",body:"Blødning eller væsketap. Stopp blødning, gi væske.",sev:"d",rel:["sjokk","bekken","femur","miltruptur"]},
+  hypokalemi:       {name:"Hypo/hyperkalemi",plain:"Forstyrrelser i kaliumnivå",body:"Elektrolyttforstyrrelse kan utløse dødelig arytmi. Vanlig ved nyresykdom og diuretika.",sev:"w",rel:["arytmi","hjertestans"]},
+  tamponade:        {name:"Hjertecamponade",plain:"Blod trykker rundt hjertet",body:"Blod i hjertesekken komprimerer hjertet. Becks triade: hypotensjon + distenderte halsvener + dempede hjertelyder.",sev:"d",rel:["hjerteskade","sjokk","hjertestans","tensjon"]},
+  tensjon:          {name:"Tensjonspneumothorax",plain:"Luft bygger trykk i brysthulen",body:"Luft samles uten utveier og presser hjertet til frisk side. Tegn: dyspné, fraværende pustelyd ensidig, hypotensjon, trakeal deviasjon (sent tegn).\n\nNåldekompresjonen umiddelbart:\n① 2. IKR, midklavikulærlinje – rask tilgang\n② 4.–5. IKR, fremre aksillærlinje – bedre ved muskuløse pasienter\n\nNål over ribbeinkanten. Ikke vent på røntgen.",sev:"d",rel:["pneumothorax","tamponade","sjokk","hjertestans"]},
+  trombose:         {name:"Trombose",plain:"Blodpropp i lunge eller hjerte",body:"Massiv lungeemboli eller STEMI kan gi hjertestans.",sev:"d",rel:["infarkt","hjertestans","sjokk"]},
+  toksiner:         {name:"Toksiner / forgiftning",plain:"Giftstoffer som hemmer hjertet",body:"Overdose, CO, cyanid. Behandling avhenger av agens.",sev:"d",rel:["co","overdose","hjertestans"]},
+  infarkt:          {name:"Hjerteinfarkt",plain:"Blodpropp i hjertekaret",body:"Trykkende brystsmerter >20 min, utstråling til venstre arm/kjeve/rygg, svette, kvalme. Ring 113.",sev:"d",rel:["hjertestans","arytmi","sjokk","trombose"]},
+  fast:             {name:"FAST – slagscreening",plain:"Rask slagtest",body:"F: Ansiktshenge. A: Armsvakhet. S: Taleforstyrrelse. T: Tid – ring 113. Trombolyse-vindu 4,5 timer.",sev:"d",rel:["bevissth","gcs","hodeskade"]},
+  astma:            {name:"Astmaanfall",plain:"Luftveiene trekker seg sammen",body:"Piping i utpust. Alvorlig: kan ikke snakke setninger. Kritisk: stille thorax. Bronkodilator, ring 113.",sev:"w",rel:["luftvei","anafylaksi","pneumothorax"]},
+  anafylaksi:       {name:"Anafylaksi",plain:"Livstruende allergisk reaksjon",body:"Elveblest + luftveissymptomer eller hypotensjon. Adrenalin 0,5 mg i.m. ytre lår (EpiPen). Ring 113.",sev:"d",rel:["luftveisoedem","sjokk","arytmi"]},
+  ribbeinsbrudd:    {name:"Ribbeinsbrudd",plain:"Et eller flere ribbein er brutt",body:"Gir smertefull pusting. Fare for pneumothorax. Tre eller flere = flail chest.",sev:"w",rel:["pneumothorax","hemothorax","lungekont"]},
+  rabdomyolyse:     {name:"Rabdomyolyse",plain:"Muskelceller brytes ned",body:"Skadede muskelceller frigjøres i blodet og kan gi nyresvikt. Cola-farget urin.",sev:"d",rel:["crush","compartment"]},
+  compartment:      {name:"Compartment-syndrom",plain:"Trykk i muskelfascier",body:"Økt trykk stenger av blodsirkulasjonen. Intens smerte, blek og kald ekstremitet. Kirurgisk nødsituasjon.",sev:"d",rel:["crush","rabdomyolyse","tibia","femur"]},
+  koagulopati:      {name:"Koagulopati",plain:"Nedsatt evne til å danne blodpropp",body:"Pasienten blør mer og stopper ikke. Forverres av hypotermi og acidose – den dødelige triaden.",sev:"d",rel:["hypotermi","sjokk","antikoag"]}
 };
 
-let activeTip = null;
-
-document.querySelectorAll('[data-tip]').forEach(el => {
-  el.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const key = this.getAttribute('data-tip');
-    const tip = TIPS[key];
-    if (!tip) return;
-    if (activeTip === this) { hideTip(); return; }
-    if (activeTip) { activeTip.classList.remove('active-tip'); }
-    activeTip = this;
-    this.classList.add('active-tip');
-    document.getElementById('tip-name').textContent = tip.name;
-    const plain = document.getElementById('tip-plain');
-    plain.textContent = tip.plain || '';
-    plain.style.display = tip.plain ? '' : 'none';
-    document.getElementById('tip-body').textContent = tip.body;
-    const sev = document.getElementById('tip-sev');
-    sev.className = 'tip-severity ' + (tip.sev || '');
-    sev.textContent = tip.sev === 'd' ? 'Livstruende' : tip.sev === 'w' ? 'Alvorlig' : tip.sev === 'i' ? 'Vurder' : '';
-    sev.style.display = tip.sev ? '' : 'none';
-    positionTip(this);
-    document.getElementById('tooltip').classList.add('show');
-  });
-});
-
-function positionTip(el) {
-  const tt = document.getElementById('tooltip');
-  tt.style.opacity = '0';
-  tt.classList.add('show');
-  const r = el.getBoundingClientRect();
-  const tw = tt.offsetWidth || 260;
-  const th = tt.offsetHeight || 120;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  let left = r.left;
-  let top = r.bottom + 8;
-  if (left + tw > vw - 10) left = vw - tw - 10;
-  if (left < 10) left = 10;
-  if (top + th > vh - 10) top = r.top - th - 8;
-  if (top < 10) top = 10;
-  tt.style.left = left + 'px';
-  tt.style.top = top + 'px';
-  tt.style.opacity = '1';
-}
+var activeTip = null;
 
 function hideTip() {
   document.getElementById('tooltip').classList.remove('show');
-  if (activeTip) { activeTip.classList.remove('active-tip'); activeTip = null; }
+  if (activeTip) {
+    activeTip.classList.remove('active-tip');
+    activeTip = null;
+  }
 }
+
+function positionTip(el) {
+  var tt = document.getElementById('tooltip');
+  var r = el.getBoundingClientRect();
+  var tw = 260;
+  var th = tt.offsetHeight || 160;
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var left = r.left;
+  var top = r.bottom + 8;
+  if (left + tw > vw - 10) { left = vw - tw - 10; }
+  if (left < 10) { left = 10; }
+  if (top + th > vh - 10) { top = r.top - th - 8; }
+  if (top < 10) { top = 10; }
+  tt.style.left = left + 'px';
+  tt.style.top = top + 'px';
+}
+
+function renderTip(key, anchorEl) {
+  var tip = TIPS[key];
+  if (!tip) { return; }
+  document.getElementById('tip-name').textContent = tip.name;
+  var plain = document.getElementById('tip-plain');
+  plain.textContent = tip.plain || '';
+  plain.style.display = tip.plain ? '' : 'none';
+  document.getElementById('tip-body').textContent = tip.body;
+  var sev = document.getElementById('tip-sev-el');
+  sev.className = 'tip-sev ' + (tip.sev || '');
+  sev.textContent = tip.sev === 'd' ? 'Livstruende' : tip.sev === 'w' ? 'Alvorlig' : tip.sev === 'i' ? 'Vurder' : '';
+  sev.style.display = tip.sev ? '' : 'none';
+  var relDiv = document.getElementById('tip-related');
+  var relLinks = document.getElementById('tip-related-links');
+  relLinks.innerHTML = '';
+  if (tip.rel && tip.rel.length) {
+    for (var i = 0; i < tip.rel.length; i++) {
+      (function(k) {
+        var t2 = TIPS[k];
+        if (!t2) { return; }
+        var span = document.createElement('span');
+        span.className = 'tip-link';
+        span.textContent = t2.name;
+        span.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); renderTip(k, null); });
+        span.addEventListener('click', function(e) { e.stopPropagation(); renderTip(k, null); });
+        relLinks.appendChild(span);
+      })(tip.rel[i]);
+    }
+    relDiv.style.display = '';
+  } else {
+    relDiv.style.display = 'none';
+  }
+  var tt = document.getElementById('tooltip');
+  tt.classList.add('show');
+  if (anchorEl) { positionTip(anchorEl); }
+}
+
+function showTip(el) {
+  var key = el.getAttribute('data-tip');
+  if (!key || !TIPS[key]) { return; }
+  if (activeTip === el) { hideTip(); return; }
+  if (activeTip) { activeTip.classList.remove('active-tip'); }
+  activeTip = el;
+  el.classList.add('active-tip');
+  renderTip(key, el);
+}
+
+var allTipEls = document.querySelectorAll('[data-tip]');
+for (var i = 0; i < allTipEls.length; i++) {
+  (function(el) {
+    el.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); showTip(el); });
+    el.addEventListener('click', function(e) { e.stopPropagation(); showTip(el); });
+  })(allTipEls[i]);
+}
+
+var closeBtn = document.getElementById('tip-close');
+closeBtn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); hideTip(); });
+closeBtn.addEventListener('click', function(e) { e.stopPropagation(); hideTip(); });
+
+document.addEventListener('touchend', function(e) {
+  if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
+});
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) hideTip();
+  if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
 });
 
 function toggle(h) {
-  const b = h.nextElementSibling, c = h.querySelector('.chevron'), open = !b.classList.contains('hidden');
+  var b = h.nextElementSibling;
+  var c = h.querySelector('.chevron');
+  var open = !b.classList.contains('hidden');
   b.classList.toggle('hidden', open);
   c.classList.toggle('open', !open);
   h.classList.toggle('open', !open);
 }
 
 function filterRows() {
-  const q = document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('[data-section]').forEach(sec => {
-    const h = sec.querySelector('.section-header');
-    const b = sec.querySelector('.section-body');
-    const c = h.querySelector('.chevron');
+  var q = document.getElementById('search').value.toLowerCase();
+  var sections = document.querySelectorAll('[data-section]');
+  for (var i = 0; i < sections.length; i++) {
+    var sec = sections[i];
+    var h = sec.querySelector('.section-header');
+    var b = sec.querySelector('.section-body');
+    var c = h.querySelector('.chevron');
+    var rows = b.querySelectorAll('[data-row]');
     if (!q) {
-      b.classList.add('hidden'); c.classList.remove('open'); h.classList.remove('open');
-      b.querySelectorAll('[data-row]').forEach(r => r.style.display = '');
-      sec.style.display = ''; return;
+      b.classList.add('hidden');
+      c.classList.remove('open');
+      h.classList.remove('open');
+      for (var j = 0; j < rows.length; j++) { rows[j].style.display = ''; }
+      sec.style.display = '';
+      continue;
     }
-    let any = false;
-    b.querySelectorAll('[data-row]').forEach(r => {
-      const m = r.textContent.toLowerCase().includes(q);
-      r.style.display = m ? '' : 'none';
-      if (m) any = true;
-    });
-    if (h.textContent.toLowerCase().includes(q)) {
-      b.querySelectorAll('[data-row]').forEach(r => r.style.display = '');
+    var any = false;
+    for (var j = 0; j < rows.length; j++) {
+      var m = rows[j].textContent.toLowerCase().indexOf(q) !== -1;
+      rows[j].style.display = m ? '' : 'none';
+      if (m) { any = true; }
+    }
+    if (h.textContent.toLowerCase().indexOf(q) !== -1) {
+      for (var j = 0; j < rows.length; j++) { rows[j].style.display = ''; }
       any = true;
     }
     sec.style.display = any ? '' : 'none';
-    if (any) { b.classList.remove('hidden'); c.classList.add('open'); h.classList.add('open'); }
-  });
-  document.querySelectorAll('.group-label').forEach(g => {
-    if (!q) { g.style.display = ''; return; }
-    let sib = g.nextElementSibling, vis = false;
+    if (any) {
+      b.classList.remove('hidden');
+      c.classList.add('open');
+      h.classList.add('open');
+    }
+  }
+  var groups = document.querySelectorAll('.group-label');
+  for (var i = 0; i < groups.length; i++) {
+    if (!q) { groups[i].style.display = ''; continue; }
+    var sib = groups[i].nextElementSibling;
+    var vis = false;
     while (sib && !sib.classList.contains('group-label')) {
-      if (sib.style.display !== 'none') vis = true;
+      if (sib.style.display !== 'none') { vis = true; }
       sib = sib.nextElementSibling;
     }
-    g.style.display = vis ? '' : 'none';
-  });
+    groups[i].style.display = vis ? '' : 'none';
+  }
 }
 </script>
 </body>
