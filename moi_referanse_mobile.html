@@ -80,8 +80,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
 </div>
 
 <div class="header">
-  <h1>MOI – Komplett referanse</h1>
-  <p>Trykk på en tag for mer info · RK feltbruk</p>
+  <h1>Komplett feltguide</h1>
+  <p>Trykk på en tag for mer info</p>
   <input class="search" type="search" id="search" placeholder="Søk skade, sport, mekanisme..." oninput="filterRows()">
 </div>
 
@@ -472,18 +472,124 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
     <div class="row" data-row>
       <div class="moi-label" style="color:#60a5fa;">Støtte til hjelpere</div>
       <div class="numgrid">
-        <span class="num" style="color:#60a5fa;">02415</span><span style="color:#ccc;">Norsk Luftambulanse – oppfølging av førstehjelpsytere</span>
+        <span class="num" style="color:#60a5fa;">02415</span><span style="color:#ccc;">Norsk Luftambulanse – oppfølging etter krevende hendelser</span>
       </div>
       <div class="note b">Ring 02415 etter krevende hendelser – gratis og konfidensielt</div>
     </div>
     <div class="row" data-row>
-      <div class="moi-label">Hva ringer du når?</div>
-      <div class="tags"><span class="t d" data-tip="ring113">113 – livstruende tilstand</span><span class="t w" data-tip="ring116117">116 117 – trenger lege, ikke nødsituasjon</span><span class="t i" data-tip="ring02415">02415 – etter krevende hendelse</span><span class="t w" data-tip="ringGift">22 59 13 00 – mistanke om forgiftning</span></div>
+      <div class="tags"><span class="t d" data-tip="ring113">113 – livstruende</span><span class="t w" data-tip="ring116117">116 117 – trenger lege</span><span class="t i" data-tip="ring02415">02415 – etter hendelse</span><span class="t w" data-tip="ringGift">22 59 13 00 – forgiftning</span></div>
     </div>
   </div>
 </div>
 
-<div class="group-label">NRR / Norske retningslinjer</div>
+<div class="group-label">Referansekort</div>
+
+<div class="group-label">Skader</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🏅 PRICE – idrettsskade</span>
+    <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div style="padding: 2px 0;">
+        <div class="piksib-step">
+          <div class="piksib-letter" style="color:#60a5fa;">P</div>
+          <div class="piksib-text"><strong>Protection</strong>Beskytt skadestedet mot videre skade. Støttebandage, krykker.</div>
+        </div>
+        <div class="piksib-step">
+          <div class="piksib-letter" style="color:#60a5fa;">R</div>
+          <div class="piksib-text"><strong>Rest</strong>Avlast – stopp aktiviteten. Ikke belast.</div>
+        </div>
+        <div class="piksib-step">
+          <div class="piksib-letter" style="color:#60a5fa;">I</div>
+          <div class="piksib-text"><strong>Ice</strong>Is/kulde i 15–20 min. Alltid tøy mellom is og hud. Ikke direkte is mot hud.</div>
+        </div>
+        <div class="piksib-step">
+          <div class="piksib-letter" style="color:#60a5fa;">C</div>
+          <div class="piksib-text"><strong>Compression</strong>Kompresjonsbandasje for å dempe hevelse. Ikke for stramt.</div>
+        </div>
+        <div class="piksib-step" style="border-bottom:none;">
+          <div class="piksib-letter" style="color:#60a5fa;">E</div>
+          <div class="piksib-text"><strong>Elevation</strong>Hev ekstremiteten over hjertehøyde for å redusere hevelse.</div>
+        </div>
+      </div>
+    </div>
+    <div class="note">Gjelder bløtvevsskader: strekk, forstuing, muskelruptur. Ikke ved mistenkt brudd.</div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🦴 Bruddskader</span>
+    <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="divider">Sikre tegn på brudd</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="brudd_sikre">Unormal stilling / vinkling</span><span class="t d" data-tip="brudd_sikre">Krepitasjon (knitring)</span><span class="t d" data-tip="brudd_sikre">Synlig bein</span><span class="t d" data-tip="brudd_sikre">Unormal bevegelse</span></div>
+    </div>
+    <div class="divider">Usikre tegn på brudd</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t w" data-tip="brudd_usikre">Smerte og ømhet</span><span class="t w" data-tip="brudd_usikre">Hevelse og bloduttredelse</span><span class="t w" data-tip="brudd_usikre">Nedsatt funksjon</span><span class="t w" data-tip="brudd_usikre">Økt varme</span></div>
+      <div class="note">Usikre tegn kan også skyldes forstuing eller muskelskade</div>
+    </div>
+    <div class="divider">Tiltak</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t i" data-tip="brudd_tiltak">Stabiliser i funnet stilling</span><span class="t i" data-tip="puls_distalt">Sjekk puls og sensibilitet distalt</span><span class="t w" data-tip="brudd_aapent">Åpent brudd – dekk med sterilt bandasje</span><span class="t w" data-tip="bekken_test">Bekken – kun ett forsøk</span></div>
+    </div>
+    <div class="divider">Alvorlige brudd å mistenke ved MOI</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="femur">Lårben – stor intern blødning</span><span class="t d" data-tip="bekken">Bekken – opptil 4L intern blødning</span><span class="t d" data-tip="cervikalcolumna">Nakke – alltid ved relevant MOI</span><span class="t d" data-tip="calcaneus">Hælbein ved fall fra høyde</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🔥 Brannskade – behandling</span>
+    <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="divider">Prioriter luftvei – tegn på inhalasjonsskade</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t d" data-tip="inhalasjon_tegn">Sot rundt munn / nese</span><span class="t d" data-tip="inhalasjon_tegn">Svidde nesehår</span><span class="t d" data-tip="stridor">Heshet / stridor</span><span class="t d" data-tip="luftveisoedem">Hovne lepper</span></div>
+      <div class="note r">Inhalasjonsskade = rask transport. Luftveisødem kan lukke seg etter timer.</div>
+    </div>
+    <div class="divider">Dybde – rask vurdering</div>
+    <div class="row" data-row>
+      <div style="font-size:11px; color:#ccc; line-height:2.1;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 6px;">
+          <span style="color:#60a5fa;font-weight:600;">Grad</span><span style="color:#60a5fa;font-weight:600;">Utseende</span><span style="color:#60a5fa;font-weight:600;">Smerte</span><span style="color:#60a5fa;font-weight:600;">Tiltak</span>
+          <span>1. grad</span><span>Rød, tørr</span><span>++</span><span>Krem</span>
+          <span>2. overfladisk</span><span>Blemmer, fuktig</span><span>+++</span><span>Bandasje</span>
+          <span>2. dyp</span><span>Mørkerød</span><span>+/–</span><span>Sykehus</span>
+          <span>3. grad</span><span>Hvit/brun, læraktig</span><span>–</span><span>Sykehus</span>
+        </div>
+      </div>
+    </div>
+    <div class="divider">Utbredelse – 9 %-regelen</div>
+    <div class="row" data-row>
+      <div style="font-size:11px; color:#ccc; line-height:2;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 6px;">
+          <span style="color:#60a5fa;font-weight:600;">Område</span><span style="color:#60a5fa;font-weight:600;">%</span><span style="color:#60a5fa;font-weight:600;">Område</span><span style="color:#60a5fa;font-weight:600;">%</span>
+          <span>Hode/hals</span><span>9%</span><span>Arm (hver)</span><span>9%</span>
+          <span>Trunkus for</span><span>18%</span><span>Ben (hvert)</span><span>18%</span>
+          <span>Trunkus bak</span><span>18%</span><span>Genitalia</span><span>1%</span>
+        </div>
+      </div>
+      <div class="note">Pasientens håndflate + fingre ≈ 1 % av kroppsoverflaten</div>
+    </div>
+    <div class="divider">Kjøling og tiltak</div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t w" data-tip="brannskade_kjoling">Romtemperert vann – 20 min</span><span class="t i">Ikke is</span><span class="t d" data-tip="hypotermi">Pass hypotermi – stopp kjøling etter 20 min</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="tags"><span class="t w" data-tip="brannskade_dekk">Dekk med plastfilm / tørre tepper</span><span class="t w" data-tip="co">Mistenk CO ved lukket rom</span><span class="t d" data-tip="brannskade_innlegg">Innleggelse? &gt;5% voksen / &gt;10% barn</span></div>
+    </div>
+  </div>
+</div>
 
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
@@ -654,7 +760,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
-<div class="group-label">RK – sport og arrangement</div>
+<div class="group-label">MOI – sport og arrangement</div>
 
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
@@ -810,7 +916,184 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; f
   </div>
 </div>
 
-<div class="group-label">Trafikk</div>
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🎪 Opprigg / nedrigg scene</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Fall fra høyde (rigg, stillas, truss)</div>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t d" data-tip="thorax">Thorax</span><span class="t d" data-tip="bekken">Bekken</span><span class="t d" data-tip="columna">Columna aksial</span></div>
+      <div class="note r">Høyenergi MOI – full XABCDE og spinalvurdering</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Klemskade (gods, rigg, truss)</div>
+      <div class="tags"><span class="t d" data-tip="crush">Crush-skade</span><span class="t d" data-tip="rabdomyolyse">Rabdomyolyse ved langvarig klem</span><span class="t d" data-tip="compartment">Compartment-syndrom</span><span class="t w" data-tip="femur">Ekstremitetsskade</span></div>
+      <div class="note">Frigjøring av langvarig klem kan gi sirkulatorisk kollaps – varsle AMK før frigjøring</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Fallende gjenstander (utstyr, riggelement)</div>
+      <div class="tags"><span class="t d" data-tip="hodeskade">Hodeskade</span><span class="t d" data-tip="cervikalcolumna">Cervikalcolumna</span><span class="t w" data-tip="skulder">Skulder / klavikkel</span><span class="t w" data-tip="thorax">Thorax</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Elektrisk skade (scenelys, kabel)</div>
+      <div class="tags"><span class="t d" data-tip="arytmi">Hjertearytmi</span><span class="t d" data-tip="el_skade">Inn-/utgangssår</span><span class="t w" data-tip="brannskade">Brannskader</span><span class="t d" data-tip="kastefenomen">Kastefenomen – sekundærfall</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🌊 Drukning</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Tegn og vurdering</div>
+      <div class="tags"><span class="t d" data-tip="bevissth">Bevissthetspåvirkning</span><span class="t d" data-tip="hypoxi">Hypoksi</span><span class="t d" data-tip="hypotermi">Hypotermi</span><span class="t w" data-tip="cervikalcolumna">Cervikalcolumna ved stuping/ulykke</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Behandling</div>
+      <div class="tags"><span class="t d" data-tip="drukning">5 innblåsninger først – deretter 30:2</span><span class="t d" data-tip="sideleie">Sideleie ved bevissthet</span><span class="t w" data-tip="drukning_hypotermi">Hypotermi – ikke alltid fienden</span></div>
+      <div class="note r">Kald drukning: ikke gi opp tidlig – «ikke død før varm og død»</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Spesielle hensyn</div>
+      <div class="tags"><span class="t w" data-tip="aspirasjon">Aspirasjon av vann</span><span class="t w" data-tip="drukning_barn">Barn drukner stille</span><span class="t i" data-tip="drukning_sek">Sekundærdrukting – observer etter redning</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">⚡ Elektrisk skade</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Egensikkerhet først</div>
+      <div class="tags"><span class="t d" data-tip="el_sikkerhet">Ikke rør pasient før strøm er brutt</span></div>
+      <div class="note r">Du kan selv bli offer – koble fra strøm eller bruk isolert materiale</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Lavspent (230V husholdning)</div>
+      <div class="tags"><span class="t d" data-tip="arytmi">Hjertearytmi / hjertestans</span><span class="t w" data-tip="el_skade">Inn-/utgangssår</span><span class="t w" data-tip="brannskade">Brannskader langs strømbane</span><span class="t w" data-tip="muskelskade">Muskelskade</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Høyspent (&gt;1000V)</div>
+      <div class="tags"><span class="t d" data-tip="kastefenomen">Kastefenomen – sekundærfall</span><span class="t d" data-tip="brannskade">Lysbue-brannskader</span><span class="t d" data-tip="arytmi">Alvorlig arytmi</span><span class="t d" data-tip="rabdomyolyse">Rabdomyolyse</span></div>
+      <div class="note r">Høyspent dreper på avstand – hold 10 m og ring 110 + 113</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Tiltak</div>
+      <div class="tags"><span class="t d" data-tip="hjertestans">Vurder HLR – arytmi kan oppstå forsinket</span><span class="t w" data-tip="el_skade">Dokumenter inn- og utgangssår</span><span class="t w" data-tip="hypotermi">Hold varm</span></div>
+      <div class="note">Observer i minst 6 timer – arytmi kan debutere etter tid</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🔥 Brann og røykeksponering</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Egensikkerhet</div>
+      <div class="tags"><span class="t d" data-tip="brann_sikkerhet">Ikke gå inn uten verneutstyr</span><span class="t d" data-tip="co">CO kan drepe stille – ingen lukt</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Brannskade – vurdering</div>
+      <div class="tags"><span class="t w" data-tip="brannskade">Grad 1–3 – dybde og utbredelse</span><span class="t d" data-tip="inhalasjon">Inhalasjonsskade</span><span class="t d" data-tip="luftveisoedem">Luftveisødem – forsinket!</span><span class="t d" data-tip="co">CO-forgiftning</span><span class="t d" data-tip="cyanid">Cyanid ved plastbrann</span></div>
+      <div class="note r">Sot rundt munn/nese, heshet eller stridor = inhalasjonsskade – handle raskt</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Røykeksponering / lukket rom</div>
+      <div class="tags"><span class="t d" data-tip="co">CO-forgiftning – SpO₂ viser falskt normalt!</span><span class="t d" data-tip="cyanid">Cyanid (plast, møbler)</span><span class="t w" data-tip="bevissth">Bevissthetspåvirkning</span></div>
+      <div class="note r">Frisk luft er primærbehandling – flytt pasient ut umiddelbart</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Kjøling av brannskade</div>
+      <div class="tags"><span class="t w" data-tip="brannskade_kjoling">Romtemperert vann 20 min</span><span class="t i">Ikke is – forverrer vevsskaden</span><span class="t i">Ikke glasur / smør</span><span class="t d" data-tip="hypotermi">Pass på hypotermi ved kjøling</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">💊 Forgiftning</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Første tiltak</div>
+      <div class="tags"><span class="t d" data-tip="luftvei">Sikre luftvei</span><span class="t d" data-tip="sideleie">Sideleie</span><span class="t w" data-tip="ringGift">Ring Giftinfo: 22 59 13 00</span></div>
+      <div class="note b">Giftinformasjonen gir spesifikke råd – ring tidlig</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Mistenkt forgiftning – vurder</div>
+      <div class="tags"><span class="t w" data-tip="forgiftning_hva">Hva er inntatt? Dose? Tid?</span><span class="t w" data-tip="miosepupiller">Pupiller</span><span class="t w" data-tip="hudstatus">Hudstatus</span><span class="t w" data-tip="hypoglykemi">Blodsukker</span><span class="t w" data-tip="rf_normal">Respirasjonsfrekvens</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Spesielle forgiftninger</div>
+      <div class="tags"><span class="t d" data-tip="co">CO – luktfri, SpO₂ upålitelig</span><span class="t d" data-tip="cyanid">Cyanid – plastbrann</span><span class="t d" data-tip="nalokson">Opiater – nalokson</span><span class="t w" data-tip="alkohol">Alkohol</span><span class="t w" data-tip="benzo_alkohol">Benzo + alkohol</span></div>
+    </div>
+    <div class="note r" style="margin:8px 14px;">Aldri gi melk, vann eller fremkall brekninger uten råd fra Giftinfo</div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🏋 Overanstrengelse / overbelastning</span>
+    <span class="badge badge-amber">MOD</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Uttømming og kollaps</div>
+      <div class="tags"><span class="t w" data-tip="uttomming">Uttømming – gi sukker og hvile</span><span class="t d" data-tip="varmeslag">Varmeslag</span><span class="t d" data-tip="hyponatremi">Hyponatremi ved for mye vann</span><span class="t d" data-tip="hjertestans">Hjertestans – alltid vurder</span></div>
+      <div class="note r">Kollaps etter målgang = hjertestans inntil annet bevist</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Muskel og sene</div>
+      <div class="tags"><span class="t d" data-tip="rabdomyolyse">Rabdomyolyse ved ekstrem belastning</span><span class="t w" data-tip="akillesruptur">Akillesruptur</span><span class="t w" data-tip="lyske">Lyske / hamstring</span></div>
+      <div class="note">Cola-farget urin etter hard trening = mistenk rabdomyolyse</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Leddbånd og brusk</div>
+      <div class="tags"><span class="t w" data-tip="acl">Kneskade ACL</span><span class="t w" data-tip="ankel">Ankelskade</span><span class="t w" data-tip="skulder">Skulderdislokasjon</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" data-section>
+  <div class="section-header" onclick="toggle(this)">
+    <span class="section-title">🥶 Eksponering – kaldt vær</span>
+    <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+  </div>
+  <div class="section-body hidden">
+    <div class="row" data-row>
+      <div class="moi-label">Hypotermi – gjenkjenn</div>
+      <div class="tags"><span class="t w" data-tip="hypotermi_mild">Mild (&gt;32°C): skjelving, klumsete</span><span class="t w" data-tip="hypotermi_mod">Moderat (28–32°C): slutter å skjelve, forvirret</span><span class="t d" data-tip="hypotermi">Alvorlig (&lt;28°C): bevisstløs, arytmi</span></div>
+      <div class="note r">Slutter å skjelve + forvirret = farlig tegn, ikke bedring</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Frostskader</div>
+      <div class="tags"><span class="t w" data-tip="frostskader">Grad 1–3 – fingre, tær, nese, ører</span><span class="t i">Ikke gni – skader vevet</span><span class="t i">Ikke varm opp hvis refreezing-risiko</span></div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Behandling hypotermi</div>
+      <div class="tags"><span class="t d" data-tip="spaceblanket">Space blanket – sølvsiden inn</span><span class="t d" data-tip="isolering">Isolér fra bakken</span><span class="t w" data-tip="expose_klipp">Fjern våte klær forsiktig</span><span class="t w" data-tip="hypoglykemi">Mål blodsukker</span></div>
+      <div class="note">Håndter forsiktig – kalde hjerter er sensitive for arytmi ved bevegelse</div>
+    </div>
+    <div class="row" data-row>
+      <div class="moi-label">Kombinasjoner å passe på</div>
+      <div class="tags"><span class="t d" data-tip="hypotermi">Hypotermi + alkohol – alkohol øker varmetap</span><span class="t d" data-tip="hypoglykemi">Hypotermi + hypoglykemi</span><span class="t d" data-tip="hodeskade">Hypotermi maskerer hodeskade</span></div>
+    </div>
+  </div>
+</div>
+
+
 
 <div class="section" data-section>
   <div class="section-header" onclick="toggle(this)">
@@ -1201,6 +1484,26 @@ var TIPS = {
   ovariecyste:      {name:"Ovariecyste / torsjon",plain:"Cystisk blære eller vridd eggstokk",body:"Ovarietorsjon (vridd eggstokk): plutselig intens ensidig underlivssmerter, kvalme og oppkast. Kirurgisk nødsituasjon.\n\nRuptert cyste: akutte smerter, kan gi intern blødning. Ikke alltid synlig ytre skade.",sev:"d",rel:["ektopisk","sjokk","abdomen_distensjon"]},
   trombose_kvinner: {name:"DVT / lungeemboli – økt risiko",plain:"Blodpropp i ben eller lunge",body:"Økt risiko ved: p-piller (særlig kombinert med røyking), graviditet og postpartum, immobilisering.\n\nDVT: hevelse, varme og smerter i legg. Lungeemboli: plutselig dyspné, brystsmerter, takykardi. Kan gi hjertestans.",sev:"d",rel:["trombose","sjokk","takykardi"]},
   osteoporose_kvinner:{name:"Osteoporose hos kvinner",plain:"Redusert bentetthet – lettere å brekke",body:"Postmenopausale kvinner har økt risiko for osteoporose. Konsekvens: lavenergi-MOI kan gi alvorlige frakturer.\n\nSpesielt: hoftebrudd ved fall fra stående, kompresjonsbrudd i ryggraden, håndleddsbrudd. Mistenk fraktur ved lavere terskel enn hos menn.",sev:"w",rel:["hofte","columna","handledd","antikoag"]},
+  kastefenomen:     {name:"Kastefenomen",plain:"Kroppen kastes ved elektrisk støt eller eksplosjon",body:"Ved elektrisk støt kan musklene krampe ukontrollert og kaste pasienten flere meter. Gir sekundærskader som ved høyenergi-fall: hodeskade, columna, thorax, bekken. Undersøk som høyenergi-MOI.",sev:"d",rel:["hodeskade","cervikalcolumna","thorax","columna"]},
+  el_skade:         {name:"Elektrisk inn-/utgangssår",plain:"Strømbanen gjennom kroppen",body:"Inngangssår er lite og kan se uskyldig ut. Utgangssår er ofte større. Skaden langs strømbanen er langt mer alvorlig enn hudskaden indikerer. Dokumenter begge steder. Mistenk indre skade.",sev:"w",rel:["arytmi","brannskade","rabdomyolyse"]},
+  el_sikkerhet:     {name:"Elektrisk skade – egensikkerhet",plain:"Ikke nærme deg før strøm er brutt",body:"En strømførende pasient er farlig å berøre. Tiltak: varsle el-verk / 110, bruk isolert materiale til å flytte pasienten fra strømkilden, eller vent til strøm er brutt. Høyspent: hold minimum 10 meters avstand.",sev:"d",rel:["x_sikkerhet"]},
+  muskelskade:      {name:"Muskelskade ved elektrisk støt",plain:"",body:"Elektrisk strøm kan gi alvorlig muskelskade langs strømbanen uten synlige ytre tegn. Kan utløse rabdomyolyse og nyresvikt. Cola-farget urin er et tegn.",sev:"w",rel:["rabdomyolyse","el_skade"]},
+  brann_sikkerhet:  {name:"Brannsikkerhet – egensikkerhet",plain:"",body:"Aldri gå inn i et brennende bygg uten verneutstyr og opplæring. Røyk dreper raskere enn flammer. CO og cyanid gir bevistløshet på sekunder. Vent på brannvesenet.",sev:"d",rel:["co","cyanid","x_sikkerhet"]},
+  cyanid:           {name:"Cyanid­forgiftning",plain:"Giftig gass fra brennende plast",body:"Frigjøres ved forbrenning av mange plastmaterialer og møbler. Blokkerer cellenes evne til å bruke oksygen. Rask bevisstløshet. Behandling: frisk luft, antidot (hydroksykobalamin) på sykehus.",sev:"d",rel:["co","inhalasjon","bevissth"]},
+  brannskade_kjoling:{name:"Kjøling av brannskade",plain:"Romtemperert vann i 20 minutter",body:"Kjøl med rennende romtemperert vann (ikke kaldt, ikke is) i 20 minutter. Ikke bruk is – gir fryseskade og forverrer vevsskaden. Ikke glasur, smør eller tannkrem. Etter kjøling: dekk med rent bandasje. OBS: hypotermirisiko ved store brannskader.",sev:"w",rel:["brannskade","hypotermi"]},
+  forgiftning_hva:  {name:"Hva er inntatt?",plain:"",body:"Prøv å finne ut: hva (medikament, kjemikalie, rusmiddel), dose/mengde, tidspunkt for inntak, og om det er kombinasjon. Ta med emballasje til sykehuset. Ring Giftinfo (22 59 13 00) for spesifikke råd.",sev:"",rel:["ringGift","nalokson","co"]},
+  drukning_barn:    {name:"Barn drukner stille",plain:"",body:"Barnedrukning gir sjelden den klassiske armbevegelsen og ropingen vi forventer. Barnet synker stille under vann. Hold øye med barn nær vann kontinuerlig – ikke kun «kikke innimellom».",sev:"d",rel:["drukning","hypoxi","hypotermi"]},
+  drukning_sek:     {name:"Sekundærdrukting",plain:"Forsinket lungeproblemer etter drukning",body:"Timer til dager etter drukning kan det oppstå lungeødem og respirasjonssvikt – selv etter tilsynelatende ukomplisert redning. Alle drukningspasienter bør observeres på sykehus minimum 6–24 timer.",sev:"d",rel:["drukning","inhalasjon","pneumothorax"]},
+  hypotermi_mild:   {name:"Mild hypotermi (over 32°C)",plain:"",body:"Kjernetemperatur 32–35°C. Tegn: intens skjelving, klumsete bevegelser, nedsatt koordinasjon, kald hud. Pasienten er bevisst. Tiltak: flytt inn fra kulde, fjern våte klær, gi varm drikke hvis bevisst, space blanket.",sev:"w",rel:["hypotermi","frostskader"]},
+  hypotermi_mod:    {name:"Moderat hypotermi (28–32°C)",plain:"",body:"Tegn: slutter å skjelve (farlig tegn!), tiltakende forvirring og sløvhet, stiv muskulatur, langsom puls. Tiltak: som mild + varsle AMK, håndter forsiktig (arytmirisiko), ikke la pasienten gå.",sev:"d",rel:["hypotermi","arytmi","hypotermi_mild"]},
+  brudd_sikre:      {name:"Sikre bruddtegn",plain:"Disse bekrefter brudd",body:"• Unormal stilling eller vinkling av lemmet\n• Krepitasjon – knitrende lyd/følelse ved bevegelse\n• Synlig bein (åpent brudd)\n• Unormal bevegelse der det ikke skal være bevegelse\n\nEtt eller flere av disse = brudd bekreftet. Stabiliser og transport.",sev:"d",rel:["brudd_tiltak","brudd_usikre"]},
+  brudd_usikre:     {name:"Usikre bruddtegn",plain:"Disse kan skyldes brudd – men ikke sikkert",body:"• Smerte og ømhet over knokkelen\n• Hevelse og blåmerker\n• Nedsatt funksjon / bevegelsesevne\n• Økt varme\n\nUsikre tegn alene utelukker ikke brudd. Behandle som brudd ved tvil.",sev:"w",rel:["brudd_sikre","brudd_tiltak"]},
+  brudd_tiltak:     {name:"Tiltak ved brudd",plain:"",body:"1. Stabiliser i funnet stilling – aldri forsøk å rette ut\n2. Sjekk puls og sensibilitet distalt for skaden\n3. Immobiliser med det du har (skinner, puter, bandasje)\n4. Åpent brudd: dekk med sterilt bandasje, ikke trykk inn bein\n5. Transport til sykehus",sev:"w",rel:["puls_distalt","brudd_aapent","brudd_sikre"]},
+  brudd_aapent:     {name:"Åpent brudd",plain:"Bein stikker ut eller kommuniserer med huden",body:"Høy infeksjonsrisiko. Tiltak: dekk med sterilt bandasje fuktet med NaCl eller rent vann. Ikke trykk bein tilbake. Ikke fjern fremmedlegemer. Rask transport til sykehus.",sev:"d",rel:["brudd_tiltak","infeksjon_risiko"]},
+  inhalasjon_tegn:  {name:"Tegn på inhalasjonsskade",plain:"",body:"• Sot rundt munn og nese\n• Sottilblandet spytt\n• Svidde nesehår\n• Brannskader i munnhule\n• Heshet og hoste\n• Hovne lepper\n\nAlvorlig luftveisskade kan gi behov for tidlig intubasjon. Prioriter rask transport.",sev:"d",rel:["inhalasjon","luftveisoedem","stridor","luftvei"]},
+  brannskade_dekk:  {name:"Dekking av brannskade",plain:"",body:"Plastfilm (gladpack) direkte mot brannskaden etter kjøling – ikke sirkulært rundt lemmet. Deretter tørre håndklær eller tepper utenpå for å hindre varmetap. Ikke bomullstøy direkte mot sår.",sev:"w",rel:["brannskade","hypotermi"]},
+  brannskade_innlegg:{name:"Innleggelse ved brannskade",plain:"",body:"Innlegg ved:\n• Over 5% kroppsoverflate (voksen)\n• Over 10% hos barn\n• All 3. grad\n• Ansikt, hender, føtter, genitalia\n• Mistenkt inhalasjonsskade\n• Høyspentskade\n\nStore skader (>15% voksen / >10% barn) = traumemottak.",sev:"d",rel:["brannskade","inhalasjon_tegn","el_skade"]},
+  infeksjon_risiko: {name:"Infeksjonsrisiko ved åpent brudd",plain:"",body:"Åpent brudd gir direkte kommunikasjon mellom bein og omgivelsene. Høy risiko for osteomyelitt (beininfeksjon). Dekk sterilt, transport raskt. Antibiotika og kirurgi på sykehus.",sev:"d",rel:["brudd_aapent"]},
   aeiou_s:          {name:"S – Sjokk / Stroke",plain:"",body:"Sjokk: utilstrekkelig blodforsyning til hjernen gir bevissthetspåvirkning.\n\nStroke (slag): akutt forstyrrelse i hjernens blodtilførsel.",sev:"d",rel:["sjokk","fast","bevissth"]}
 };
 
