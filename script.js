@@ -86,25 +86,6 @@
     renderTip(key, el);
   }
 
-  var allTipEls = document.querySelectorAll('[data-tip]');
-  for (var i = 0; i < allTipEls.length; i++) {
-    (function(el) {
-      el.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); showTip(el); });
-      el.addEventListener('click', function(e) { e.stopPropagation(); showTip(el); });
-    })(allTipEls[i]);
-  }
-
-  var closeBtn = document.getElementById('tip-close');
-  closeBtn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); hideTip(); });
-  closeBtn.addEventListener('click', function(e) { e.stopPropagation(); hideTip(); });
-
-  document.addEventListener('touchend', function(e) {
-    if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
-  });
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
-  });
-
   function toggleSub(id) {
     var el = document.getElementById(id);
     if (el) { el.classList.toggle('hidden'); }
@@ -122,26 +103,6 @@
       try { sessionStorage.setItem('sec_' + titleEl.textContent.trim(), open ? 'closed' : 'open'); } catch(e) {}
     }
   }
-
-  // Restore section open/closed state from sessionStorage
-  (function() {
-    try {
-      var allSecs = document.querySelectorAll('[data-section]');
-      for (var i = 0; i < allSecs.length; i++) {
-        var h2 = allSecs[i].querySelector('.section-header');
-        var b2 = allSecs[i].querySelector('.section-body');
-        var c2 = h2.querySelector('.chevron');
-        var titleEl2 = h2.querySelector('.section-title');
-        if (!titleEl2) { continue; }
-        var st = sessionStorage.getItem('sec_' + titleEl2.textContent.trim());
-        if (st === 'open') {
-          b2.classList.remove('hidden');
-          c2.classList.add('open');
-          h2.classList.add('open');
-        }
-      }
-    } catch(e) {}
-  })();
 
   function filterRows() {
     var q = document.getElementById('search').value.toLowerCase();
@@ -183,3 +144,50 @@
     }
   }
 
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Inject all sections
+    var container = document.getElementById('all-sections');
+    (window.SECTIONS || []).forEach(function(html) {
+      container.insertAdjacentHTML('beforeend', html);
+    });
+
+    // 2. Attach tip event listeners
+    var allTipEls = document.querySelectorAll('[data-tip]');
+    for (var i = 0; i < allTipEls.length; i++) {
+      (function(el) {
+        el.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); showTip(el); });
+        el.addEventListener('click', function(e) { e.stopPropagation(); showTip(el); });
+      })(allTipEls[i]);
+    }
+
+    // 3. Tooltip close / outside-click handlers
+    var closeBtn = document.getElementById('tip-close');
+    closeBtn.addEventListener('touchend', function(e) { e.preventDefault(); e.stopPropagation(); hideTip(); });
+    closeBtn.addEventListener('click', function(e) { e.stopPropagation(); hideTip(); });
+    document.addEventListener('touchend', function(e) {
+      if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#tooltip') && !e.target.hasAttribute('data-tip')) { hideTip(); }
+    });
+
+    // 4. Session restore
+    (function() {
+      try {
+        var allSecs = document.querySelectorAll('[data-section]');
+        for (var i = 0; i < allSecs.length; i++) {
+          var h2 = allSecs[i].querySelector('.section-header');
+          var b2 = allSecs[i].querySelector('.section-body');
+          var c2 = h2.querySelector('.chevron');
+          var titleEl2 = h2.querySelector('.section-title');
+          if (!titleEl2) { continue; }
+          var st = sessionStorage.getItem('sec_' + titleEl2.textContent.trim());
+          if (st === 'open') {
+            b2.classList.remove('hidden');
+            c2.classList.add('open');
+            h2.classList.add('open');
+          }
+        }
+      } catch(e) {}
+    })();
+  });
