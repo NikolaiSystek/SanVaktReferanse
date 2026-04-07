@@ -3,8 +3,8 @@
 
   <div class="section" data-section>
     <div class="section-header" onclick="toggle(this)">
-      <span class="section-title">🔁 PIKSIB – ved hjertestans</span>
-      <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+      <span class="section-title">🔁 PIKSIB</span>
+      <span class="badge badge-gray">REF</span><span class="chevron">▼</span>
     </div>
     <div class="section-body hidden">
       <div class="note b" style="margin:10px 14px 6px;">Lederverktøy for kontinuerlig situasjonsstyring – syklisk, ikke lineær</div>

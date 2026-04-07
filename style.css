@@ -67,3 +67,12 @@
     .start-tree .step.g { border-color: #34d399; }
     .start-tree .step.y { border-color: #fbbf24; }
     .start-tree .step.b { border-color: #555; }
+    .lex-list { display: flex; flex-direction: column; }
+    .lex-entry { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 7px; padding: 6px 0; border-bottom: 1px solid #1a1a1a; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .lex-entry:last-child { border-bottom: none; }
+    .lex-entry.active-tip .lex-name { color: #60a5fa; }
+    .lex-name { font-size: 12px; font-weight: 600; color: #bbb; }
+    .lex-entry.lex-d .lex-name { color: #f87171; }
+    .lex-entry.lex-w .lex-name { color: #e5a820; }
+    .lex-entry.lex-i .lex-name { color: #60a5fa; }
+    .lex-plain { font-size: 11px; color: #555; }
