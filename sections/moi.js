@@ -271,4 +271,117 @@
       </div>
     </div>
   </div>
+
+  <div class="section" data-section>
+    <div class="section-header" onclick="toggle(this)">
+      <span class="section-title">🏔 På fjellet – hypotermi og overlevelse</span>
+      <span class="badge badge-red">HØY</span><span class="chevron">▼</span>
+    </div>
+    <div class="section-body hidden">
+
+      <div class="divider">Hypotermi – stadier (HT I–V)</div>
+      <div class="row" data-row>
+        <div style="font-size:11px; color:#ccc; line-height:2.1;">
+          <div style="display:grid; grid-template-columns:2fr 3fr 2fr; gap:0 6px;">
+            <span style="color:#60a5fa;font-weight:600;">Stadium</span><span style="color:#60a5fa;font-weight:600;">Kliniske funn</span><span style="color:#60a5fa;font-weight:600;">Temp.</span>
+            <span style="color:#34d399;">HT I – Mild</span><span>Våken, skjelver</span><span>32–35°C</span>
+            <span style="color:#e5a820;">HT II – Moderat</span><span>Nedsatt bevissthet, skjelver IKKE</span><span>28–32°C</span>
+            <span style="color:#f87171;">HT III – Alvorlig</span><span>Bevisstløs, pust og puls til stede</span><span>24–28°C</span>
+            <span style="color:#f87171;font-weight:700;">HT IV – Kritisk</span><span>Ingen pust, ingen puls → HLR</span><span>&lt;24°C</span>
+            <span style="color:#888;">HT V</span><span>Irreversibel død</span><span>–</span>
+          </div>
+        </div>
+        <div class="note b">«Ikke erklær død før pasienten er VARM og DØD.»</div>
+      </div>
+
+      <div class="divider">Behandling etter stadium</div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#34d399;">HT I – Mild (32–35°C)</div>
+        <div class="tags">
+          <span class="t" data-tip="hypotermi_mild">Aktiv egenoppvarming</span>
+          <span class="t" data-tip="hypotermi_mild">Varme sukkerholdige drikker</span>
+          <span class="t i" data-tip="fjell_risiko">Fjern utløsende faktorer</span>
+          <span class="t" data-tip="spaceblanket">Space blanket / sovepose</span>
+        </div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#e5a820;">HT II – Moderat (28–32°C)</div>
+        <div class="tags">
+          <span class="t d" data-tip="hypotermi_mod">Skjelver IKKE – farlig tegn</span>
+          <span class="t d" data-tip="paradoks_avkledning">Kan kle av seg</span>
+          <span class="t w" data-tip="hypotermi_transport">Horisontal transport</span>
+          <span class="t w" data-tip="hypotermi_transport">Skånsom håndtering</span>
+          <span class="t i" data-tip="hypotermi_mod">Innleggelse sykehus</span>
+        </div>
+        <div class="note r">Slutter å skjelve = forverring! Gi ikke oralt.</div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#f87171;">HT III – Alvorlig (24–28°C)</div>
+        <div class="tags">
+          <span class="t d" data-tip="hypotermi_alvorlig">Bevisstløs – ligner død</span>
+          <span class="t d" data-tip="hypotermi_alvorlig">Kjenn puls opptil 60 sek</span>
+          <span class="t d" data-tip="hypotermi_transport">Horisontal – absolutt</span>
+          <span class="t d" data-tip="arytmi">Arytmirisiko ved bevegelse</span>
+        </div>
+        <div class="note r">Bevisstløs ≠ død. Mål puls nøye – bruk god tid.</div>
+      </div>
+      <div class="row" data-row>
+        <div class="moi-label" style="color:#f87171;">HT IV – Kritisk (&lt;24°C)</div>
+        <div class="tags">
+          <span class="t d" data-tip="hypotermi_kritisk">Ingen puls → start HLR</span>
+          <span class="t d" data-tip="hypotermi_hlr">AED maks 3 støt</span>
+          <span class="t d" data-tip="hypotermi_hlr">Ingen medisiner &lt;30°C</span>
+          <span class="t d" data-tip="hypotermi_hlr">HLR under transport</span>
+          <span class="t d" data-tip="drukning_hypotermi">ECMO-senter</span>
+        </div>
+        <div class="note r">HLR avsluttes IKKE i felt – fortsett til sykehus med hjerte-lunge-maskin.</div>
+      </div>
+
+      <div class="divider">BANAK-modellen – innpakking (330-skvadronen)</div>
+      <div class="row" data-row>
+        <div style="padding:2px 0;">
+          <div class="piksib-step">
+            <div class="piksib-letter" style="color:#60a5fa;">1</div>
+            <div class="piksib-text"><strong>Dampsperre (innerst)</strong>Søppelsekk eller tarp – helvanntett mot kroppen. Tape tett rundt hele kroppen inkl. hodet og føtter. Hindrer <em>fordampning</em>.</div>
+          </div>
+          <div class="piksib-step">
+            <div class="piksib-letter" style="color:#e5a820;">2</div>
+            <div class="piksib-text"><strong>Isolasjon (midterst)</strong>Dunjakke, sovepose eller tepper. Hindrer varmetap til underlaget (<em>ledning</em>), <em>stråling</em> og noe <em>strømning</em>.</div>
+          </div>
+          <div class="piksib-step" style="border-bottom:none;">
+            <div class="piksib-letter" style="color:#9ca3af;">3</div>
+            <div class="piksib-text"><strong>Vindtett ytterlag (ytterst)</strong>Fjellduk, presenning eller teltduk. Beskytter mot fukt og hindrer <em>strømningstap</em> til vinden.</div>
+          </div>
+        </div>
+        <div class="note b">Tape dampsperre tett – ingen hull. Inkluder hodet og føtter.</div>
+      </div>
+
+      <div class="divider">Feltbehandling – alle stadier</div>
+      <div class="row" data-row>
+        <div class="tags">
+          <span class="t d" data-tip="expose_klipp">Klipp bort vått tøy raskt</span>
+          <span class="t d" data-tip="isolering">Isoler fra bakken</span>
+          <span class="t d" data-tip="spaceblanket">Dekk til inkl. hodet</span>
+          <span class="t w" data-tip="hypotermi_transport">Varmeflasker – nakke, armhuler, lyske</span>
+          <span class="t w" data-tip="hypotermi_transport">Horisontal transport</span>
+          <span class="t i" data-tip="banak_modell">BANAK-innpakking</span>
+        </div>
+        <div class="note">Infrarøde øretermometre er upålitelige ved hypotermi. Klinisk vurdering er viktigere enn et tall.</div>
+      </div>
+
+      <div class="divider">Overlevelse på fjellet – risikofaktorer</div>
+      <div class="row" data-row>
+        <div class="tags">
+          <span class="t d" data-tip="fjell_risiko">Fuktighet + vind = rask nedkjøling</span>
+          <span class="t d" data-tip="fjell_risiko">Utmattelse – mister varmproduksjon</span>
+          <span class="t w" data-tip="fjell_risiko">Alkohol – falsk varmefølelse</span>
+          <span class="t w" data-tip="hypotermi">Barn og eldre – dårligere kompensasjon</span>
+          <span class="t w" data-tip="uttomming">Lav energi / dårlig ernæring</span>
+          <span class="t w" data-tip="frostskader">Frostskader ved langvarig eksponering</span>
+        </div>
+        <div class="note">Traume + hypotermi = økt dødelighet. Forebygg nedkjøling fra dag én av redningsaksjonen.</div>
+      </div>
+
+    </div>
+  </div>
 `);
