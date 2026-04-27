@@ -21,6 +21,10 @@
 </div>
 
 <div class="header">
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="firstaid" onclick="setMode('firstaid')">🩺 Førstehjelp</button>
+    <button class="mode-btn" data-mode="sar" onclick="setMode('sar')">🔍 SAR</button>
+  </div>
   <h1>Komplett feltguide</h1>
   <p>Trykk på en tag for mer info</p>
   <input class="search" type="search" id="search" placeholder="Søk skade, sport, mekanisme..." oninput="filterRows()">
@@ -36,6 +40,7 @@
 </div>-->
 
 <div id="all-sections"></div>
+<div id="sar-sections" style="display:none"></div>
 
 <script src="tips.js"></script>
 <script src="sections/nar-det-haster.js"></script>
@@ -47,5 +52,15 @@
 <script src="sections/spesielle.js"></script>
 <script src="sections/leksikon.js"></script>
 <script src="script.js"></script>
+
+<!-- SAR module (self-contained in sar/) -->
+<script src="sar/tips.js"></script>
+<script src="sar/sections/grunnleggende.js"></script>
+<script src="sar/sections/grovsok.js"></script>
+<script src="sar/sections/finsok.js"></script>
+<script src="sar/sections/hundesok.js"></script>
+<script src="sar/sections/motorisert.js"></script>
+<script src="sar/sections/praktisk.js"></script>
+<script src="sar/sar.js"></script>
 </body>
 </html>
